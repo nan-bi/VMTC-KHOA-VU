@@ -1,0 +1,34 @@
+{
+  "name": "vinmec-report-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "build": "vite build",
+    "test": "node --test tests/*.test.mjs",
+    "start": "node scripts/serve-dist.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "audit": "node scripts/audit.mjs",
+    "generate:journeys": "node scripts/generate-journeys.mjs"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.6.1",
+    "antd": "^5.24.0",
+    "dayjs": "^1.11.13",
+    "jszip": "3.10.2",
+    "pptxgenjs": "4.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "image-size": "2.0.4"
+  }
+}

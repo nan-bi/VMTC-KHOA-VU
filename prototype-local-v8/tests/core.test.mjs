@@ -1,0 +1,16 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {validate,aggregate,normalizeDate} from '../src/features/reports/core.mjs';
+const seed=JSON.parse(fs.readFileSync(new URL('../src/data/seed.json',import.meta.url),'utf8'));
+const catalog=seed.DANH_MUC_DV.map(r=>({code:r['Mã dịch vụ mô phỏng'],name:r['Tên đơn vị dịch vụ mô phỏng']}));
+test('Dữ liệu chuẩn không có lỗi chặn hoặc trùng',()=>{const v=validate(seed.CANONICAL,catalog);assert.equal(v.valid.length,2700);assert.equal(v.issues.length,0);assert.equal(v.duplicates.length,0)});
+test('Tổng hợp 26 kỳ khớp kết quả tham chiếu độc lập',()=>{for(const ref of seed.THAM_CHIEU_TUAN){const s=aggregate(seed.CANONICAL,catalog,ref.week_start,ref.week_end_exclusive);assert.equal(s.qty,ref.completed_qty,ref.week_start);assert.equal(s.gross,ref.completed_gross,ref.week_start);assert.equal(s.net,ref.known_completed_net,ref.week_start);assert.equal(s.missing,ref.missing_net,ref.week_start);assert.equal(s.visits,ref.visits,ref.week_start);assert.equal(s.patients,ref.patients,ref.week_start);}});
+test('Nhập hai bản giống hệt không cộng trùng',()=>{const rows=[seed.CANONICAL[0],structuredClone(seed.CANONICAL[0])];const r=validate(rows,catalog);assert.equal(r.valid.length,1);assert.equal(r.duplicates.length,1)});
+test('Cùng mã nhưng khác nội dung phải đối soát',()=>{const r=validate([seed.CANONICAL[0],{...seed.CANONICAL[0],quantity:3}],catalog);assert.equal(r.issues.length,2);assert.equal(r.valid.length,0)});
+test('Mã lạ, số lượng âm và ngày sai bị chặn',()=>{const r=validate([{...seed.CANONICAL[0],service_code:'UNKNOWN',quantity:-1,ordered_at:'bad'}],catalog);assert.equal(r.valid.length,0);assert.ok(r.issues[0].reasons.length>=3)});
+test('Snapshot không thay đổi khi dữ liệu nguồn thay đổi',()=>{const s=aggregate(seed.CANONICAL,catalog);const frozen=structuredClone(s);s.table[0].gross=0;assert.notEqual(frozen.table[0].gross,s.table[0].gross)});
+test('Đọc ngày serial Excel mà không đổi ngày hoặc giờ',()=>{assert.equal(normalizeDate(46208.333333333336),'2026-07-05T08:00:00.000+07:00')});
+test('Thứ tự cột khác nhau vẫn nhận ra bản ghi trùng',()=>{const row=seed.CANONICAL[0];const reversed=Object.fromEntries(Object.entries(row).reverse());assert.equal(validate([row,reversed],catalog).duplicates.length,1)});
+test('Lọc từng ngày và khoảng ngày gồm trọn ngày cuối',()=>{let qty=0,gross=0;for(let i=19;i<=25;i++){const from=`2026-10-${i}`;const to=`2026-10-${i+1}`;const daily=aggregate(seed.CANONICAL,catalog,from,to);qty+=daily.qty;gross+=daily.gross;assert.ok(daily.completed.every(r=>r.completed_at.slice(0,10)===from));}const weekly=aggregate(seed.CANONICAL,catalog,'2026-10-19','2026-10-26');assert.equal(qty,weekly.qty);assert.equal(gross,weekly.gross)});
+test('Ngày không có dữ liệu hiển thị tổng 0',()=>{const s=aggregate(seed.CANONICAL,catalog,'2026-10-30','2026-10-31');assert.equal(s.qty,0);assert.equal(s.gross,0);assert.equal(s.visits,0)});

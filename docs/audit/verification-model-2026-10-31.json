@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-31",
+  "rulesVersion": "VU-ROUTING-1",
+  "javascriptTests": {
+    "passed": 64,
+    "failed": 0
+  },
+  "pythonTests": {
+    "passed": 5,
+    "failed": 0
+  },
+  "financialReference": {
+    "comparisons": 182,
+    "maxRelativeErrorPercent": 0,
+    "syntheticOnly": true
+  },
+  "build": "passed; size warning remains",
+  "localURL": "http://127.0.0.1:4173/",
+  "uiChecks": [
+    "source-analysis",
+    "label-review-save",
+    "label-persist-after-reload",
+    "csv-valid-plus-unknown-department",
+    "jsonl-human-only-export",
+    "separate-manifest-download",
+    "manifest-sha256-matches-jsonl"
+  ],
+  "modelDemo": {
+    "syntheticSilver": 2594,
+    "patientGroups": 630,
+    "testExamples": 299,
+    "testObservedErrorPercent": 0,
+    "realWorldGuarantee": false
+  }
+}

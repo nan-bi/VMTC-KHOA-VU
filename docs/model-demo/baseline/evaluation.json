@@ -1,0 +1,136 @@
+{
+  "task": "service_routing_classification",
+  "simulation_only": true,
+  "rules_version": "VU-ROUTING-1",
+  "profile": "local-12",
+  "patient_groups": 630,
+  "splits": {
+    "train": 2062,
+    "validation": 233,
+    "test": 299
+  },
+  "validation": {
+    "examples": 233,
+    "accuracy": 1.0,
+    "error_percent": 0.0,
+    "observed_below_0_05_percent": true,
+    "zero_error_approx_95pct_upper_bound_percent": 1.2875536480686696,
+    "macro_f1": 1.0,
+    "all_classes_present": true,
+    "per_class": {
+      "VU_INTERNAL": {
+        "support": 19,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "VU_OUTBOUND": {
+        "support": 135,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "VU_INBOUND": {
+        "support": 15,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "EXTERNAL_UNRELATED": {
+        "support": 64,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "confusion_matrix": {
+      "VU_INTERNAL": {
+        "VU_INTERNAL": 19,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "VU_OUTBOUND": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 135,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "VU_INBOUND": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 15,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "EXTERNAL_UNRELATED": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 64
+      }
+    }
+  },
+  "test": {
+    "examples": 299,
+    "accuracy": 1.0,
+    "error_percent": 0.0,
+    "observed_below_0_05_percent": true,
+    "zero_error_approx_95pct_upper_bound_percent": 1.0033444816053512,
+    "macro_f1": 1.0,
+    "all_classes_present": true,
+    "per_class": {
+      "VU_INTERNAL": {
+        "support": 17,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "VU_OUTBOUND": {
+        "support": 172,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "VU_INBOUND": {
+        "support": 15,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "EXTERNAL_UNRELATED": {
+        "support": 95,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      }
+    },
+    "confusion_matrix": {
+      "VU_INTERNAL": {
+        "VU_INTERNAL": 17,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "VU_OUTBOUND": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 172,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "VU_INBOUND": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 15,
+        "EXTERNAL_UNRELATED": 0
+      },
+      "EXTERNAL_UNRELATED": {
+        "VU_INTERNAL": 0,
+        "VU_OUTBOUND": 0,
+        "VU_INBOUND": 0,
+        "EXTERNAL_UNRELATED": 95
+      }
+    }
+  },
+  "limits": "No clinical or financial decisions. Synthetic/single-review labels are not clinical validation. Observed error is not a guarantee of hospital error <0.05%.",
+  "dataset_sha256": "79226249a2d3f5a7052897bea01a686ea70187be0a8a3c6aaad3a87319010004"
+}

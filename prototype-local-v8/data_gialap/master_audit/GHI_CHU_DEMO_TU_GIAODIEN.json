@@ -1,0 +1,324 @@
+{
+  "schema_version": "VU-AUDIT-NOTES-1",
+  "notes": [
+    {
+      "schema_version": "VU-MASTER-1",
+      "created_at": "2026-10-31T02:32:09.743Z",
+      "question": "Tổng giá trị Vú chỉ định lấy từ đâu?",
+      "mode": "ordered_money",
+      "scope": "2026-10-23 → trước 2026-10-24 (giờ Việt Nam)",
+      "rules_version": "VU-ROUTING-1",
+      "answer": "Vú chỉ định · trước giảm: 75.443.000 VND đã biết. 9 dòng đóng góp; 0 dòng thiếu tiền. Không cộng góc nhìn chỉ định và thực hiện.",
+      "note": "Ghi chú kiểm thử demo: đã truy vết 9 dòng chỉ định; cần bổ sung mốc trả kết quả trước khi đối soát TAT.",
+      "evidence": [
+        {
+          "key": "SIM_HIS_202610.csv:14:2127",
+          "order_id": "SYN-O002128",
+          "patient_id": "SYN-TE-P00010",
+          "visit_id": "SYN-TE-V00010",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 14, Khoa CĐ: KSKTQ, Khoa TH: CDHA, Mã CĐ: SYN-O002128, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 120,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-22T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:16:2129",
+          "order_id": "SYN-O002130",
+          "patient_id": "SYN-TE-P00010",
+          "visit_id": "SYN-TE-V00010",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 16, Khoa CĐ: KSKTQ, Khoa TH: GPB, Mã CĐ: SYN-O002130, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 4320,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-22T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:20:2136",
+          "order_id": "SYN-O002137",
+          "patient_id": "SYN-TE-P00013",
+          "visit_id": "SYN-TE-V00013",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 20, Khoa CĐ: VU, Khoa TH: DITRUYEN, Mã CĐ: SYN-O002137, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 735000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:21:2137",
+          "order_id": "SYN-O002138",
+          "patient_id": "SYN-TE-P00013",
+          "visit_id": "SYN-TE-V00013",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 21, Khoa CĐ: VU, Khoa TH: DITRUYEN, Mã CĐ: SYN-O002138, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 9975000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:22:2138",
+          "order_id": "SYN-O002139",
+          "patient_id": "SYN-TE-P00013",
+          "visit_id": "SYN-TE-V00013",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 22, Khoa CĐ: VU, Khoa TH: NGOAI, Mã CĐ: SYN-O002139, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 29400000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:182:2463",
+          "order_id": "SYN-O002464",
+          "patient_id": "SYN-TE-P00122",
+          "visit_id": "SYN-TE-V00122",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 182, Khoa CĐ: VU, Khoa TH: CDHA, Mã CĐ: SYN-O002464, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 120,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-21T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:184:2465",
+          "order_id": "SYN-O002466",
+          "patient_id": "SYN-TE-P00122",
+          "visit_id": "SYN-TE-V00122",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 184, Khoa CĐ: VU, Khoa TH: VU, Mã CĐ: SYN-O002466, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-21T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:236:2532",
+          "order_id": "SYN-O002533",
+          "patient_id": "SYN-TE-P00005",
+          "visit_id": "SYN-TE-V00145",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 236, Khoa CĐ: UNGBUOU, Khoa TH: CDHA, Mã CĐ: SYN-O002533, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 120,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:237:2533",
+          "order_id": "SYN-O002534",
+          "patient_id": "SYN-TE-P00005",
+          "visit_id": "SYN-TE-V00145",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 237, Khoa CĐ: UNGBUOU, Khoa TH: XETNGHIEM, Mã CĐ: SYN-O002534, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:238:2534",
+          "order_id": "SYN-O002535",
+          "patient_id": "SYN-TE-P00005",
+          "visit_id": "SYN-TE-V00145",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 238, Khoa CĐ: UNGBUOU, Khoa TH: GPB, Mã CĐ: SYN-O002535, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 4320,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:259:2555",
+          "order_id": "SYN-O002556",
+          "patient_id": "SYN-TE-P00012",
+          "visit_id": "SYN-TE-V00152",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 259, Khoa CĐ: UNGBUOU, Khoa TH: XETNGHIEM, Mã CĐ: SYN-O002556, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": false,
+          "value": null,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-21T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:269:2565",
+          "order_id": "SYN-O002566",
+          "patient_id": "SYN-TE-P00016",
+          "visit_id": "SYN-TE-V00156",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 269, Khoa CĐ: VU, Khoa TH: XETNGHIEM, Mã CĐ: SYN-O002566, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 105000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:270:2566",
+          "order_id": "SYN-O002567",
+          "patient_id": "SYN-TE-P00016",
+          "visit_id": "SYN-TE-V00156",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 270, Khoa CĐ: VU, Khoa TH: CDHA, Mã CĐ: SYN-O002567, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 735000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 120,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:271:2567",
+          "order_id": "SYN-O002568",
+          "patient_id": "SYN-TE-P00016",
+          "visit_id": "SYN-TE-V00156",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 271, Khoa CĐ: VU, Khoa TH: CDHA, Mã CĐ: SYN-O002568, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 578000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": 120,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "UNKNOWN_RETURN_TIME"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:308:2628",
+          "order_id": "SYN-O002629",
+          "patient_id": "SYN-TE-P00037",
+          "visit_id": "SYN-TE-V00177",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 308, Khoa CĐ: VU, Khoa TH: XETNGHIEM, Mã CĐ: SYN-O002629, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 210000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:309:2629",
+          "order_id": "SYN-O002630",
+          "patient_id": "SYN-TE-P00037",
+          "visit_id": "SYN-TE-V00177",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 309, Khoa CĐ: VU, Khoa TH: NGOAI, Mã CĐ: SYN-O002630, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 33600000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        },
+        {
+          "key": "SIM_HIS_202610.csv:310:2630",
+          "order_id": "SYN-O002631",
+          "patient_id": "SYN-TE-P00037",
+          "visit_id": "SYN-TE-V00177",
+          "citation": "[File: SIM_HIS_202610.csv, Sheet: Chưa có metadata sheet, Dòng: 310, Khoa CĐ: VU, Khoa TH: XETNGHIEM, Mã CĐ: SYN-O002631, BS CĐ: Chưa có, BS TH: Chưa có]",
+          "file_sha256": "422e9b3c4fef4fab208853d6d80a4ece0021ba6a2326fcb0832a22cfac0d627b",
+          "contributes": true,
+          "value": 105000,
+          "tat": {
+            "policy": "MASTER-TAT-DEMO-1",
+            "threshold_minutes": null,
+            "tat_minutes": null,
+            "ordered_at": "2026-10-23T08:00:00.000Z",
+            "result_returned_at": null,
+            "status": "NOT_APPLICABLE"
+          }
+        }
+      ],
+      "warning": "Ghi chú phiên local; không sửa dữ liệu gốc, chưa phải phê duyệt chuyên môn."
+    }
+  ]
+}

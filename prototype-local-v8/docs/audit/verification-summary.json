@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-30",
+  "tests": 52,
+  "passed": 52,
+  "failed": 0,
+  "routeScenarios": 200,
+  "interleavedPatients": 40,
+  "comparisons": 182,
+  "maxRelativeErrorPercent": 0,
+  "thresholdPercent": 0.05,
+  "build": "passed; bundle-size warning",
+  "reference": "synthetic only",
+  "uiClinicalFlow": "intake-assessment-clinic3-xray-clinic3-close",
+  "uiReportFlow": "snapshot-edit-blur-submit-approve-export",
+  "fileSHA256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+}

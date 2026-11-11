@@ -1,0 +1,14 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {createHash} from 'node:crypto';
+import {generateJourneys,validateJourneys,toCSV,trainingExamples,FILES} from '../src/features/journeys/closedLoop.mjs';
+const destination=resolve(process.argv[2]||'docs/closed-loop-demo'),count=Number(process.argv[3]||200),seed=Number(process.argv[4]||20261031);
+const data=generateJourneys({count,seed});
+await mkdir(destination,{recursive:true});
+const payloads=Object.fromEntries(Object.entries(FILES).map(([key,name])=>[name,toCSV(data[key])]));
+payloads['closed-loop-synthetic.json']=JSON.stringify(data,null,2)+'\n';
+payloads['closed-loop-training.jsonl']=trainingExamples(data).map(x=>JSON.stringify(x)).join('\n')+'\n';
+for(const [name,content] of Object.entries(payloads))await writeFile(resolve(destination,name),content,'utf8');
+const manifest={...data.meta,counts:{orders:data.orders.length,results:data.results.length,consultations:data.consultations.length},validation_errors:validateJourneys(data),files:Object.fromEntries(Object.entries(payloads).map(([name,text])=>[name,createHash('sha256').update(text).digest('hex')]))};
+await writeFile(resolve(destination,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+console.log(JSON.stringify({destination,...manifest},null,2));

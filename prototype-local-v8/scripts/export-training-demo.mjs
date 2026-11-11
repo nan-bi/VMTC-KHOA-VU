@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {analyze} from '../src/features/intelligence/routing.mjs';
+import {exportDataset} from '../src/features/intelligence/dataset.mjs';
+if(!process.argv[2])throw Error('Usage: node scripts/export-training-demo.mjs <new-output-directory>');
+const folder=path.resolve(process.argv[2]);await fs.mkdir(folder,{recursive:false});
+const seed=JSON.parse(await fs.readFile(new URL('../src/data/seed.json',import.meta.url)));
+const catalog=seed.DANH_MUC_DV.map(r=>({code:r['Mã dịch vụ mô phỏng'],group:r['Nhóm']}));
+const analysis=analyze(seed.CANONICAL,catalog,{from:'2026-01-01',toExclusive:'2027-01-01'});
+const dataset=await exportDataset(analysis,{}, {includeSyntheticSilver:true});
+await fs.writeFile(path.join(folder,'dataset.jsonl'),dataset.examples.map(r=>JSON.stringify(r)).join('\n')+'\n');
+await fs.writeFile(path.join(folder,'manifest.json'),JSON.stringify(dataset.manifest,null,2)+'\n');
+console.log(JSON.stringify(dataset.manifest,null,2));
