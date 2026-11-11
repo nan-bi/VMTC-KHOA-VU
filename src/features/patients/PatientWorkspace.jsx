@@ -1,5 +1,6 @@
+import LocalFilePicker from '../../components/LocalFilePicker.jsx';
 import React,{useEffect,useMemo,useState} from 'react';
-import {Alert,Button,Checkbox,DatePicker,Descriptions,Drawer,Empty,Form,Input,InputNumber,Modal,Popconfirm,Segmented,Select,Space,Table,Tag,Timeline,Upload,message} from 'antd';
+import {Alert,Button,Checkbox,DatePicker,Descriptions,Drawer,Empty,Form,Input,InputNumber,Modal,Popconfirm,Segmented,Select,Space,Table,Tag,Timeline,message} from 'antd';
 import {ArrowRightOutlined,CheckCircleOutlined,DeploymentUnitOutlined,FileTextOutlined,PlusOutlined,ReloadOutlined,SearchOutlined,TeamOutlined} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import {emptyFlow,updatePatient,ROOMS,STATUS,roomName,doctorName,seedFlow,register,startTask,completeAssessment,issueOrders,completeService,closeVisit} from './patientFlow.mjs';
@@ -129,9 +130,10 @@ export default function PatientWorkspace({dateRange,readOnly=false}){
       <Form.Item name="note" label={actionTask?.kind==='assessment'?'Nội dung đánh giá & bàn giao (mẫu)':['consult','review'].includes(actionTask?.kind)?'Ghi nhận / nội dung chỉ định của bác sĩ (mẫu)':'Nội dung kết quả đã xác nhận (mẫu)'} rules={[{validator:(_,value)=>pendingFiles.length||value?.trim().length>=8?Promise.resolve():Promise.reject(Error('Nhập tối thiểu 8 ký tự hoặc đính kèm file kết quả.'))}]}><Input.TextArea rows={4} placeholder="Nhập nội dung giả lập để minh họa bàn giao xuyên phòng."/></Form.Item>
       {['procedure','recovery'].includes(actionTask?.kind)&&<Form.Item name="handoverConfirmed" valuePropName="checked" rules={[{validator:(_,value)=>value?Promise.resolve():Promise.reject(new Error('Cần người phụ trách xác nhận bàn giao.'))}]}><Checkbox>Người phụ trách đã xác nhận bàn giao sang bước tiếp theo (demo)</Checkbox></Form.Item>}
       </>}
-      <Form.Item label={station==='reception'?'File hồ sơ tiếp nhận (mẫu)':'File kết quả / phiếu bàn giao (mẫu)'} extra="PDF, PNG, JPEG · tối đa 5 MB/file, 5 file/lần. File chỉ được bàn giao cùng lúc xác nhận lưu. Không dùng dữ liệu thật."><Upload disabled={saving} accept=".pdf,.png,.jpg,.jpeg" multiple fileList={pendingFiles.map((f,i)=>({uid:String(i),name:f.name,status:'done'}))} beforeUpload={file=>{if(file.size>5*1024*1024){message.error('File tối đa 5 MB.');return false;}setPendingFiles(old=>old.length<5?[...old,file]:old);return false;}} onRemove={f=>setPendingFiles(old=>old.filter((_,i)=>String(i)!==f.uid))}><Button disabled={saving||pendingFiles.length>=5}>Chọn file đính kèm</Button></Upload></Form.Item>
+      <Form.Item label={station==='reception'?'File hồ sơ tiếp nhận (mẫu)':'File kết quả / phiếu bàn giao (mẫu)'} extra="PDF, PNG, JPEG · tối đa 5 MB/file, 5 file/lần. File chỉ được bàn giao cùng lúc xác nhận lưu. Không dùng dữ liệu thật."><LocalFilePicker files={pendingFiles} onChange={setPendingFiles} disabled={saving} accept=".pdf,.png,.jpg,.jpeg" maxCount={5} maxMB={5} label="Chọn file hồ sơ từ máy tính"/></Form.Item>
       </Form>
     </Modal>
   </div>;
 }
 function InfoText(){return <div className="subtle">Tài khoản và phân quyền mô phỏng; file lưu trong trình duyệt này. Chưa đồng bộ nhiều máy, chưa liên kết số liệu tài chính hoặc HIS/EMR.</div>}
+

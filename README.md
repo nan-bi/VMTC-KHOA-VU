@@ -125,3 +125,8 @@ Nút **Xuất Excel giao ban (5 sheet)** tạo một file theo ba luồng tại 
 
 Bản xuất cuối và Chi tiết số liệu có định dạng theo workbook tham chiếu: tiêu đề hai tầng, hai nhóm bác sĩ, bảng dịch vụ và dữ liệu nguồn truy vết. Hướng dẫn: docs/13-XUAT-THEO-MAU-DATA-KHOAVU.md. Kiểm tra hiện tại: 103 test JavaScript đạt, audit 182 phép đối chiếu trên dữ liệu giả lập đạt.
 
+
+## Bản vá v8 · Chọn file từ máy tính
+
+Đã tích hợp trực tiếp bộ chọn file, kéo thả, danh sách file và bước xem trước/xác nhận nhập. Áp dụng cho báo cáo, liên khoa và hồ sơ phòng khám. Giữ báo cáo đã duyệt trong lịch sử khi mở kỳ mới. Hướng dẫn: docs/14-NHAP-FILE-TU-MAY.md. Bản vá không thay danh mục, dữ liệu nguồn hoặc luồng 12 phòng.
+
