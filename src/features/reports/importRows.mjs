@@ -3,6 +3,7 @@ import {grossAmount,integer} from '../../shared/dataRules.mjs';
 export function normalizeIncomingRows(rows,fileName){
  return rows.map((r,i)=>{
   const n={...r,ordered_at:normalizeDate(r.ordered_at),completed_at:normalizeDate(r.completed_at),ingested_at:normalizeDate(r.ingested_at),source_file:fileName,source_row:i+2};
+  if(n.his_order_id==null&&r.order_id&&!/^SYN-|^SIM-|^LOCAL-/.test(r.order_id)&&!+r.is_synthetic)n.his_order_id=r.order_id;
   if(r.status==='HOANTHANH'){
    try{if(n.completed_gross_vnd==null)n.completed_gross_vnd=grossAmount(n.completed_qty,n.unit_price_vnd);}catch{}
    if(n.completed_net_vnd==null&&+n.discount_known===1){

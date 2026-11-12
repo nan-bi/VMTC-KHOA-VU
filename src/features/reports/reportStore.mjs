@@ -1,5 +1,7 @@
+import {isBackend,backendState,loadWorkspace,saveWorkspace} from '../backend/client.mjs';
 export const REPORT_KEY='vinmec-demo-v1';
 export function readReport(storage=localStorage){
+ if(isBackend())return backendState();
  const raw=storage.getItem(REPORT_KEY);if(raw==null)return null;
  const s=JSON.parse(raw);
  if(s?.version!==1||!Array.isArray(s.rows)||!Array.isArray(s.excluded)||!Array.isArray(s.logs)||!Array.isArray(s.imports)||!Array.isArray(s.hashes)||s.rows.some(r=>!r||typeof r!=='object')||(s.report&&(!['draft','submitted','approved'].includes(s.report.status)||!Array.isArray(s.report.stats?.table))))throw Error('Dữ liệu báo cáo lưu có lỗi; giữ nguyên để kiểm tra, không tự thay bằng dữ liệu mẫu.');
@@ -12,5 +14,5 @@ export function transactReport(storage,expected,fn){
  const raw=JSON.stringify(next);readReport({getItem:()=>raw});storage.setItem(REPORT_KEY,raw);return next;
 }
 async function lock(fn){if(!navigator.locks?.request)throw Error('Dùng Chrome/Edge mới trên localhost để bảo đảm khóa ghi báo cáo.');return navigator.locks.request('vinmec-report-write',fn);}
-export const initializeReport=base=>lock(()=>{const existing=readReport();if(existing)return existing;const s={...base,revision:0};localStorage.setItem(REPORT_KEY,JSON.stringify(s));return s;});
-export const saveReport=(expected,fn)=>lock(()=>transactReport(localStorage,expected,fn));
+export const initializeReport=base=>isBackend()?loadWorkspace():lock(()=>{const existing=readReport();if(existing)return existing;const s={...base,revision:0};localStorage.setItem(REPORT_KEY,JSON.stringify(s));return s;});
+export const saveReport=(expected,fn)=>isBackend()?saveWorkspace(expected,fn):lock(()=>transactReport(localStorage,expected,fn));

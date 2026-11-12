@@ -42,7 +42,7 @@ export async function revenueWorkbook(snapshot){
 }
 const format=n=>new Intl.NumberFormat('vi-VN').format(n);
 export async function revenuePresentation(snapshot){
- const {default:PptxGenJS}=await import('pptxgenjs');const pptx=new PptxGenJS();pptx.layout='LAYOUT_WIDE';pptx.author='Khoa Vú · Prototype local';pptx.subject=snapshot.meta.id;pptx.title='Giá trị dịch vụ Khoa Vú';pptx.lang='vi-VN';pptx.theme={headFontFace:'Arial',bodyFontFace:'Arial',lang:'vi-VN'};
+ const {default:PptxGenJS}=await import('pptxgenjs');const pptx=new PptxGenJS();pptx.layout='LAYOUT_WIDE';pptx.author='Khoa Vú · Dashboard local';pptx.subject=snapshot.meta.id;pptx.title='Giá trị dịch vụ Khoa Vú';pptx.lang='vi-VN';pptx.theme={headFontFace:'Arial',bodyFontFace:'Arial',lang:'vi-VN'};
  const teal='006F73',ink='24474C',muted='5C7477',bg='F5F9F9';
  let slideNumber=0;
  function slide(title,subtitle){const s=pptx.addSlide();s.background={color:bg};s.addShape(pptx.ShapeType.rect,{x:0,y:0,w:13.333,h:.16,fill:{color:teal},line:{color:teal}});s.addText(title,{x:.65,y:.48,w:12,h:.65,fontSize:28,bold:true,color:ink,margin:0});s.addText(subtitle,{x:.65,y:1.22,w:12,h:.6,fontSize:14,color:muted,margin:0});s.addText(`${snapshot.meta.from} → trước ${snapshot.meta.toExclusive} · ${snapshot.meta.rulesVersion} · ${++slideNumber}`,{x:.65,y:7,w:12,h:.25,fontSize:10,color:muted,margin:0});s.addNotes(`Bộ số liệu ${snapshot.meta.id}\nSHA-256 ${snapshot.meta.sha256}\n${snapshot.meta.note}\nNguồn: snapshot phân tích local, không gọi AI.`);return s;}

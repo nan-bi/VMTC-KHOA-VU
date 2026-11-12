@@ -1,0 +1,13 @@
+import React,{useEffect,useState} from 'react';
+import {Alert,Button,Form,Input,Spin} from 'antd';
+import {detectBackend,restoreSession,login,loadWorkspace,loadReviews} from './client.mjs';
+export default function BackendGate({children}){
+ const [status,setStatus]=useState('loading'),[error,setError]=useState(''),[setup,setSetup]=useState(false),[busy,setBusy]=useState(false);
+ useEffect(()=>{let alive=true;detectBackend().then(async backend=>{if(!alive)return;if(!backend){setStatus('ready');return;}setSetup(backend.setupRequired);try{await restoreSession();if(alive)setStatus('authenticated')}catch{if(alive)setStatus('login')}}).catch(e=>{if(alive){setError(e.message);setStatus('error')}});return()=>{alive=false}},[]);
+ useEffect(()=>{if(status!=='authenticated')return;let stopped=false;const timer=setInterval(async()=>{try{await Promise.all([loadWorkspace(),loadReviews()]);if(!stopped){window.dispatchEvent(new StorageEvent('storage',{key:'vinmec-demo-v1'}));window.dispatchEvent(new StorageEvent('storage',{key:'vinmec-routing-reviews-v1'}));}}catch(e){if(!stopped){setError(e.message);setStatus('login')}}},10000);return()=>{stopped=true;clearInterval(timer)}},[status]);
+ async function submit(values){setBusy(true);setError('');try{await login(values.username,values.password);setStatus('authenticated')}catch(e){setError(e.message)}finally{setBusy(false)}}
+ if(status==='loading')return <div style={{display:'grid',placeItems:'center',minHeight:'100vh'}}><Spin tip="Đang mở dashboard…"/></div>;
+ if(status==='error')return <div style={{maxWidth:500,margin:'15vh auto',padding:20}}><Alert type="error" showIcon message="Chưa mở được dữ liệu" description={error}/><Button style={{marginTop:16}} onClick={()=>location.reload()}>Tải lại</Button></div>;
+ if(status==='login')return <main style={{maxWidth:460,margin:'10vh auto',padding:28,background:'white',borderRadius:12,border:'1px solid #dce6e7'}}><div className="eyebrow">VINMEC · DASHBOARD NỘI BỘ</div><h1>Đăng nhập</h1><p>Dữ liệu được lưu tại máy chủ nội bộ.</p>{setup&&<Alert type="info" showIcon message="Chưa có tài khoản" description="Mở TAO-TAI-KHOAN.cmd trong thư mục v8 để tạo tài khoản admin, sau đó đăng nhập tại đây."/>}<Form layout="vertical" onFinish={submit} style={{marginTop:20}}><Form.Item name="username" label="Tên đăng nhập" rules={[{required:true}]}><Input autoComplete="username" maxLength={64}/></Form.Item><Form.Item name="password" label="Mật khẩu" rules={[{required:true}]}><Input.Password autoComplete="current-password" maxLength={256}/></Form.Item>{error&&<Alert type="error" showIcon message={error} style={{marginBottom:16}}/>}<Button htmlType="submit" type="primary" block loading={busy}>Đăng nhập dashboard</Button></Form></main>;
+ return children;
+}

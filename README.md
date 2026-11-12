@@ -1,6 +1,12 @@
-# VinMec · Prototype Khoa Vú chạy local
+# VinMec · Dashboard Khoa Vú chạy local
 
-Toàn bộ mã nguồn React + Ant Design + Vite của prototype, kèm bản build chạy sẵn. Đây là ứng dụng demo với dữ liệu giả lập; không cần tài khoản dịch vụ hay khóa API.
+Đã có [backend nội bộ Node.js + SQLite](backend/README.md), không gọi dịch vụ ngoài. Chạy **TAO-TAI-KHOAN.cmd** để tạo tài khoản admin, sau đó **CHAY-BACKEND.cmd** và mở **http://127.0.0.1:4180/**. Kho backend độc lập với dữ liệu trình duyệt ở cổng 4173.
+
+Toàn bộ mã nguồn React + Ant Design + Vite của dashboard, kèm bản build chạy sẵn. Đây là ứng dụng demo với dữ liệu giả lập; không cần tài khoản dịch vụ hay khóa API.
+
+Bản v8 có **Kho dữ liệu & biểu đồ**: mở 7 bảng có sẵn, chỉnh từng dòng có lý do và lịch sử, chọn cột, lọc ngày, xem biểu đồ và xuất Excel từ cùng dữ liệu đã lưu. Xem [hướng dẫn kho dữ liệu](docs/15-KHO-DU-LIEU-VA-BIEU-DO.md). Dữ liệu lưu trên trình duyệt local, không tự ghi đè Excel gốc.
+
+Bổ sung [bóc tách dịch vụ/combo](docs/16-BOC-TACH-DICH-VU-COMBO.md): thêm 170 dòng giả lập (4 nguồn), khám/siêu âm/XQ 2D–3D riêng, tách SKTQ–SLUT 1–SLUT 2–CK/lẻ và sửa giá/phân bổ trên dashboard. Đã bỏ trường mã chỉ định HIS và mục Tiếp đón & phòng khám khỏi giao diện.
 
 Bản v6 bổ sung 200 hành trình liên khoa khép kín, ba bảng CSV, truy vết TAT và dữ liệu JSONL chuẩn bị model. Xem [hướng dẫn hành trình liên khoa](docs/11-HANH-TRINH-LIEN-KHOA-KHEP-KIN.md). Các chức năng Excel / PowerPoint của v5 vẫn có sẵn.
 
@@ -93,7 +99,7 @@ VinMec-KhoaVu-Local/
 
 ## 5. Phạm vi bàn giao
 
-Đầy đủ mã nguồn của **prototype hiện tại**: tiếp nhận, đánh giá ban đầu, 4 phòng khám, 3 phòng siêu âm, XQ vú, tư vấn can thiệp, can thiệp, hồi tỉnh; file đính kèm; báo cáo, nhập Excel/CSV, đối soát, xuất Excel/in PDF.
+Đầy đủ mã nguồn của **dashboard hiện tại**: tiếp nhận, đánh giá ban đầu, 4 phòng khám, 3 phòng siêu âm, XQ vú, tư vấn can thiệp, can thiệp, hồi tỉnh; file đính kèm; báo cáo, nhập Excel/CSV, đối soát, xuất Excel/in PDF.
 
 Vai trò là mô phỏng trên trình duyệt. Chưa có backend, đăng nhập thật, phân quyền máy chủ hay dữ liệu chung giữa các máy. Chỉ sử dụng dữ liệu mẫu. Gói không chứa `node_modules`, lịch sử Git, cấu hình tài khoản hosting, khóa bí mật hoặc dữ liệu đã nhập trong trình duyệt.
 

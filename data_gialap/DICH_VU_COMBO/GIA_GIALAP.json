@@ -1,0 +1,21 @@
+{
+  "note": "Giá giả lập VND, không phải bảng giá bệnh viện. SLUT 2 dùng X-quang 2D hoặc 3D đã ghi nhận; không tự thêm cả hai.",
+  "tariffs": {
+    "SKTQ": {
+      "EXAM": 150000,
+      "US": 200000,
+      "XR2": 250000,
+      "XR3": 400000
+    },
+    "SLUT1": {
+      "EXAM": 200000,
+      "US": 300000
+    },
+    "SLUT2": {
+      "EXAM": 180000,
+      "US": 250000,
+      "XR2": 370000,
+      "XR3": 570000
+    }
+  }
+}

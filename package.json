@@ -10,7 +10,10 @@
     "start": "node scripts/serve-dist.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
     "audit": "node scripts/audit.mjs",
-    "generate:journeys": "node scripts/generate-journeys.mjs"
+    "generate:journeys": "node scripts/generate-journeys.mjs",
+    "backend": "node backend/server.mjs",
+    "backend:user": "node backend/manage.mjs create-user",
+    "backend:backup": "node backend/manage.mjs backup"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
