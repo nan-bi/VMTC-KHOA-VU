@@ -1,6 +1,8 @@
 import {validate} from './core.mjs';
 import {businessDate,integer,sumMoney,sumQuantity} from '../../shared/dataRules.mjs';
 import {department} from '../intelligence/routing.mjs';
+import {PENDING_RULES} from './reportScope.mjs';
+import {BILLING_TYPES} from './serviceCalculation.mjs';
 const IMAGING=['Siêu âm vú','Siêu âm vi mạch','X-quang vú','MRI vú','Chẩn đoán hình ảnh khác'];
 export const TEMPLATE_VERSION='DATA-KHOAVU-1';
 export const colName=i=>{let s='';for(i++;i;i=Math.floor((i-1)/26))s=String.fromCharCode(65+(i-1)%26)+s;return s;};
@@ -8,7 +10,7 @@ const doctor=(r,kind)=>kind==='imaging'?(r.imaging_doctor||r.performing_doctor_n
 const text=v=>typeof v==='string'&&v.trim()?v.trim():null;
 const knownMoney=v=>integer(v)&&+v>=0?+v:null;
 const cellFormula=(formula,value)=>({formula,value});
-export function templateReport({rows,catalog,meta={},detail=false}){
+export function templateReport({rows,catalog,meta={},detail=false,serviceRevenue=null}){
  const checked=validate(rows,catalog);if(checked.issues.length||checked.duplicates.length)throw Error('Bản xuất theo mẫu chỉ nhận dòng đã đối soát, không trùng.');
  if(rows.some(r=>r.status!=='HOANTHANH'||+r.in_snapshot!==1))throw Error('Bản xuất theo mẫu chỉ nhận dịch vụ hoàn thành trong snapshot.');
  const groupOf=r=>catalog.find(c=>c.code===r.service_code)?.group;
@@ -67,8 +69,17 @@ export function templateReport({rows,catalog,meta={},detail=false}){
  const headers=['Mã chỉ định','Mã BN','Mã lượt','Mã dịch vụ','Tên dịch vụ','Nhóm','Ngày hoàn thành','Số lượng hoàn thành','Đơn giá VND','Thành tiền trước giảm VND','Sau giảm / phân bổ VND','Chế độ giá','Khoa chỉ định','Khoa thực hiện','BS CĐHA / thực hiện','BS lâm sàng / chỉ định','File nguồn','Sheet nguồn','Dòng nguồn','SHA-256 file','Dược VND','VTTH VND'];
  const evidence=rows.map(r=>[r.order_id,r.patient_id,r.visit_id,r.service_code,r.service_name,groupOf(r),r.completed_at,+r.completed_qty,+r.unit_price_vnd,+r.completed_gross_vnd,r.completed_net_vnd==null?null:+r.completed_net_vnd,r.price_mode,r.ordering_dept,r.performing_dept,doctor(r,'imaging'),doctor(r,'clinical'),r.source_file||null,r.source_sheet||null,r.source_row??null,r.source_file_hash||null,knownMoney(r.drug_cost_vnd),knownMoney(r.material_cost_vnd)]);
  const traceSheet={name:'CHI_TIET_NGUON',rows:[headers,...evidence],styles:[1,...evidence.map(()=>0)],heights:[36,...evidence.map(()=>32)],merges:[],widths:headers.map((h,i)=>[4,16,19].includes(i)?46:i===2?30:23),freeze:{rows:1,columns:3},autoFilter:`A1:V${evidence.length+1}`};
+ infoRows.push(...PENDING_RULES.map(([name,note])=>['CHỜ KHOA XÁC NHẬN · '+name,note]));
  const info={name:'THONG_TIN',rows:infoRows,styles:[1,...infoRows.slice(1).map(()=>0)],heights:[28,...infoRows.slice(1).map(()=>42)],merges:[],widths:[40,120],freeze:{rows:1,columns:0}};
- return {version:TEMPLATE_VERSION,sheets:[main,traceSheet,info],mainTotalRow:totalRow,summary:{rows:rows.length,service_price_rows:sorted.length,gross:sumMoney(rows.map(r=>r.completed_gross_vnd)),known_net:sumMoney(netKnown.map(r=>r.completed_net_vnd)),missing_net:missingNet},meta};
+ const extra=[];
+ if(serviceRevenue){
+  const data=[['Dịch vụ','Nhóm giá','Đơn giá VND','SL thực hiện','Doanh thu VND','Căn cứ đơn giá'],...serviceRevenue.lines.map(r=>[r.name,BILLING_TYPES[r.type],r.price,r.qty,r.revenue,r.basis]),['TỔNG PHẦN ĐỦ GIÁ',null,null,null,serviceRevenue.knownRevenue],['DÒNG CHƯA ĐỦ GIÁ / PHÂN LOẠI',serviceRevenue.missingRecords],['Lưu ý','Giá và số lượng tại thời điểm chốt; không cộng thêm tổng trước giảm hoặc giá gói cha.']];
+  extra.push({name:'GIA_X_SO_LUONG',rows:data,styles:data.map((_,i)=>i===0?1:0),heights:data.map(()=>36),merges:[],widths:[50,28,23,20,25,48],freeze:{rows:1,columns:0}});
+  const missing=rows.filter(r=>r.completed_net_vnd==null).map(r=>[r.source_file,r.source_row,r.service_name,'Thiếu sau giảm / phân bổ']);
+  const quality=[['Nguồn','Dòng','Dịch vụ / nội dung','Cần xử lý'],...missing,...serviceRevenue.lines.filter(r=>r.revenue==null).map(r=>[null,null,r.name+' / '+BILLING_TYPES[r.type],r.basis]),...PENDING_RULES.map(([name,note])=>[null,null,name,note])];
+  extra.push({name:'KIEM_LOI',rows:quality,styles:quality.map((_,i)=>i===0?1:0),heights:quality.map(()=>48),merges:[],widths:[40,12,50,100],freeze:{rows:1,columns:0}});
+ }
+ return {version:TEMPLATE_VERSION,sheets:[main,traceSheet,info,...extra],mainTotalRow:totalRow,summary:{rows:rows.length,service_price_rows:sorted.length,gross:sumMoney(rows.map(r=>r.completed_gross_vnd)),known_net:sumMoney(netKnown.map(r=>r.completed_net_vnd)),missing_net:missingNet},meta};
 }
 const xml=v=>String(v??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 function sheetXML(s){

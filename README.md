@@ -2,15 +2,17 @@
 
 Đã có [backend nội bộ Node.js + SQLite](backend/README.md), không gọi dịch vụ ngoài. Chạy **TAO-TAI-KHOAN.cmd** để tạo tài khoản admin, sau đó **CHAY-BACKEND.cmd** và mở **http://127.0.0.1:4180/**. Kho backend độc lập với dữ liệu trình duyệt ở cổng 4173.
 
+Phạm vi hiện tại bám [báo cáo tuần 2 TC14](docs/17-PHAM-VI-BAO-CAO-TUAN.md): nhập nguồn → quy tắc → đối soát → tổng hợp → chốt → xuất Excel/PowerPoint từ cùng snapshot. Đã ẩn giao diện model, hỏi đáp và KPI lâm sàng; phân loại liên khoa chỉ là bảng tài chính trong Chi tiết số liệu. Quy tắc bảo hiểm, nội trú chuyển kỳ, IVF và giá còn chờ khoa xác nhận.
+
 Toàn bộ mã nguồn React + Ant Design + Vite của dashboard, kèm bản build chạy sẵn. Đây là ứng dụng demo với dữ liệu giả lập; không cần tài khoản dịch vụ hay khóa API.
 
 Bản v8 có **Kho dữ liệu & biểu đồ**: mở 7 bảng có sẵn, chỉnh từng dòng có lý do và lịch sử, chọn cột, lọc ngày, xem biểu đồ và xuất Excel từ cùng dữ liệu đã lưu. Xem [hướng dẫn kho dữ liệu](docs/15-KHO-DU-LIEU-VA-BIEU-DO.md). Dữ liệu lưu trên trình duyệt local, không tự ghi đè Excel gốc.
 
 Bổ sung [bóc tách dịch vụ/combo](docs/16-BOC-TACH-DICH-VU-COMBO.md): thêm 170 dòng giả lập (4 nguồn), khám/siêu âm/XQ 2D–3D riêng, tách SKTQ–SLUT 1–SLUT 2–CK/lẻ và sửa giá/phân bổ trên dashboard. Đã bỏ trường mã chỉ định HIS và mục Tiếp đón & phòng khám khỏi giao diện.
 
-Bản v6 bổ sung 200 hành trình liên khoa khép kín, ba bảng CSV, truy vết TAT và dữ liệu JSONL chuẩn bị model. Xem [hướng dẫn hành trình liên khoa](docs/11-HANH-TRINH-LIEN-KHOA-KHEP-KIN.md). Các chức năng Excel / PowerPoint của v5 vẫn có sẵn.
+Mã nguồn giai đoạn mở rộng (không hiển thị trong luồng báo cáo hiện tại): bản v6 bổ sung 200 hành trình liên khoa khép kín, ba bảng CSV, truy vết TAT và dữ liệu JSONL chuẩn bị model. Xem [hướng dẫn hành trình liên khoa](docs/11-HANH-TRINH-LIEN-KHOA-KHEP-KIN.md). Các chức năng Excel / PowerPoint của v5 vẫn có sẵn.
 
-Bản v7 bổ sung [MASTER Audit local](docs/12-MASTER-AUDIT-LOCAL.md): xuất JSON theo hợp đồng thống nhất, cảnh báo TAT có bằng chứng và ghi chú truy vết. Vẫn chạy local, chưa gọi API AI.
+Mã nguồn giai đoạn mở rộng: bản v7 bổ sung [MASTER Audit local](docs/12-MASTER-AUDIT-LOCAL.md): xuất JSON theo hợp đồng thống nhất, cảnh báo TAT có bằng chứng và ghi chú truy vết. Vẫn chạy local, chưa gọi API AI.
 
 ## 1. Chạy ngay bản demo
 

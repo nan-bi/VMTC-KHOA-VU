@@ -1,6 +1,6 @@
 # Bóc tách khám, siêu âm và X-quang theo gói
 
-Mở **Kho dữ liệu & biểu đồ** hoặc **Tổng quan** tại http://127.0.0.1:4173/. Chọn ngày hoặc khoảng ngày bằng lịch phía trên. Phạm vi mặc định là các dịch vụ đã hoàn thành **tại VU**; có thể chọn khoa khác hoặc tất cả nơi thực hiện. Dòng chưa hoàn thành, đã hủy, lỗi, trùng, đã loại và ngoài snapshot không được cộng.
+Mở **Chi tiết số liệu** tại http://127.0.0.1:4173/. Chọn ngày hoặc khoảng ngày bằng lịch phía trên. Phạm vi mặc định là các dịch vụ đã hoàn thành **tại VU**; có thể chọn khoa khác hoặc tất cả nơi thực hiện. Dòng chưa hoàn thành, đã hủy, lỗi, trùng, đã loại và ngoài snapshot không được cộng.
 
 ## Cách tính
 
@@ -22,7 +22,7 @@ Số lượng là đơn vị dịch vụ; số lượt khám phân biệt đư�
 
 ## Doanh thu theo đơn giá × số lượng
 
-Trên **Tổng quan → Sửa đơn giá áp dụng → Đơn giá theo nhóm**, nhập riêng giá lẻ, SKTQ, SLUT 1 và SLUT 2 cho từng mã dịch vụ. Giá 0 là miễn phí; để trống dùng đơn giá nguồn với dịch vụ lẻ, hoặc tổng phân bổ nguồn chia số lượng thực hiện với dịch vụ trong gói. Nếu phép chia không ra đơn giá nguyên VND, hệ thống yêu cầu đối soát, không lấy giá lẻ thay thế.
+Trên **Chi tiết số liệu → Sửa đơn giá áp dụng → Đơn giá theo nhóm**, nhập riêng giá lẻ, SKTQ, SLUT 1 và SLUT 2 cho từng mã dịch vụ. Giá 0 là miễn phí; để trống dùng đơn giá nguồn với dịch vụ lẻ, hoặc tổng phân bổ nguồn chia số lượng thực hiện với dịch vụ trong gói. Nếu phép chia không ra đơn giá nguyên VND, hệ thống yêu cầu đối soát, không lấy giá lẻ thay thế.
 
 Doanh thu từng dòng = đơn giá áp dụng × số lượng đã hoàn thành. Các dòng cùng mã dịch vụ, nhóm giá và đơn giá được cộng số lượng trước, làm tròn nửa lên tới VND. Giá nguồn khác nhau được giữ thành từng dòng riêng. Khám, siêu âm, XQ 2D và XQ 3D có tổng riêng; giá bán nguyên gói không được cộng thêm vào các thành phần. SLUT 1 không có giá X-quang.
 
