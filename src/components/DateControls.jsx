@@ -7,8 +7,8 @@ import 'dayjs/locale/vi';
 dayjs.locale('vi');
 
 export default function DateControls({range,onChange,disabled=false,hint}) {
-  const [mode,setMode]=useState('day');
-  const activeMode=disabled&&range[0]!==range[1]?'range':mode;
+  const [mode,setMode]=useState(()=>range[0]===range[1]?'day':'range');
+  const activeMode=range[0]!==range[1]?'range':mode;
   const values=range.map(d=>dayjs(d));
   const shift=days=>onChange(range.map(d=>dayjs(d).add(days,'day').format('YYYY-MM-DD')));
   return <ConfigProvider locale={viVN}><div className="date-controls">

@@ -17,12 +17,13 @@ Kho mới bắt đầu trống. Dữ liệu và giá tham khảo đi kèm mã ng
 
 ## Cài từ GitHub
 
-Yêu cầu **Node.js 22.14 trở lên**, npm; **Python 3.12** nếu dùng speech. Dùng Chrome/Edge tại địa chỉ local để cấp quyền micro. Internet cần cho lần cài thư viện/model; sau khi cài đủ, xử lý dữ liệu và nhận giọng nói chạy trên máy.
+Yêu cầu **Node.js 22.14 trở lên**, npm; **Python 3.12** cho xử lý dữ liệu và speech. Dùng Chrome/Edge tại địa chỉ local để cấp quyền micro. Internet cần cho lần cài thư viện/model; sau khi cài đủ, xử lý dữ liệu và nhận giọng nói chạy trên máy.
 
 ```powershell
 git clone https://github.com/nan-bi/VMTC-KHOA-VU.git
 cd VMTC-KHOA-VU
 npm ci
+.\CAI-DAT-DU-LIEU-PYTHON.cmd
 npm run build
 ```
 
@@ -92,7 +93,7 @@ Vượt giới hạn được báo rõ, không tự cắt bản ghi rồi tính 
 
 ## Công nghệ và cấu trúc
 
-React 18, Ant Design 5, Vite 6; Node.js 22 và SQLite tích hợp; SheetJS, PptxGenJS; Python, faster-whisper và PhoWhisper-base INT8 CPU. AI tài chính học local từ nhãn xác nhận, không gọi OpenAI/Gemini. Cài đặt ban đầu tải thư viện/model công khai; không gửi dữ liệu nghiệp vụ đến các nguồn tải này.
+React 18, Ant Design 5, Vite 6; Node.js 22 và SQLite tích hợp; Python với openpyxl/xlrd và python-pptx cho nhập/xuất, phân loại và tính doanh thu; SheetJS/PptxGenJS còn phục vụ một số công cụ JavaScript. Speech dùng faster-whisper và PhoWhisper-base INT8 CPU. AI tài chính học local từ nhãn xác nhận, không gọi OpenAI/Gemini. Cài đặt ban đầu tải thư viện/model công khai; không gửi dữ liệu nghiệp vụ đến các nguồn tải này.
 
 ```text
 src/                    Giao diện và quy tắc nghiệp vụ hiện tại
@@ -128,7 +129,7 @@ node scripts/check-speech-stream.mjs
 
 WAV, ZIP, cache và model không được đóng gói trong Git. Công cụ sinh/đánh giá nằm trong `scripts/`; nguồn và điều kiện thử ở [speech-test-data/NGUON.md](speech-test-data/NGUON.md). Script stream cần `speech-test-data/audio/GIA-001-sach.wav` có trên máy, không tự tải âm thanh bệnh nhân.
 
-Kiểm chứng gần nhất: **236 kiểm thử Node và 34 kiểm thử Python đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
+Kiểm toán pipeline gần nhất: **240 kiểm thử Node và 39 kiểm thử Python dữ liệu đạt**, build đạt; xem [báo cáo kiểm toán feature và đầu vào](docs/23-KIEM-TOAN-FEATURE-VA-DAU-VAO.md). Các đợt kiểm tra IndexedDB trước đó xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
 
 SHA256SUMS.txt đối chiếu nội dung mã nguồn đã lưu trong Git, không bao gồm bản build hoặc dữ liệu local. Trên Windows, chuyển đổi LF/CRLF khi checkout có thể làm hash tệp trên đĩa khác hash nội dung Git.
 
@@ -136,6 +137,7 @@ SHA256SUMS.txt đối chiếu nội dung mã nguồn đã lưu trong Git, không
 
 Chưa kết nối HIS/EMR, chữ ký bác sĩ, đồng bộ ca speech nhiều máy hoặc đối soát thực thu. Chưa có tập chuẩn bệnh viện để xác nhận sai số dưới 0,05%. Speech còn lỗi nhận dạng; cần người có chuyên môn kiểm tra bên vú, từ phủ định, số đo/đơn vị và BI-RADS trước khi sử dụng.
 
+- [Thống nhất giao diện và vá lỗi](docs/24-THONG-NHAT-GIAO-DIEN-VA-VA-LOI.md)
 - [Vận hành nội bộ và lưu ca trình duyệt](docs/20-VAN-HANH-NOI-BO.md)
 - [Dashboard và speech tích hợp](docs/19-DASHBOARD-SPEECH.md)
 - [Speech-to-text siêu âm](docs/18-SPEECH-TO-TEXT-SIEU-AM-VU.md)

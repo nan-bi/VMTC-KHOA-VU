@@ -1,8 +1,10 @@
 # Backend nội bộ — Dashboard Khoa Vú v8
 
-Node.js **22.14 trở lên**, SQLite tích hợp trong Node, không cần cài máy chủ cơ sở dữ liệu hoặc thư viện backend thêm. Không có lời gọi AI/cloud/HIS hoặc API bên ngoài. Các đường dẫn `/api/...` là giao tiếp nội bộ giữa dashboard và máy chủ này.
+Node.js **22.14 trở lên**, Python **3.12**, SQLite tích hợp trong Node. Cài thư viện dữ liệu bằng `CAI-DAT-DU-LIEU-PYTHON.cmd`; không cần máy chủ cơ sở dữ liệu riêng. Không có lời gọi AI/cloud/HIS hoặc API bên ngoài. Các đường dẫn `/api/...` là giao tiếp nội bộ giữa dashboard và máy chủ này.
 
 ## Chạy trên máy
+
+Trước lần chạy đầu, cài `npm ci`, chạy **CAI-DAT-DU-LIEU-PYTHON.cmd** và `npm run build`.
 
 1. Chạy **TAO-TAI-KHOAN.cmd** ở thư mục v8. Nhập tên đăng nhập, vai trò `admin`, mật khẩu ít nhất 12 ký tự và xác nhận. Mật khẩu không hiện khi nhập. Không có tài khoản/mật khẩu mặc định.
 2. Chạy **CHAY-BACKEND.cmd**.
@@ -29,7 +31,7 @@ Bản hiện tại tích hợp speech trong dashboard 4180, nhưng ca/bản nhá
 
 Kho SQLite mới bắt đầu trống, không tự nạp dữ liệu dịch vụ. Kho đã có tiếp tục được giữ nguyên khi mở lại. Các chỉnh sửa/import đã lưu trong trình duyệt ở cổng 4173 **không tự chuyển** vào cơ sở dữ liệu mới. Cổng 4180 có kho riêng; chọn đúng chế độ khi làm việc. Việc đổi tên giao diện không tự biến dữ liệu giả lập thành dữ liệu HIS.
 
-Dashboard ở chế độ backend lưu kho báo cáo, chỉnh sửa, cấu hình gói, snapshot và nhãn model vào SQLite. Upload Excel/CSV vẫn được đọc trên trình duyệt, xem trước rồi mới ghi các dòng đã xác nhận về server. Không lưu file đính kèm thô trên server trong phiên bản khung này. Các file nhập riêng để phân tích liên khoa còn là phiên làm việc tạm thời; chỉ nhãn xác nhận và kho báo cáo được lưu tập trung.
+Dashboard ở chế độ backend lưu kho báo cáo, chỉnh sửa, cấu hình gói, snapshot và nhãn model vào SQLite. Trình duyệt gửi file Excel/CSV tới backend loopback; Python đọc trong bộ nhớ, chuẩn hóa và trả bản xem trước. Chỉ khi xác nhận, các dòng và nguồn truy vết mới được ghi vào SQLite qua kiểm tra quyền, revision và quy tắc phía server. Không lưu bytes file gốc lâu dài trên server. Nhãn đã xác nhận lưu cùng cấu hình kho; dự đoán model đơn lẻ không đủ căn cứ tính tiền.
 
 ## Phân quyền
 

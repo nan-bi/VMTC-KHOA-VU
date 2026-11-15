@@ -64,3 +64,36 @@ test('an actual CSV larger than 10 MB is parsed and remains traceable',async()=>
  const preview=await prepareReportImport([{name:'Bao-cao-lon.csv',size:bytes.byteLength,arrayBuffer:async()=>bytes.buffer}],state(),catalog);
  assert.equal(preview.rows.length,1);assert.equal(preview.rows[0].source_file,'Bao-cao-lon.csv');assert.equal(preview.rows[0].source_row,2);assert.equal(preview.issues.length,0);
 });
+
+test('a single template-style file without order/HIS IDs has stable internal identity in file and folder modes',async()=>{
+ const row=base();delete row.order_id;delete row.his_order_id;
+ const f=file('No-ID.xlsx',[row]);
+ const single=await prepareReportImport([f],state(),catalog);
+ const folder=await prepareReportImport([{...f,webkitRelativePath:'Upload/No-ID.xlsx'}],state(),catalog);
+ assert.match(single.rows[0].order_id,/^LOCAL-[a-f0-9]{64}$/);
+ assert.equal(single.rows[0].order_id,folder.rows[0].order_id);
+ assert.equal(single.rows[0].his_order_id,undefined);
+ assert.equal(single.issues.length,0);
+ const again=await prepareReportImport([f],{...state(),rows:single.rows},catalog);
+ assert.equal(again.rows.length,0);assert.equal(again.duplicateCount,1);
+ const csv=new TextEncoder().encode(XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet([row])));
+ const csvResult=await prepareReportImport([{name:'No-ID.csv',size:csv.byteLength,arrayBuffer:async()=>csv.buffer}],state(),catalog);
+ assert.match(csvResult.rows[0].order_id,/^LOCAL-/);assert.equal(csvResult.issues.length,0);
+});
+
+test('real XLS and XLSX preserve date columns in 1900 and 1904 calendars without shifting prices',async()=>{
+ const stamp='2026-10-01T08:30:00.000+07:00';
+ const serial=(Date.UTC(2026,9,1,8,30)-Date.UTC(1899,11,30))/86400000;
+ for(const date1904 of [false,true])for(const bookType of ['xlsx','biff8'])for(const styled of [false,true]){
+  const row={...base(),ordered_at:serial-(date1904?1462:0),completed_at:serial-(date1904?1462:0),result_returned_at:serial-(date1904?1462:0)};
+  const headers=Object.keys(row),sheet=XLSX.utils.aoa_to_sheet([headers,headers.map(k=>row[k])]);
+  if(styled)for(const key of ['ordered_at','completed_at','result_returned_at'])sheet[XLSX.utils.encode_cell({r:1,c:headers.indexOf(key)})].z='yyyy-mm-dd hh:mm';
+  const book=XLSX.utils.book_new();book.Workbook={WBProps:{date1904}};XLSX.utils.book_append_sheet(book,sheet,'CANONICAL');
+  const bytes=XLSX.write(book,{type:'array',bookType});
+  assert.equal(!!XLSX.read(bytes,{type:'array'}).Workbook.WBProps.date1904,date1904);
+  const name=`Calendar.${bookType==='biff8'?'xls':'xlsx'}`;
+  const p=await prepareReportImport([{name,size:bytes.byteLength,arrayBuffer:async()=>bytes}],state(),catalog);
+  for(const key of ['ordered_at','completed_at','result_returned_at'])assert.equal(p.rows[0][key],stamp,`${bookType} ${date1904} ${styled} ${key}`);
+  assert.equal(p.rows[0].unit_price_vnd,row.unit_price_vnd);
+ }
+});

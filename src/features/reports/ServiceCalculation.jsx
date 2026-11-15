@@ -9,11 +9,12 @@ const options=Object.entries(BILLING_TYPES).filter(([value])=>value!=='RETAIL').
 export default function ServiceCalculation({completed,allRows,catalog,config,canEdit,onSave,onEditRow,history=[]}){
  const [dept,setDept]=useState('ORDERING_VU'),[editing,setEditing]=useState(false),[draft,setDraft]=useState(null),[reason,setReason]=useState(''),[query,setQuery]=useState(''),[details,setDetails]=useState(null),[busy,setBusy]=useState(false),[configTab,setConfigTab]=useState('rates');
  const inputKey=useMemo(()=>JSON.stringify({rows:completed,config:config||{},department:dept}),[completed,config,dept]);
+ const [retry,setRetry]=useState(0);
  const [pythonResult,setPythonResult]=useState(null),[pythonError,setPythonError]=useState(null);
  useEffect(()=>{if(!isBackend())return;let active=true;setPythonError(null);
   pythonTask('calculation',JSON.parse(inputKey)).then(value=>{if(active)setPythonResult({inputKey,value});}).catch(error=>{if(active)setPythonError({inputKey,message:error.message});});
   return ()=>{active=false;};
- },[inputKey]);
+ },[inputKey,retry]);
  const localResult=useMemo(()=>isBackend()?null:serviceCalculation(completed,config,dept),[completed,config,dept]);
  const result=isBackend()?(pythonResult?.inputKey===inputKey?pythonResult.value:null):localResult;
  const packages=[...new Set(allRows.map(r=>r.package_id).filter(Boolean))].sort();
@@ -21,7 +22,7 @@ export default function ServiceCalculation({completed,allRows,catalog,config,can
  const cell=(f,type)=><Button type="link" size="small" onClick={()=>setDetails({title:f.label+' · '+BILLING_TYPES[type],rows:f.buckets[type].rows})}>{money(f.buckets[type].qty)}</Button>;
  const cols=[{title:'Dịch vụ',dataIndex:'label',fixed:'left',width:150},{title:'Tổng hoàn thành',width:120,render:(_,f)=><b>{money(f.qty)}</b>},...['SKTQ','SLUT1','SLUT2','OTHER','UNKNOWN','RETAIL'].map(type=>({title:BILLING_TYPES[type],width:130,render:(_,f)=>cell(f,type)}))];
  async function save(){setBusy(true);try{if(await onSave(draft,reason)){setEditing(false);message.success('Đã lưu phân loại gói và cách tính.')}}finally{setBusy(false)}}
- if(!result)return <section className="panel" style={{marginTop:18}}><h2>Bóc tách khám · siêu âm · X-quang</h2><Alert type={pythonError?.inputKey===inputKey?'error':'info'} showIcon message={pythonError?.inputKey===inputKey?pythonError.message:'Đang tính dữ liệu dịch vụ…'}/></section>;
+ if(!result)return <section className="panel" style={{marginTop:18}}><h2>Bóc tách khám · siêu âm · X-quang</h2><Alert type={pythonError?.inputKey===inputKey?'error':'info'} showIcon message={pythonError?.inputKey===inputKey?pythonError.message:'Đang tính dữ liệu dịch vụ…'} action={pythonError?.inputKey===inputKey?<Button onClick={()=>setRetry(n=>n+1)}>Thử lại</Button>:undefined}/></section>;
  return <section className="panel" style={{marginTop:18}}>
   <div className="panel-head"><div><h2>Bóc tách khám · siêu âm · X-quang</h2><div className="subtle">Theo ngày hoàn thành ở lịch phía trên · đơn vị dịch vụ, không phải số gói bán.</div></div><Space wrap><Select aria-label="Nơi thực hiện phép tính" style={{minWidth:180}} value={dept} onChange={setDept} options={[{value:'ORDERING_VU',label:'Khoa Vú chỉ định (đã xác nhận)'},{value:'ALL',label:'Tất cả nơi thực hiện'},...[...new Set(['VU',...allRows.map(r=>r.performing_dept).filter(Boolean)])].map(value=>({value,label:value==='VU'?'Tại Khoa Vú (VU)':value}))]}/><Button onClick={open}>Cấu hình gói & dịch vụ</Button></Space></div>
   <Alert showIcon type="info" message="SLUT 1 = khám + siêu âm · SLUT 2 = khám + X-quang + siêu âm" description="Trừ số dịch vụ thực tế thuộc từng gói; không lấy số gói bán để trừ đồng loạt. Dịch vụ phát sinh ngoài gói vẫn tính CK/lẻ. Giá SKTQ, SLUT 1, SLUT 2 giữ riêng theo dòng nguồn/phân bổ, chưa có bảng giá thì không tự áp giá lẻ."/>

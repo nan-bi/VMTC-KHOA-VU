@@ -1,7 +1,8 @@
-:root{--rose-primary:#b45078;--rose-ink:#513240;--rose-muted:#856574;--rose-soft:#fcebf2;--rose-bg:#fff8fb;--rose-border:#efd6e1;--rose-button:#f7d5e2;--rose-hover:#efbfd2}
+@import './typography.css';
+:root{--rose-primary:#8f3d5d;--rose-ink:#382831;--rose-muted:#6e5c64;--rose-soft:#f5e9ee;--rose-bg:#faf7f8;--rose-border:#e7dce1;--rose-button:#8f3d5d;--rose-hover:#74324d;--rose-success:#2f6f56;--rose-success-bg:#eaf4ee}
 :root .ant-tag-cyan,:root .ant-tag-blue,:root .ant-tag-geekblue,:root .ant-tag-purple{background:var(--rose-soft);border-color:var(--rose-border);color:var(--rose-primary)}
-:root .voice-app button.primary,:root .training-app button.primary{background:var(--rose-button);border-color:#e8b6ca;color:var(--rose-ink)}
-:root .voice-app button.primary:hover,:root .training-app button.primary:hover{background:var(--rose-hover)}
+:root .voice-app button.primary,:root .training-app button.primary{background:var(--rose-button);border-color:var(--rose-button);color:#fff}
+:root .voice-app button.primary:hover,:root .training-app button.primary:hover{background:var(--rose-hover);border-color:var(--rose-hover);color:#fff}
 .speech-embed{width:100%;height:calc(100vh - 245px);min-height:680px;border:1px solid var(--rose-border);border-radius:12px;background:white;display:block}
 @media(max-width:760px){.speech-embed{height:85vh;min-height:760px}}
 

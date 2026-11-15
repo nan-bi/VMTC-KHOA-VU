@@ -6,7 +6,7 @@ export const backendState=()=>cache?structuredClone(cache):null;
 export const backendReviews=()=>reviews?structuredClone(reviews):{version:1,revision:0,items:{}};
 export async function request(path,options={}){
  const response=await fetch(path,{...options,credentials:'same-origin',headers:{...(options.body?{'Content-Type':'application/json'}:{}),...(session?{'X-CSRF-Token':session.csrf}:{}),...options.headers}});
- const data=await response.json();if(!response.ok)throw Error(data.error||`HTTP ${response.status}`);return data;
+ const data=await response.json().catch(()=>null);if(!response.ok)throw Object.assign(Error(data?.error||`HTTP ${response.status}`),{status:response.status});if(data==null)throw Error('Máy chủ trả dữ liệu không hợp lệ.');return data;
 }
 export async function detectBackend(){
  const response=await fetch('/api/health',{cache:'no-store'});if(response.status===404)return null;if(!response.ok)throw Error('Máy chủ chưa sẵn sàng. Vui lòng tải lại.');if(!(response.headers.get('content-type')||'').includes('application/json'))return null;const data=await response.json();if(data.service!=='vinmec-internal-backend')throw Error('Không xác định được chế độ dữ liệu.');enabled=true;return data;

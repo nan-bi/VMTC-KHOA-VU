@@ -101,20 +101,16 @@ def xlsx_sheets(raw):
     try:
         for sheet in book.worksheets:
             if sheet.max_row and sheet.max_row > ROW_LIMIT + 31 or sheet.max_column and sheet.max_column > 301:
-                yield sheet.title, None, 'Phạm vi sheet quá lớn; cần thu gọn vùng dữ liệu.'
+                yield sheet.title, None, 'Phạm vi sheet quá lớn; cần thu gọn vùng dữ liệu.', 0
                 continue
             def cells(ws=sheet):
-                from openpyxl.utils.datetime import to_excel
                 for row in ws.iter_rows():
                     values = []
                     for cell in row:
                         value = cell.value
-                        # Match the former SheetJS serial-date normalization.
-                        if isinstance(value, datetime):
-                            value = to_excel(value, book.epoch)
                         values.append(value)
                     yield values
-            yield sheet.title, cells(), None
+            yield sheet.title, cells(), None, 1462 if book.epoch.year == 1904 else 0
     finally:
         book.close()
 
@@ -125,9 +121,15 @@ def xls_sheets(raw):
     try:
         for sheet in book.sheets():
             if sheet.nrows > ROW_LIMIT + 31 or sheet.ncols > 301:
-                yield sheet.name, None, 'Phạm vi sheet quá lớn; cần thu gọn vùng dữ liệu.'
+                yield sheet.name, None, 'Phạm vi sheet quá lớn; cần thu gọn vùng dữ liệu.', 0
             else:
-                yield sheet.name, ([None if value == '' else value for value in sheet.row_values(i)] for i in range(sheet.nrows)), None
+                def cells(ws=sheet):
+                    for i in range(ws.nrows):
+                        yield [xlrd.xldate_as_datetime(cell.value, book.datemode)
+                               if cell.ctype == xlrd.XL_CELL_DATE else
+                               None if cell.value == '' else cell.value
+                               for cell in ws.row(i)]
+                yield sheet.name, cells(), None, 1462 if book.datemode else 0
     finally:
         book.release_resources()
 
@@ -154,7 +156,7 @@ def ingest_file(payload):
     rows, skipped, sheet_names, schema = [], [], [], None
     try:
         if extension == '.csv':
-            sheets = [('Sheet1', csv_grid(raw), None)]
+            sheets = [('Sheet1', csv_grid(raw), None, 0)]
         elif extension == '.xls':
             sheets = xls_sheets(raw)
         else:
@@ -173,7 +175,7 @@ def ingest_file(payload):
             probe.release_resources()
         else:
             preferred = None
-        for sheet_name, iterator, sheet_error in sheets:
+        for sheet_name, iterator, sheet_error, epoch_offset in sheets:
             if preferred is not None and sheet_name != preferred:
                 continue
             try:
@@ -207,13 +209,22 @@ def ingest_file(payload):
                         continue
                     if any(value_present(value) and (c >= len(headers) or not headers[c]) for c, value in enumerate(values)):
                         raise ValueError(f'Dòng {i + 1} có dữ liệu ở cột không có tiêu đề.')
-                    data.append({h: values[c] if c < len(values) else None for c, h in enumerate(headers) if h})
+                    item = {h: values[c] if c < len(values) else None for c, h in enumerate(headers) if h}
+                    # Normalize known date fields before hashing, using the workbook's
+                    # calendar. Never shift numeric identifiers, quantities or prices.
+                    for key, value in item.items():
+                        date_field = ALIASES.get(key, key) in {'ordered_at', 'completed_at', 'result_returned_at'}
+                        if isinstance(value, datetime):
+                            from openpyxl.utils.datetime import to_excel
+                            value = to_excel(value)
+                        elif date_field and epoch_offset and isinstance(value, (int, float)) and not isinstance(value, bool):
+                            value += epoch_offset
+                        item[key] = value
+                    data.append(item)
                     physical.append(i + 1)
                 if not data or len(data) > ROW_LIMIT:
                     raise ValueError('Sheet phải có từ 1 đến 100.000 dòng dữ liệu.')
-                internal = None
-                if folder:
-                    internal = ['LOCAL-' + hashlib.sha256(json_text([[k, row[k]] for k in sorted(set(row) - PROVENANCE)]).encode('utf-8')).hexdigest() for row in data]
+                internal = ['LOCAL-' + hashlib.sha256(json_text([[k, row[k]] for k in sorted(set(row) - PROVENANCE)]).encode('utf-8')).hexdigest() for row in data]
                 parsed = adapt_rows(data, filename, sheet=sheet_name, hash_value=digest,
                                     row_numbers=physical, ingested_at=ingested_at, internal_keys=internal)
                 if len(rows) + len(parsed['rows']) > ROW_LIMIT:
