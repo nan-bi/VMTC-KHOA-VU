@@ -19,10 +19,10 @@ test('Financial filters partition completed rows, unknown departments never beco
  const result=financeRoutes(data);assert.deepEqual(result.map(r=>r.rows.length),[1,1,1,1,1]);assert.equal(result.reduce((n,r)=>n+r.rows.length,0),data.length);
 });
 test('Meeting PowerPoint and Excel retain the same frozen tariff revenue and source totals',async()=>{
- const frozen=structuredClone(report);const slides=meetingSlides(frozen);assert.equal(slides[0].rows[1][1],new Intl.NumberFormat('vi-VN').format(stats.gross));
+ const frozen=structuredClone(report);const slides=await meetingSlides(frozen);assert.equal(slides[0].rows[1][1],new Intl.NumberFormat('vi-VN').format(stats.gross));
  assert.ok(slides.some(s=>s.note.includes('63.000.000')));assert.ok(!JSON.stringify(slides).includes('BI-RADS'));
  const {bytes}=await templateWorkbook({rows:frozen.stats.completed,catalog,serviceRevenue:frozen.serviceRevenue,meta:{id:frozen.id,from:frozen.week,toExclusive:frozen.end}});
  const book=XLSX.read(bytes,{type:'array'});assert.ok(book.SheetNames.includes('KIEM_LOI'));const pricing=XLSX.utils.sheet_to_json(book.Sheets.GIA_X_SO_LUONG,{header:1});assert.equal(pricing.find(r=>r[0]==='TỔNG PHẦN ĐỦ GIÁ')[4],63000000);
  const ppt=await meetingPresentation(frozen),zip=await JSZip.loadAsync(await ppt.write({outputType:'arraybuffer'}));const content=(await Promise.all(Object.keys(zip.files).filter(p=>/^ppt\/slides\/slide\d+\.xml$/.test(p)).map(p=>zip.file(p).async('string')))).join('');assert.ok(content.includes('SN-MEETING-TEST'));assert.ok(content.includes('63.000.000'));assert.ok(content.includes('CHỜ')||content.includes('Chờ')||content.includes('chờ'));assert.deepEqual(frozen,report);
- assert.throws(()=>meetingSlides({...report,status:'draft'}),/duyệt/);
+ await assert.rejects(()=>meetingSlides({...report,status:'draft'}),/duyệt/);
 });

@@ -1,3 +1,23 @@
+# Cập nhật đợt 2 · Python vượt 15% · 15/11/2026
+
+Chuyển phần xử lý thực tế sang Python: đọc Excel/CSV, chuẩn hóa/đối soát, xác nhận phân loại khi lưu/chốt, bóc tách khám/siêu âm/XQ/gói và doanh thu, kiểm tra chuyển trạng thái, snapshot, Excel theo mẫu DATA_KHOAVU và PowerPoint giao ban. Backend Node giữ HTTP/auth/SQLite; React giữ giao diện, bảng/biểu đồ và speech. Các phép xem/tổng hợp phía client và công cụ liên khoa khác vẫn còn JavaScript; chưa chuyển toàn bộ dashboard sang Python.
+
+| Phạm vi đo | Python trước | Python sau |
+|---|---:|---:|
+| Tổng kho Python + JavaScript | 6,6661% | 16,6901% |
+| Bỏ bản lưu prototype | 8,4701% | 22,4348% |
+| Ứng dụng, bỏ tests/scripts/bản lưu | 2,8021% | 19,9982% |
+
+JavaScript giảm từ 983.057 xuống 953.933 byte; Python tăng từ 70.212 lên 191.108 byte. Không thêm mã đệm hoặc sửa thuộc tính ngôn ngữ GitHub. Phép đo dùng UTF-8 chuẩn hóa LF, không tương đương tỷ lệ thời gian chạy hay GitHub Linguist. Baseline b4b1ec6; chi tiết docs/audit/python-phase2-language-share.json.
+
+Kiểm chứng mới nhất: 236 kiểm thử Node và 34 kiểm thử Python đạt; build thành công, vẫn có cảnh báo bundle lớn. Golden fixture đối chiếu mô hình kết quả từ bản JavaScript cũ; kiểm tra XLS/XLSX thực, trùng file/dòng, phân quyền, revision cạnh tranh, báo cáo đã khóa, tiền/số lượng và nội dung Excel/PPTX. Dữ liệu kiểm thử tổng hợp, không sửa SQLite người dùng hoặc kho speech. Không suy ra sai số <0,05% so với chuẩn bệnh viện.
+
+Cài thư viện bằng CAI-DAT-DU-LIEU-PYTHON.cmd. Dùng backend 4180 (CHAY-DASHBOARD-SPEECH.cmd), không dùng trang tĩnh thay backend. Các thao tác Python có đăng nhập/CSRF, giới hạn đầu vào/thời gian/số tiến trình; ghi dữ liệu vẫn phải qua workspace endpoint có quyền và revision. Không gọi API ngoài. Dashboard không thêm bảng so sánh.
+
+---
+
+> Cập nhật: đã bỏ bảng và nút so sánh khỏi dashboard theo yêu cầu. Nội dung bên dưới giữ làm lịch sử kiểm chứng; hướng dẫn thao tác giao diện cũ không còn áp dụng. Công cụ đối chiếu kỹ thuật vẫn có trong scripts/backend.
+
 # So sánh chuyển đổi Python · đợt 1
 
 Bản đối chiếu cũ: commit `6b6069ab0fa920606e477f34a3fcc79567b2059c`. Giữ nguyên giao diện và cách chọn dữ liệu. Chuyển riêng bộ tính giá × số lượng, giá lẻ/SKTQ/SLUT1/SLUT2, phân bổ và làm tròn tiền sang Python chuẩn, không thêm thư viện pip. JavaScript vẫn là bản chuẩn để đối chiếu.

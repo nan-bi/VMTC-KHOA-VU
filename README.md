@@ -128,7 +128,7 @@ node scripts/check-speech-stream.mjs
 
 WAV, ZIP, cache và model không được đóng gói trong Git. Công cụ sinh/đánh giá nằm trong `scripts/`; nguồn và điều kiện thử ở [speech-test-data/NGUON.md](speech-test-data/NGUON.md). Script stream cần `speech-test-data/audio/GIA-001-sach.wav` có trên máy, không tự tải âm thanh bệnh nhân.
 
-Kiểm chứng gần nhất: **233 kiểm thử Node đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
+Kiểm chứng gần nhất: **236 kiểm thử Node và 34 kiểm thử Python đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
 
 SHA256SUMS.txt đối chiếu nội dung mã nguồn đã lưu trong Git, không bao gồm bản build hoặc dữ liệu local. Trên Windows, chuyển đổi LF/CRLF khi checkout có thể làm hash tệp trên đĩa khác hash nội dung Git.
 
@@ -145,10 +145,14 @@ Chưa kết nối HIS/EMR, chữ ký bác sĩ, đồng bộ ca speech nhiều m�
 
 Tài liệu trước được giữ để truy vết; khi khác luồng hiện tại, ưu tiên README này và cập nhật mới nhất trong tài liệu vận hành. Đẩy mã nguồn lên GitHub không đưa dữ liệu local lên và không triển khai dashboard thành website công khai.
 
-## Chuyển dần bộ tính sang Python
+## Xử lý dữ liệu bằng Python local
 
-Đợt 1 bổ sung bộ tính doanh thu Python chuẩn, chạy hoàn toàn local và đối chiếu cùng dữ liệu với JavaScript. Chạy `CHAY-SO-SANH-PYTHON.cmd`, mở http://127.0.0.1:4190/, vào **Chi tiết số liệu → Bóc tách → So sánh JavaScript / Python**. Khi toàn bộ kết quả khớp, có thể chọn **Xem bằng Python**. Cần Python trên PATH, môi trường speech đã cài hoặc biến `VINMEC_PYTHON` trỏ đến Python; bộ tính không cần thư viện pip thêm.
+Python đảm nhiệm đọc Excel/CSV, chuẩn hóa và đối soát đầu vào, phân loại phạm vi doanh thu khi lưu/chốt, bóc tách giá × số lượng và combo, kiểm tra quyền/chuyển trạng thái dữ liệu, tạo snapshot, xuất Excel theo mẫu DATA_KHOAVU và PowerPoint giao ban. Node vẫn phục vụ HTTP, đăng nhập và SQLite; React/JavaScript giữ giao diện, biểu đồ, micro và kho speech trên trình duyệt. Một số phép xem/tổng hợp và công cụ xuất liên khoa vẫn dùng JavaScript.
 
-Bản thử dùng cùng dữ liệu/tài khoản hiện tại; nút so sánh chỉ đọc và tính. Lựa chọn Python chỉ áp dụng bảng doanh thu đang xem; phân loại khoa, chốt snapshot và xuất báo cáo vẫn dùng JavaScript. Speech tiếp tục dùng origin 4173 và kho trình duyệt hiện tại. Chưa đạt tỷ lệ Python/JavaScript 50/50; không đổi model hoặc tự huấn luyện từ ca bệnh nhân.
+Chạy `CAI-DAT-DU-LIEU-PYTHON.cmd` một lần để cài thư viện dữ liệu vào môi trường Python local, rồi chạy `CHAY-DASHBOARD-SPEECH.cmd` và mở http://127.0.0.1:4180/. Backend chọn `VINMEC_PYTHON` nếu được cấu hình, sau đó `.speech-venv/Scripts/python.exe`, cuối cùng Python trên PATH. Các thao tác nhập/xuất dùng backend nội bộ; trang chỉ phục vụ tĩnh 4173 hoặc Vite 5173 không thay thế backend. Thiếu Python/thư viện sẽ báo lỗi, không báo lưu thành công. Không gọi dịch vụ AI bên ngoài.
 
-Xem [số đo trước/sau và hướng chuyển tiếp](docs/21-SO-SANH-JAVASCRIPT-PYTHON.md). Tái chạy phép đo dữ liệu tổng hợp bằng `node scripts/compare-python-revenue.mjs`.
+Dashboard không có bảng/nút so sánh ngôn ngữ. Giữ nguyên giao diện, tài khoản, dữ liệu SQLite và cơ chế lưu speech IndexedDB.
+
+Đo mã nguồn UTF-8 chuẩn hóa LF: Python từ **6,67% lên 16,69%** trong tổng Python + JavaScript của kho; riêng ứng dụng không gồm tests/scripts/bản lưu lịch sử đạt khoảng **20,00%**. Đây là tỷ lệ dung lượng mã nguồn, không phải phần trăm tốc độ hay số GitHub Linguist. JavaScript giảm khoảng 29 KB nhờ thay các phần xử lý bằng lời gọi Python.
+
+Kiểm tra lại: `npm test`; `.speech-venv/Scripts/python.exe -B -m unittest discover -s tests -p test_python_pipeline.py`; `npm run build`. Đo tỷ lệ: `.speech-venv/Scripts/python.exe scripts/measure-python-share.py`. Xem [chi tiết chuyển đổi](docs/21-SO-SANH-JAVASCRIPT-PYTHON.md) và [kết quả đo](docs/audit/python-phase2-language-share.json).

@@ -1,0 +1,76 @@
+{
+  "baselineCommit": "b4b1ec6fc085e3b2f01db99f11c887e639a100cf",
+  "definition": "UTF-8 source bytes normalized LF; .py vs .js/.jsx/.mjs. No vendor/build/venv. Not GitHub Linguist.",
+  "wholeRepository": {
+    "before": {
+      "bytes": {
+        "Python": 70212,
+        "JavaScript": 983057
+      },
+      "files": {
+        "Python": 14,
+        "JavaScript": 169
+      },
+      "pythonPercent": 6.6661
+    },
+    "after": {
+      "bytes": {
+        "Python": 191108,
+        "JavaScript": 953933
+      },
+      "files": {
+        "Python": 23,
+        "JavaScript": 171
+      },
+      "pythonPercent": 16.6901
+    }
+  },
+  "excludingArchive": {
+    "before": {
+      "bytes": {
+        "Python": 60840,
+        "JavaScript": 657450
+      },
+      "files": {
+        "Python": 12,
+        "JavaScript": 122
+      },
+      "pythonPercent": 8.4701
+    },
+    "after": {
+      "bytes": {
+        "Python": 181736,
+        "JavaScript": 628326
+      },
+      "files": {
+        "Python": 21,
+        "JavaScript": 124
+      },
+      "pythonPercent": 22.4348
+    }
+  },
+  "applicationExcludingTestsAndScripts": {
+    "before": {
+      "bytes": {
+        "Python": 13542,
+        "JavaScript": 469736
+      },
+      "files": {
+        "Python": 2,
+        "JavaScript": 79
+      },
+      "pythonPercent": 2.8021
+    },
+    "after": {
+      "bytes": {
+        "Python": 108774,
+        "JavaScript": 435145
+      },
+      "files": {
+        "Python": 9,
+        "JavaScript": 80
+      },
+      "pythonPercent": 19.9982
+    }
+  }
+}

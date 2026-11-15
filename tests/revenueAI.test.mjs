@@ -72,7 +72,7 @@ test('New overview, revenue snapshot, finance partition and exported Excel/PPT s
  assert.equal(stats.qty,2);assert.equal(stats.gross,24690);assert.equal(stats.classification.excluded,1);
  const serviceRevenue=serviceRevenueSnapshot(stats.completed,config);assert.equal(serviceRevenue.knownRevenue,24690);assert.equal(financeRoutes(stats.completed).find(r=>r.key==='OUTBOUND').gross,12345);
  const book=await templateWorkbook({rows:stats.completed,catalog,serviceRevenue,meta:{scope:stats.scopeLabel}});assert.equal(book.report.summary.gross,24690);assert.equal(book.report.sheets.find(s=>s.name==='GIA_X_SO_LUONG').rows.find(r=>r[0]==='TỔNG PHẦN ĐỦ GIÁ')[4],24690);
- const slides=meetingSlides({status:'approved',stats,serviceRevenue});assert.ok(slides[0].note.includes('Khoa Vú chỉ định'));assert.ok(slides.some(s=>s.rows.some(r=>r.includes('12.345'))));
+ const slides=await meetingSlides({status:'approved',stats,serviceRevenue});assert.ok(slides[0].note.includes('Khoa Vú chỉ định'));assert.ok(slides.some(s=>s.rows.some(r=>r.includes('12.345'))));
 });
 test('Folder accepts no HIS/order ID, finds title row, generates stable invisible keys across renames',async()=>{
  const row=base();delete row.order_id;delete row.his_order_id;
@@ -98,10 +98,10 @@ test('Backend persists training labels with audit, blocks pending revenue and re
  const from=a.completed_at.slice(0,10),to=new Date(Date.parse(from)+86400000).toISOString().slice(0,10);
  try{
   let state=getWorkspace(app.db);state.report={status:'draft',week:from,end:to,stats:{gross:999999}};
-  assert.throws(()=>updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog),/chưa xác định khoa/);
+  await assert.rejects(()=>updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog),/chưa xác định khoa/);
   state=getWorkspace(app.db);saveCalculationConfig(state,{...config,routingExamples:[{ordering_dept:'Nguồn chưa rõ',performing_dept:'CDHA',label:'EXTERNAL_UNRELATED',reason:'Đã xác nhận nguồn khoa khác'}]},'Nhập / đối soát','Học phân loại đã đối chiếu');
-  state=updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog);assert.equal(state.serviceCalculation.routingExamples.length,1);assert.equal(state.calculationHistory[0].actor,user.username);
-  state.report={status:'draft',week:from,end:to,stats:{gross:999999}};state=updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog);assert.equal(state.report.stats.gross,2000);assert.equal(state.report.stats.revenueScope,'ORDERING_VU');assert.equal(state.report.serviceRevenue.knownRevenue,2000);
-  state.serviceCalculation.routingExamples=[];assert.throws(()=>updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog),/khóa/);
+  state=await updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog);assert.equal(state.serviceCalculation.routingExamples.length,1);assert.equal(state.calculationHistory[0].actor,user.username);
+  state.report={status:'draft',week:from,end:to,stats:{gross:999999}};state=await updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog);assert.equal(state.report.stats.gross,2000);assert.equal(state.report.stats.revenueScope,'ORDERING_VU');assert.equal(state.report.serviceRevenue.knownRevenue,2000);
+  state.serviceCalculation.routingExamples=[];await assert.rejects(()=>updateWorkspace(app.db,{expectedRevision:state.revision,state},user,catalog),/khóa/);
  }finally{await app.close();fs.rmSync(tmp,{recursive:true,force:true});}
 });

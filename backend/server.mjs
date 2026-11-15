@@ -1,3 +1,4 @@
+import {runPythonData,PUBLIC_TASKS} from './python-data.mjs';
 import {compareRevenue} from './python-revenue.mjs';
 import {openSpeechStore} from './speech-store.mjs';
 import http from 'node:http';
@@ -56,8 +57,20 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
      const payload=await body(req,32*1024*1024);
      return send(res,200,await compareRevenue(payload.rows,payload.config));
     }
+    if(route.startsWith('/api/data/')){
+     const action=route.slice('/api/data/'.length);
+     if(req.method!=='POST')throw new HttpError(405,'Dùng POST để xử lý dữ liệu.');
+     if(!PUBLIC_TASKS.has(action))throw new HttpError(404,'Không có tác vụ dữ liệu này.');
+     const payload=await body(req,action==='ingest'?140*1024*1024:256*1024*1024);
+     if(!payload||typeof payload!=='object'||Array.isArray(payload))throw new HttpError(400,'Cấu trúc tác vụ dữ liệu không hợp lệ.');
+     // Read/compute only. Persistence always goes through the revision-locked
+     // workspace endpoint with server-side roles and transition validation.
+     if(action!=='ingest'&&!action.startsWith('meeting-'))payload.catalog=catalog;
+     const result=await runPythonData(action,payload);
+     return send(res,200,{value:result.value,engine:'python',computeMs:result.computeMs});
+    }
     if(route==='/api/workspace'&&req.method==='GET')return send(res,200,getWorkspace(db));
-    if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,updateWorkspace(db,await body(req,256*1024*1024),user,catalog));
+    if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,await updateWorkspace(db,await body(req,256*1024*1024),user,catalog));
     if(route==='/api/catalog'&&req.method==='GET')return send(res,200,{services:catalog});
     if(route==='/api/reviews'&&req.method==='GET')return send(res,200,JSON.parse(db.prepare('SELECT payload FROM review_state WHERE id=1').get().payload));
     if(route==='/api/reviews'&&req.method==='PUT'){
@@ -87,7 +100,7 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
    res.writeHead(200,{'Content-Type':types[path.extname(target)]||'application/octet-stream','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(req.method==='HEAD'?undefined:data);
   }catch(e){const status=e.status||500;if(status===500)console.error(`[${requestId}] Backend error:`,e.message);if(!res.headersSent)send(res,status,{error:status===500?'Lỗi hệ thống nội bộ.':e.message,requestId});else res.end();}
  });
- server.requestTimeout=30000;server.headersTimeout=10000;
+ server.requestTimeout=120000;server.headersTimeout=10000;
  return {server,db,close:async()=>{server.closeIdleConnections();if(server.listening)await new Promise(resolve=>server.close(resolve));speechStore?.close();db.close()}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){

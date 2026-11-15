@@ -11,7 +11,7 @@ export default function ReportImportPanel({state,catalog,canEdit,frozen,onCommit
  async function commit(){if(running.current||locked||!preview||stale)return;running.current=true;setBusy(true);try{if(await onCommit(preview)){setFiles([]);setPreview(null)}}catch(e){setError(e.message)}finally{running.current=false;setBusy(false)}}
  return <section className="panel report-import-panel"><div className="panel-head"><div><h2>Nhập file / thư mục từ máy tính</h2><div className="subtle">Chọn file → kiểm tra trước → xác nhận nhập</div></div><Tag color="cyan">Excel / CSV · local</Tag></div>
   <Steps size="small" current={preview?1:0} items={[{title:'Chọn file'},{title:'Xem trước'},{title:'Nhập & đối soát'}]}/>
-  <p className="subtle">File được đọc trên trình duyệt này. Việc chọn hoặc xem trước chưa thay đổi dữ liệu báo cáo.</p>
+  <p className="subtle">File được Python xử lý trên máy chủ nội bộ, không gửi ra dịch vụ bên ngoài. Việc chọn hoặc xem trước chưa thay đổi dữ liệu báo cáo.</p>
   <LocalFilePicker allowFolder maxCount={100} files={files} disabled={locked||busy} reason={reason} onChange={next=>{setFiles(next);setPreview(null);setError('')}}/>
   <Space wrap style={{marginTop:16}}><Button type="primary" loading={busy} disabled={locked||!files.length} onClick={inspect}>Kiểm tra & xem trước</Button><Button onClick={onTemplate}>Tải file mẫu Excel</Button></Space>
   {error&&<Alert style={{marginTop:16}} type="error" showIcon message="Chưa nhập file" description={error}/>}
