@@ -1,0 +1,843 @@
+{
+  "createdAt": "2026-11-15T08:58:27.801Z",
+  "scope": "ORDERING_VU",
+  "source": "synthetic seed only",
+  "checks": 104,
+  "passed": true,
+  "maxAbsoluteError": 0,
+  "limits": "Synthetic arithmetic and scope comparison only. Not a real hospital model accuracy benchmark; no claim of <0.05% error on real data.",
+  "results": [
+    {
+      "from": "2026-04-27",
+      "to": "2026-05-04",
+      "metric": "qty",
+      "expected": 56,
+      "actual": 56,
+      "pass": true
+    },
+    {
+      "from": "2026-04-27",
+      "to": "2026-05-04",
+      "metric": "gross",
+      "expected": 282440000,
+      "actual": 282440000,
+      "pass": true
+    },
+    {
+      "from": "2026-04-27",
+      "to": "2026-05-04",
+      "metric": "net",
+      "expected": 270170000,
+      "actual": 270170000,
+      "pass": true
+    },
+    {
+      "from": "2026-04-27",
+      "to": "2026-05-04",
+      "metric": "missing",
+      "expected": 3,
+      "actual": 3,
+      "pass": true
+    },
+    {
+      "from": "2026-05-04",
+      "to": "2026-05-11",
+      "metric": "qty",
+      "expected": 42,
+      "actual": 42,
+      "pass": true
+    },
+    {
+      "from": "2026-05-04",
+      "to": "2026-05-11",
+      "metric": "gross",
+      "expected": 60840000,
+      "actual": 60840000,
+      "pass": true
+    },
+    {
+      "from": "2026-05-04",
+      "to": "2026-05-11",
+      "metric": "net",
+      "expected": 40767000,
+      "actual": 40767000,
+      "pass": true
+    },
+    {
+      "from": "2026-05-04",
+      "to": "2026-05-11",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-05-11",
+      "to": "2026-05-18",
+      "metric": "qty",
+      "expected": 56,
+      "actual": 56,
+      "pass": true
+    },
+    {
+      "from": "2026-05-11",
+      "to": "2026-05-18",
+      "metric": "gross",
+      "expected": 90850000,
+      "actual": 90850000,
+      "pass": true
+    },
+    {
+      "from": "2026-05-11",
+      "to": "2026-05-18",
+      "metric": "net",
+      "expected": 76659500,
+      "actual": 76659500,
+      "pass": true
+    },
+    {
+      "from": "2026-05-11",
+      "to": "2026-05-18",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-05-18",
+      "to": "2026-05-25",
+      "metric": "qty",
+      "expected": 42,
+      "actual": 42,
+      "pass": true
+    },
+    {
+      "from": "2026-05-18",
+      "to": "2026-05-25",
+      "metric": "gross",
+      "expected": 51770000,
+      "actual": 51770000,
+      "pass": true
+    },
+    {
+      "from": "2026-05-18",
+      "to": "2026-05-25",
+      "metric": "net",
+      "expected": 47685500,
+      "actual": 47685500,
+      "pass": true
+    },
+    {
+      "from": "2026-05-18",
+      "to": "2026-05-25",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-05-25",
+      "to": "2026-06-01",
+      "metric": "qty",
+      "expected": 40,
+      "actual": 40,
+      "pass": true
+    },
+    {
+      "from": "2026-05-25",
+      "to": "2026-06-01",
+      "metric": "gross",
+      "expected": 106050000,
+      "actual": 106050000,
+      "pass": true
+    },
+    {
+      "from": "2026-05-25",
+      "to": "2026-06-01",
+      "metric": "net",
+      "expected": 100418500,
+      "actual": 100418500,
+      "pass": true
+    },
+    {
+      "from": "2026-05-25",
+      "to": "2026-06-01",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-06-08",
+      "metric": "qty",
+      "expected": 40,
+      "actual": 40,
+      "pass": true
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-06-08",
+      "metric": "gross",
+      "expected": 25400000,
+      "actual": 25400000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-06-08",
+      "metric": "net",
+      "expected": 23322000,
+      "actual": 23322000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-01",
+      "to": "2026-06-08",
+      "metric": "missing",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "from": "2026-06-08",
+      "to": "2026-06-15",
+      "metric": "qty",
+      "expected": 77,
+      "actual": 77,
+      "pass": true
+    },
+    {
+      "from": "2026-06-08",
+      "to": "2026-06-15",
+      "metric": "gross",
+      "expected": 205300000,
+      "actual": 205300000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-08",
+      "to": "2026-06-15",
+      "metric": "net",
+      "expected": 192794500,
+      "actual": 192794500,
+      "pass": true
+    },
+    {
+      "from": "2026-06-08",
+      "to": "2026-06-15",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-06-15",
+      "to": "2026-06-22",
+      "metric": "qty",
+      "expected": 56,
+      "actual": 56,
+      "pass": true
+    },
+    {
+      "from": "2026-06-15",
+      "to": "2026-06-22",
+      "metric": "gross",
+      "expected": 185770000,
+      "actual": 185770000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-15",
+      "to": "2026-06-22",
+      "metric": "net",
+      "expected": 165022000,
+      "actual": 165022000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-15",
+      "to": "2026-06-22",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-06-22",
+      "to": "2026-06-29",
+      "metric": "qty",
+      "expected": 61,
+      "actual": 61,
+      "pass": true
+    },
+    {
+      "from": "2026-06-22",
+      "to": "2026-06-29",
+      "metric": "gross",
+      "expected": 245220000,
+      "actual": 245220000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-22",
+      "to": "2026-06-29",
+      "metric": "net",
+      "expected": 219392500,
+      "actual": 219392500,
+      "pass": true
+    },
+    {
+      "from": "2026-06-22",
+      "to": "2026-06-29",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-06-29",
+      "to": "2026-07-06",
+      "metric": "qty",
+      "expected": 70,
+      "actual": 70,
+      "pass": true
+    },
+    {
+      "from": "2026-06-29",
+      "to": "2026-07-06",
+      "metric": "gross",
+      "expected": 75520000,
+      "actual": 75520000,
+      "pass": true
+    },
+    {
+      "from": "2026-06-29",
+      "to": "2026-07-06",
+      "metric": "net",
+      "expected": 70866500,
+      "actual": 70866500,
+      "pass": true
+    },
+    {
+      "from": "2026-06-29",
+      "to": "2026-07-06",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-07-06",
+      "to": "2026-07-13",
+      "metric": "qty",
+      "expected": 42,
+      "actual": 42,
+      "pass": true
+    },
+    {
+      "from": "2026-07-06",
+      "to": "2026-07-13",
+      "metric": "gross",
+      "expected": 79940000,
+      "actual": 79940000,
+      "pass": true
+    },
+    {
+      "from": "2026-07-06",
+      "to": "2026-07-13",
+      "metric": "net",
+      "expected": 74250500,
+      "actual": 74250500,
+      "pass": true
+    },
+    {
+      "from": "2026-07-06",
+      "to": "2026-07-13",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-07-13",
+      "to": "2026-07-20",
+      "metric": "qty",
+      "expected": 64,
+      "actual": 64,
+      "pass": true
+    },
+    {
+      "from": "2026-07-13",
+      "to": "2026-07-20",
+      "metric": "gross",
+      "expected": 132180000,
+      "actual": 132180000,
+      "pass": true
+    },
+    {
+      "from": "2026-07-13",
+      "to": "2026-07-20",
+      "metric": "net",
+      "expected": 92683500,
+      "actual": 92683500,
+      "pass": true
+    },
+    {
+      "from": "2026-07-13",
+      "to": "2026-07-20",
+      "metric": "missing",
+      "expected": 3,
+      "actual": 3,
+      "pass": true
+    },
+    {
+      "from": "2026-07-20",
+      "to": "2026-07-27",
+      "metric": "qty",
+      "expected": 40,
+      "actual": 40,
+      "pass": true
+    },
+    {
+      "from": "2026-07-20",
+      "to": "2026-07-27",
+      "metric": "gross",
+      "expected": 27830000,
+      "actual": 27830000,
+      "pass": true
+    },
+    {
+      "from": "2026-07-20",
+      "to": "2026-07-27",
+      "metric": "net",
+      "expected": 25692000,
+      "actual": 25692000,
+      "pass": true
+    },
+    {
+      "from": "2026-07-20",
+      "to": "2026-07-27",
+      "metric": "missing",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "from": "2026-07-27",
+      "to": "2026-08-03",
+      "metric": "qty",
+      "expected": 70,
+      "actual": 70,
+      "pass": true
+    },
+    {
+      "from": "2026-07-27",
+      "to": "2026-08-03",
+      "metric": "gross",
+      "expected": 228364000,
+      "actual": 228364000,
+      "pass": true
+    },
+    {
+      "from": "2026-07-27",
+      "to": "2026-08-03",
+      "metric": "net",
+      "expected": 210059700,
+      "actual": 210059700,
+      "pass": true
+    },
+    {
+      "from": "2026-07-27",
+      "to": "2026-08-03",
+      "metric": "missing",
+      "expected": 4,
+      "actual": 4,
+      "pass": true
+    },
+    {
+      "from": "2026-08-03",
+      "to": "2026-08-10",
+      "metric": "qty",
+      "expected": 63,
+      "actual": 63,
+      "pass": true
+    },
+    {
+      "from": "2026-08-03",
+      "to": "2026-08-10",
+      "metric": "gross",
+      "expected": 129422000,
+      "actual": 129422000,
+      "pass": true
+    },
+    {
+      "from": "2026-08-03",
+      "to": "2026-08-10",
+      "metric": "net",
+      "expected": 120586050,
+      "actual": 120586050,
+      "pass": true
+    },
+    {
+      "from": "2026-08-03",
+      "to": "2026-08-10",
+      "metric": "missing",
+      "expected": 4,
+      "actual": 4,
+      "pass": true
+    },
+    {
+      "from": "2026-08-10",
+      "to": "2026-08-17",
+      "metric": "qty",
+      "expected": 51,
+      "actual": 51,
+      "pass": true
+    },
+    {
+      "from": "2026-08-10",
+      "to": "2026-08-17",
+      "metric": "gross",
+      "expected": 96451000,
+      "actual": 96451000,
+      "pass": true
+    },
+    {
+      "from": "2026-08-10",
+      "to": "2026-08-17",
+      "metric": "net",
+      "expected": 91615200,
+      "actual": 91615200,
+      "pass": true
+    },
+    {
+      "from": "2026-08-10",
+      "to": "2026-08-17",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-08-17",
+      "to": "2026-08-24",
+      "metric": "qty",
+      "expected": 53,
+      "actual": 53,
+      "pass": true
+    },
+    {
+      "from": "2026-08-17",
+      "to": "2026-08-24",
+      "metric": "gross",
+      "expected": 268987000,
+      "actual": 268987000,
+      "pass": true
+    },
+    {
+      "from": "2026-08-17",
+      "to": "2026-08-24",
+      "metric": "net",
+      "expected": 236933650,
+      "actual": 236933650,
+      "pass": true
+    },
+    {
+      "from": "2026-08-17",
+      "to": "2026-08-24",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-08-24",
+      "to": "2026-08-31",
+      "metric": "qty",
+      "expected": 53,
+      "actual": 53,
+      "pass": true
+    },
+    {
+      "from": "2026-08-24",
+      "to": "2026-08-31",
+      "metric": "gross",
+      "expected": 105166000,
+      "actual": 105166000,
+      "pass": true
+    },
+    {
+      "from": "2026-08-24",
+      "to": "2026-08-31",
+      "metric": "net",
+      "expected": 101680700,
+      "actual": 101680700,
+      "pass": true
+    },
+    {
+      "from": "2026-08-24",
+      "to": "2026-08-31",
+      "metric": "missing",
+      "expected": 1,
+      "actual": 1,
+      "pass": true
+    },
+    {
+      "from": "2026-08-31",
+      "to": "2026-09-07",
+      "metric": "qty",
+      "expected": 50,
+      "actual": 50,
+      "pass": true
+    },
+    {
+      "from": "2026-08-31",
+      "to": "2026-09-07",
+      "metric": "gross",
+      "expected": 112935000,
+      "actual": 112935000,
+      "pass": true
+    },
+    {
+      "from": "2026-08-31",
+      "to": "2026-09-07",
+      "metric": "net",
+      "expected": 96540750,
+      "actual": 96540750,
+      "pass": true
+    },
+    {
+      "from": "2026-08-31",
+      "to": "2026-09-07",
+      "metric": "missing",
+      "expected": 3,
+      "actual": 3,
+      "pass": true
+    },
+    {
+      "from": "2026-09-07",
+      "to": "2026-09-14",
+      "metric": "qty",
+      "expected": 51,
+      "actual": 51,
+      "pass": true
+    },
+    {
+      "from": "2026-09-07",
+      "to": "2026-09-14",
+      "metric": "gross",
+      "expected": 181618000,
+      "actual": 181618000,
+      "pass": true
+    },
+    {
+      "from": "2026-09-07",
+      "to": "2026-09-14",
+      "metric": "net",
+      "expected": 162470950,
+      "actual": 162470950,
+      "pass": true
+    },
+    {
+      "from": "2026-09-07",
+      "to": "2026-09-14",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-09-14",
+      "to": "2026-09-21",
+      "metric": "qty",
+      "expected": 80,
+      "actual": 80,
+      "pass": true
+    },
+    {
+      "from": "2026-09-14",
+      "to": "2026-09-21",
+      "metric": "gross",
+      "expected": 139751000,
+      "actual": 139751000,
+      "pass": true
+    },
+    {
+      "from": "2026-09-14",
+      "to": "2026-09-21",
+      "metric": "net",
+      "expected": 131838450,
+      "actual": 131838450,
+      "pass": true
+    },
+    {
+      "from": "2026-09-14",
+      "to": "2026-09-21",
+      "metric": "missing",
+      "expected": 3,
+      "actual": 3,
+      "pass": true
+    },
+    {
+      "from": "2026-09-21",
+      "to": "2026-09-28",
+      "metric": "qty",
+      "expected": 56,
+      "actual": 56,
+      "pass": true
+    },
+    {
+      "from": "2026-09-21",
+      "to": "2026-09-28",
+      "metric": "gross",
+      "expected": 46597000,
+      "actual": 46597000,
+      "pass": true
+    },
+    {
+      "from": "2026-09-21",
+      "to": "2026-09-28",
+      "metric": "net",
+      "expected": 41504400,
+      "actual": 41504400,
+      "pass": true
+    },
+    {
+      "from": "2026-09-21",
+      "to": "2026-09-28",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-09-28",
+      "to": "2026-10-05",
+      "metric": "qty",
+      "expected": 52,
+      "actual": 52,
+      "pass": true
+    },
+    {
+      "from": "2026-09-28",
+      "to": "2026-10-05",
+      "metric": "gross",
+      "expected": 53036000,
+      "actual": 53036000,
+      "pass": true
+    },
+    {
+      "from": "2026-09-28",
+      "to": "2026-10-05",
+      "metric": "net",
+      "expected": 46257150,
+      "actual": 46257150,
+      "pass": true
+    },
+    {
+      "from": "2026-09-28",
+      "to": "2026-10-05",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-10-05",
+      "to": "2026-10-12",
+      "metric": "qty",
+      "expected": 51,
+      "actual": 51,
+      "pass": true
+    },
+    {
+      "from": "2026-10-05",
+      "to": "2026-10-12",
+      "metric": "gross",
+      "expected": 208930000,
+      "actual": 208930000,
+      "pass": true
+    },
+    {
+      "from": "2026-10-05",
+      "to": "2026-10-12",
+      "metric": "net",
+      "expected": 191463700,
+      "actual": 191463700,
+      "pass": true
+    },
+    {
+      "from": "2026-10-05",
+      "to": "2026-10-12",
+      "metric": "missing",
+      "expected": 4,
+      "actual": 4,
+      "pass": true
+    },
+    {
+      "from": "2026-10-12",
+      "to": "2026-10-19",
+      "metric": "qty",
+      "expected": 51,
+      "actual": 51,
+      "pass": true
+    },
+    {
+      "from": "2026-10-12",
+      "to": "2026-10-19",
+      "metric": "gross",
+      "expected": 207281000,
+      "actual": 207281000,
+      "pass": true
+    },
+    {
+      "from": "2026-10-12",
+      "to": "2026-10-19",
+      "metric": "net",
+      "expected": 137909150,
+      "actual": 137909150,
+      "pass": true
+    },
+    {
+      "from": "2026-10-12",
+      "to": "2026-10-19",
+      "metric": "missing",
+      "expected": 2,
+      "actual": 2,
+      "pass": true
+    },
+    {
+      "from": "2026-10-19",
+      "to": "2026-10-26",
+      "metric": "qty",
+      "expected": 33,
+      "actual": 33,
+      "pass": true
+    },
+    {
+      "from": "2026-10-19",
+      "to": "2026-10-26",
+      "metric": "gross",
+      "expected": 127375000,
+      "actual": 127375000,
+      "pass": true
+    },
+    {
+      "from": "2026-10-19",
+      "to": "2026-10-26",
+      "metric": "net",
+      "expected": 109521500,
+      "actual": 109521500,
+      "pass": true
+    },
+    {
+      "from": "2026-10-19",
+      "to": "2026-10-26",
+      "metric": "missing",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    }
+  ]
+}

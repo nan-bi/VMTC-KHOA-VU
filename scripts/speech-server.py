@@ -1,0 +1,99 @@
+"""Loopback-only STT. Audio stays in memory; no patient identifiers accepted."""
+import io
+import json
+import os
+import secrets
+import threading
+import time
+import wave
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
+
+os.environ['HF_HUB_OFFLINE'] = '1'
+os.environ['TRANSFORMERS_OFFLINE'] = '1'
+from faster_whisper import WhisperModel
+
+ROOT = Path(__file__).resolve().parents[1]
+MODEL_PATH = ROOT / 'speech-models' / 'phowhisper-base-int8'
+KEY = os.environ['VU_VOICE_KEY']
+LOCK = threading.Lock()
+state = {'ready': False, 'model': 'PhoWhisper-base · INT8 · CPU', 'error': ''}
+model = None
+
+def load_model():
+    global model
+    try:
+        model = WhisperModel(str(MODEL_PATH), device='cpu', compute_type='int8',
+                             cpu_threads=4, num_workers=1, local_files_only=True)
+        state['ready'] = True
+        print('PhoWhisper-base INT8 ready (offline)', flush=True)
+    except Exception:
+        state['error'] = 'Chưa nạp được model. Chạy CAI-DAT-SPEECH.cmd rồi mở lại.'
+
+def transcribe(data):
+    # Only PCM WAV created by our client: mono, 16 kHz, at most 30 seconds.
+    with wave.open(io.BytesIO(data), 'rb') as audio:
+        if (audio.getnchannels(), audio.getsampwidth(), audio.getframerate()) != (1, 2, 16000):
+            raise ValueError('Expected mono PCM16 16kHz')
+        if not 0 < audio.getnframes() <= 30 * 16000:
+            raise ValueError('Audio duration out of range')
+    started = time.perf_counter()
+    segments, _ = model.transcribe(io.BytesIO(data), language='vi', task='transcribe',
+        beam_size=1, temperature=0, condition_on_previous_text=False,
+        vad_filter=True, vad_parameters={'min_silence_duration_ms': 700},
+        hallucination_silence_threshold=2)
+    text = ' '.join(s.text.strip() for s in segments).strip()
+    return {'text': text, 'seconds': round(time.perf_counter() - started, 3)}
+
+class Handler(BaseHTTPRequestHandler):
+    def log_message(self, *_):
+        pass  # No request/audio/transcript logs.
+
+    def reply(self, status, payload):
+        body = json.dumps(payload, ensure_ascii=False).encode('utf-8')
+        self.send_response(status)
+        self.send_header('Content-Type', 'application/json; charset=utf-8')
+        self.send_header('Cache-Control', 'no-store')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def authorized(self):
+        return secrets.compare_digest(self.headers.get('X-Vu-Key', ''), KEY)
+
+    def do_GET(self):
+        if not self.authorized():
+            return self.reply(403, {'error': 'Forbidden'})
+        if self.path != '/health':
+            return self.reply(404, {'error': 'Not found'})
+        self.reply(200, state)
+
+    def do_POST(self):
+        if not self.authorized():
+            return self.reply(403, {'error': 'Forbidden'})
+        if self.path != '/transcribe':
+            return self.reply(404, {'error': 'Not found'})
+        if not state['ready']:
+            return self.reply(503, {'error': state['error'] or 'Model đang khởi động. Thử lại sau.'})
+        try:
+            length = int(self.headers.get('Content-Length', '0'))
+        except ValueError:
+            return self.reply(400, {'error': 'Invalid length'})
+        if not 44 < length <= 960044:
+            return self.reply(413, {'error': 'Audio quá dài.'})
+        if not LOCK.acquire(blocking=False):
+            return self.reply(429, {'error': 'Máy đang chép ở tab khác. Đợi rồi thử lại.'})
+        try:
+            self.connection.settimeout(20)
+            result = transcribe(self.rfile.read(length))
+            self.reply(200, result)
+        except (ValueError, wave.Error, EOFError):
+            self.reply(400, {'error': 'Đoạn âm thanh không hợp lệ.'})
+        except Exception:
+            self.reply(500, {'error': 'Chưa chép được đoạn âm thanh. Hãy thử lại.'})
+        finally:
+            LOCK.release()
+
+if __name__ == '__main__':
+    threading.Thread(target=load_model, daemon=True).start()
+    ThreadingHTTPServer(('127.0.0.1', 4181), Handler).serve_forever()

@@ -1,0 +1,26 @@
+{
+  "createdAt": "2026-11-15T09:03:38.104Z",
+  "tests": {
+    "command": "npm test",
+    "passed": 193,
+    "failed": 0
+  },
+  "syntheticReference": {
+    "comparisons": 182,
+    "passed": true
+  },
+  "orderingScopeReference": {
+    "comparisons": 104,
+    "passed": true
+  },
+  "browser": {
+    "folderFiles": 3,
+    "duplicateFilesSkipped": 1,
+    "newRows": 4,
+    "orderingVu": 2,
+    "outsideScope": 1,
+    "pending": 1,
+    "committed": false
+  },
+  "limits": "No independent real hospital gold data; <0.05% error on real data not established."
+}

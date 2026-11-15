@@ -10,3 +10,32 @@ backend/data/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+.speech-venv/
+.speech-cache/
+speech-models/
+speech-training/audio/
+speech-training/manifest-*.csv
+!speech-training/manifest-mau.csv
+.speech-test-venv/
+speech-test-data/audio/
+
+# Local patient speech database
+speech-data/*.sqlite*
+
+# Local secrets, handoff and workstation artifacts
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+/AGENTS.md
+/AI_HANDOFF.md
+/docs/*.zip
+/docs/dashboard-*.jpg
+/docs/vu-voice-*.png
+/docs/vu-voice-*.jpg
+# Raw speech captures and personal training exports
+speech-training/*.wav
+speech-training/*.webm
+speech-training/*.mp3
+speech-training/*.jsonl

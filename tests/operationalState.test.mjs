@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {createBackend} from '../backend/server.mjs';
+import {getWorkspace} from '../backend/workspace.mjs';
+import {emptyWorkspace,initialDateRange} from '../src/features/reports/operationalState.mjs';
+test('operational workspace starts empty and uses current or latest source date',()=>{const a=emptyWorkspace(),b=emptyWorkspace();a.rows.push({});assert.equal(b.rows.length,0);assert.deepEqual(initialDateRange([],'2026-11-15'),['2026-11-15','2026-11-15']);assert.deepEqual(initialDateRange([{completed_at:'2026-10-24T12:00:00+07:00'},{completed_at:'2026-10-25T09:00:00+07:00'},{completed_at:'2027-01-01'}],'2026-11-15'),['2026-10-25','2026-10-25']);});
+test('new backend never inserts example rows; reopening retains its existing workspace',async()=>{const folder=await fs.mkdtemp(path.join(os.tmpdir(),'vu-operational-'));const databasePath=path.join(folder,'test.sqlite');let app;try{app=await createBackend({databasePath});const state=getWorkspace(app.db);assert.equal(state.rows.length,0);assert.deepEqual(state.imports,[]);await app.close();app=null;const reopen=await createBackend({databasePath,initialState:{...emptyWorkspace(),rows:[{source_file:'do-not-insert'}]}});app=reopen;assert.equal(getWorkspace(app.db).rows.length,0);}finally{if(app)await app.close();await fs.rm(folder,{recursive:true,force:true});}});

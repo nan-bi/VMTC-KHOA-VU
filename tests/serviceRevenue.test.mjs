@@ -35,8 +35,8 @@ test('Cancelled, uncompleted and out-of-snapshot rows are excluded; zero price i
  const free=revenueCalculation([row],{...config,rates:{[row.service_code]:{RETAIL:0}}});assert.equal(free.lines[0].revenue,0);assert.equal(free.missingRecords,0);
 });
 test('Snapshot freezes rates and revenue; invalid rates and overflow do not silently become zero',()=>{
- const snapshot=serviceRevenueSnapshot(demo.rows,config);const changed=structuredClone(config);changed.rates={'SYN-DV008':{RETAIL:1}};assert.equal(snapshot.knownRevenue,63000000);
- assert.notEqual(serviceRevenueSnapshot(demo.rows,changed).knownRevenue,snapshot.knownRevenue);assert.equal(snapshot.configuration.rates,undefined);
+ const snapshot=serviceRevenueSnapshot(demo.rows,config,'VU');const changed=structuredClone(config);changed.rates={'SYN-DV008':{RETAIL:1}};assert.equal(snapshot.knownRevenue,63000000);
+ assert.notEqual(serviceRevenueSnapshot(demo.rows,changed,'VU').knownRevenue,snapshot.knownRevenue);assert.equal(snapshot.configuration.rates,undefined);
  for(const rates of [{x:{UNKNOWN:1}},{x:{RETAIL:-1}},{x:{RETAIL:1.2}},[],{x:{RETAIL:Infinity}}])assert.throws(()=>validateRates(rates));
  const overflow={...config,rates:{'SYN-DV008':{RETAIL:Number.MAX_SAFE_INTEGER}}};assert.match(serviceCalculation(demo.rows,overflow).revenue.error,/giới hạn/);assert.throws(()=>serviceRevenueSnapshot(demo.rows,overflow),/giới hạn/);
 });

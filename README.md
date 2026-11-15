@@ -1,140 +1,146 @@
-# VinMec · Dashboard Khoa Vú chạy local
+# Dashboard Khoa Vú · VMTC-KHOA-VU
 
-Đã có [backend nội bộ Node.js + SQLite](backend/README.md), không gọi dịch vụ ngoài. Chạy **TAO-TAI-KHOAN.cmd** để tạo tài khoản admin, sau đó **CHAY-BACKEND.cmd** và mở **http://127.0.0.1:4180/**. Kho backend độc lập với dữ liệu trình duyệt ở cổng 4173.
+Dashboard nội bộ để nhập và đối soát dịch vụ, tính doanh thu theo phạm vi Khoa Vú, lập báo cáo giao ban và chép lời đọc kết quả siêu âm. Giao diện hồng phấn và trắng; xử lý local, không cần khóa API AI.
 
-Phạm vi hiện tại bám [báo cáo tuần 2 TC14](docs/17-PHAM-VI-BAO-CAO-TUAN.md): nhập nguồn → quy tắc → đối soát → tổng hợp → chốt → xuất Excel/PowerPoint từ cùng snapshot. Đã ẩn giao diện model, hỏi đáp và KPI lâm sàng; phân loại liên khoa chỉ là bảng tài chính trong Chi tiết số liệu. Quy tắc bảo hiểm, nội trú chuyển kỳ, IVF và giá còn chờ khoa xác nhận.
+**Bản hiện tại: v8 · cập nhật 15/11/2026.** Mã nguồn đang dùng nằm ngay tại thư mục gốc repository. `prototype-local-v8/` là bản lịch sử, không phải nơi chạy hoặc phát triển bản hiện tại.
 
-Toàn bộ mã nguồn React + Ant Design + Vite của dashboard, kèm bản build chạy sẵn. Đây là ứng dụng demo với dữ liệu giả lập; không cần tài khoản dịch vụ hay khóa API.
+## Chức năng
 
-Bản v8 có **Kho dữ liệu & biểu đồ**: mở 7 bảng có sẵn, chỉnh từng dòng có lý do và lịch sử, chọn cột, lọc ngày, xem biểu đồ và xuất Excel từ cùng dữ liệu đã lưu. Xem [hướng dẫn kho dữ liệu](docs/15-KHO-DU-LIEU-VA-BIEU-DO.md). Dữ liệu lưu trên trình duyệt local, không tự ghi đè Excel gốc.
+- **Tổng quan, chi tiết và biểu đồ:** lọc theo ngày/khoảng ngày, xem số lượng và giá trị dịch vụ, chọn cột, truy nguồn từng dòng, sửa có lý do và lưu lịch sử.
+- **Nhập Excel/CSV hoặc thư mục:** đọc nhiều sheet, xem trước rồi xác nhận nhập; loại file trùng bằng SHA-256, đối chiếu dòng và cách ly dữ liệu nghi trùng hoặc thiếu căn cứ. Bảng đã nhập được lưu để tiếp tục chỉnh trên dashboard.
+- **AI phân loại doanh thu local:** học từ cặp khoa chỉ định/khoa thực hiện đã được xác nhận. Phạm vi báo cáo là **dịch vụ do Khoa Vú chỉ định, kể cả khoa khác thực hiện**. Nhãn chưa rõ phải đối soát; không tự tính tiền theo tên file.
+- **Bóc tách dịch vụ/gói:** khám, siêu âm, X-quang 2D/3D; SKTQ, SLUT 1, SLUT 2 và CK/lẻ có giá riêng cấu hình trên dashboard.
+- **Báo cáo:** đối soát, chốt snapshot, tạo/gửi/duyệt báo cáo, xuất Excel theo mẫu và PowerPoint từ cùng nguồn đã chốt; có lịch sử thao tác.
+- **Đọc kết quả siêu âm:** bấm Bắt đầu để thu micro và hiện chữ trong lúc đang đọc; Dừng để chép nốt, soát/sửa và hoàn thành ca. Có nháp tự lưu, xem kết quả theo ngày và xác nhận kiểm tra nội dung.
 
-Bổ sung [bóc tách dịch vụ/combo](docs/16-BOC-TACH-DICH-VU-COMBO.md): thêm 170 dòng giả lập (4 nguồn), khám/siêu âm/XQ 2D–3D riêng, tách SKTQ–SLUT 1–SLUT 2–CK/lẻ và sửa giá/phân bổ trên dashboard. Đã bỏ trường mã chỉ định HIS và mục Tiếp đón & phòng khám khỏi giao diện.
+Kho mới bắt đầu trống. Dữ liệu và giá tham khảo đi kèm mã nguồn là dữ liệu kiểm thử, không phải dữ liệu hoặc bảng giá đã được bệnh viện xác nhận.
 
-Mã nguồn giai đoạn mở rộng (không hiển thị trong luồng báo cáo hiện tại): bản v6 bổ sung 200 hành trình liên khoa khép kín, ba bảng CSV, truy vết TAT và dữ liệu JSONL chuẩn bị model. Xem [hướng dẫn hành trình liên khoa](docs/11-HANH-TRINH-LIEN-KHOA-KHEP-KIN.md). Các chức năng Excel / PowerPoint của v5 vẫn có sẵn.
+## Cài từ GitHub
 
-Mã nguồn giai đoạn mở rộng: bản v7 bổ sung [MASTER Audit local](docs/12-MASTER-AUDIT-LOCAL.md): xuất JSON theo hợp đồng thống nhất, cảnh báo TAT có bằng chứng và ghi chú truy vết. Vẫn chạy local, chưa gọi API AI.
+Yêu cầu **Node.js 22.14 trở lên**, npm; **Python 3.12** nếu dùng speech. Dùng Chrome/Edge tại địa chỉ local để cấp quyền micro. Internet cần cho lần cài thư viện/model; sau khi cài đủ, xử lý dữ liệu và nhận giọng nói chạy trên máy.
 
-## 1. Chạy ngay bản demo
-
-1. Cài **Node.js LTS 22 hoặc mới hơn** từ https://nodejs.org/ nếu máy chưa có.
-2. Giải nén toàn bộ gói ZIP vào một thư mục trên máy. Không chạy file trực tiếp bên trong ZIP.
-3. Trên Windows, mở **CHAY-DEMO.cmd**.
-4. Giữ cửa sổ lệnh đang chạy và mở **http://127.0.0.1:4173/** trong Chrome hoặc Edge.
-5. Dừng bằng `Ctrl+C` trong cửa sổ lệnh.
-
-Cách này dùng `dist/` có sẵn, không cần `npm install`, không cần Internet sau khi đã có Node.js. Đừng mở `index.html` bằng cách nhấp đúp: ứng dụng cần địa chỉ HTTP local.
-
-macOS / Linux hoặc chạy bằng Terminal:
-
-```sh
-node scripts/serve-dist.mjs
-```
-
-## 2. Cài đặt để chỉnh sửa code
-
-Windows: mở **CAI-DAT.cmd** một lần khi có Internet, sau đó mở **CHAY-CODE.cmd**. Máy chủ phát triển ở **http://127.0.0.1:5173/**. Lần cài đầu cần truy cập npm registry và CDN chính thức của SheetJS.
-
-Hoặc mở Terminal tại thư mục chứa `package.json`:
-
-```sh
+```powershell
+git clone https://github.com/nan-bi/VMTC-KHOA-VU.git
+cd VMTC-KHOA-VU
 npm ci
-npm run dev
-```
-
-Sau khi sửa code:
-
-```sh
-npm test
-npm run audit
 npm run build
-npm start
 ```
 
-`npm run build` cập nhật `dist/`. `npm start` mở máy chủ cho bản build tại cổng 4173. Nếu bản demo cũ đang chạy, dừng nó trước khi chạy `npm start`.
+Git không đóng gói `dist/`, `node_modules/`, model hoặc môi trường Python. **Phải build sau khi clone**; không mở `index.html` bằng cách nhấp đúp.
 
-## 3. Các phần của mã nguồn
+### Chạy dashboard
+
+```powershell
+node backend/manage.mjs create-user
+npm run backend
+```
+
+Mở **http://127.0.0.1:4180/**. Khi tạo tài khoản quản trị, chọn vai trò admin và mật khẩu từ 12 ký tự. Tài khoản/mật khẩu trên máy phát triển không nằm trong Git; bản clone không có tài khoản đăng nhập đóng gói sẵn.
+
+Trên Windows có thể mở `TAO-TAI-KHOAN.cmd`, rồi `CHAY-BACKEND.cmd`. Giữ cửa sổ chạy mở trong lúc sử dụng.
+
+### Chạy dashboard và speech cùng nhau
+
+1. Cài thư viện, build và tạo tài khoản theo các bước trên.
+2. Mở **CAI-DAT-SPEECH.cmd** một lần để tạo môi trường, tải và chuyển PhoWhisper-base sang INT8 CPU. Cần Python 3.12 và Internet.
+3. Mở **CHAY-DASHBOARD-SPEECH.cmd**.
+4. Đăng nhập **http://127.0.0.1:4180/** rồi chọn **Đọc kết quả siêu âm**.
+
+| Cổng | Thành phần | Chức năng |
+|---|---|---|
+| 4180 | Dashboard + Node.js/SQLite | Đăng nhập, kho nguồn, quy tắc, đối soát và báo cáo |
+| 4173 | Trang speech nhúng + proxy loopback | Thu micro, bản chép và kho ca trình duyệt |
+| 4181 | PhoWhisper local | Nhận dạng WAV trong bộ nhớ |
+
+Dừng bằng Ctrl+C. Nếu cổng đã được dùng, đóng đúng cửa sổ chạy cũ; launcher không tự dừng ứng dụng khác. `CHAY-SPEECH.cmd` chạy riêng speech tại **http://127.0.0.1:4173/speech.html**.
+
+`CHAY-DEMO.cmd` và frontend ở cổng 4173 là chế độ lịch sử; dùng backend 4180 khi cần kho dữ liệu và quyền tài khoản của dashboard.
+
+## Cách tính dịch vụ và doanh thu
+
+Chỉ lấy dòng đủ điều kiện nghiệp vụ trong kỳ, theo phạm vi khoa đã xác nhận. Giá trị cơ bản là **số lượng × đơn giá đã cấu hình**. Thiếu giá, phân bổ gói hoặc giảm giá chưa rõ phải được thể hiện để đối soát.
+
+- **SLUT 1:** khám + siêu âm.
+- **SLUT 2:** khám + X-quang + siêu âm.
+- **Siêu âm CK/lẻ:** tổng siêu âm − siêu âm SKTQ − siêu âm trong combo.
+- **X-quang:** tách riêng 2D và 3D, rồi bóc tách lượng SKTQ/combo tương ứng.
+- **Khám chuẩn tại khoa:** tổng lượt khám − khám SLUT 1 − khám SLUT 2; các quy tắc khác chỉ áp dụng khi có cấu hình và dữ liệu xác nhận.
+
+Mỗi thành phần SKTQ/combo/lẻ dùng đúng giá của thành phần đó. Không cộng trùng cả giá gói và phần đã phân bổ. Giá trị chỉ định và giá trị thực hiện là hai cách nhìn, không cộng hai tổng thành doanh thu mới. Số liệu chưa phải đối soát tiền thực thu từ HIS/kế toán.
+
+## Nơi lưu dữ liệu
+
+| Nội dung | Nơi lưu | Đưa lên Git? |
+|---|---|---|
+| Nguồn, chỉnh sửa, cấu hình, báo cáo và tài khoản dashboard | SQLite trong `backend/data/` | Không |
+| Ca, bản nháp và xác nhận kiểm tra speech | IndexedDB tại origin `http://127.0.0.1:4173` | Không |
+| Âm thanh khi nhận dạng | Bộ nhớ tạm trong lúc xử lý | Không lưu tệp ca |
+| Model và môi trường speech | `speech-models/`, `.speech-venv/` | Không; cài riêng |
+| Nguồn tổng hợp và fixtures kiểm thử | `data_gialap/`, fixtures | Có, không chứa ca thật |
+
+Speech tự lưu **bản chép đã chốt** và thông tin ca. Đoạn nhận dạng tạm còn có thể đổi; chờ báo đã lưu nháp trước khi đóng trang. Ca thiếu thông tin vẫn giữ dạng nháp, cần đủ định danh trước khi hoàn thành. Xem lại tại **Kết quả**, lọc **Từ ngày/Đến ngày**, không cần chọn thư mục hoặc xuất file.
+
+Nút **Bật lưu bền vững** yêu cầu Storage API; chỉ báo đã bật khi trình duyệt cấp. Khi chưa cấp, IndexedDB vẫn giữ qua lần mở lại nhưng có thể bị thu hồi khi thiếu dung lượng. Dùng cùng trình duyệt/hồ sơ/thiết bị và đúng địa chỉ; xóa dữ liệu trang, dùng ẩn danh, gỡ trình duyệt hoặc hỏng thiết bị có thể mất dữ liệu. Kho speech chưa đồng bộ nhiều máy và chưa dùng phân quyền tài khoản của backend. Thư mục `speech-data/` và mã API liên quan là phần lưu trước đó; giao diện hiện tại không tự chuyển ca vào đó.
+
+## Giới hạn nhập nguồn
+
+- 100 MB/file; tối đa 100 file khi chọn thư mục, tổng 500 MB/lần.
+- 100.000 dòng/sheet, mỗi lần nhập và toàn kho nguồn.
+- Backend nhận trạng thái JSON tối đa 256 MB; kích thước Excel nén không tương đương dữ liệu sau đọc.
+
+Vượt giới hạn được báo rõ, không tự cắt bản ghi rồi tính như đã đủ.
+
+## Công nghệ và cấu trúc
+
+React 18, Ant Design 5, Vite 6; Node.js 22 và SQLite tích hợp; SheetJS, PptxGenJS; Python, faster-whisper và PhoWhisper-base INT8 CPU. AI tài chính học local từ nhãn xác nhận, không gọi OpenAI/Gemini. Cài đặt ban đầu tải thư viện/model công khai; không gửi dữ liệu nghiệp vụ đến các nguồn tải này.
 
 ```text
-VinMec-KhoaVu-Local/
-├── CHAY-DEMO.cmd             Chạy bản build sẵn
-├── CAI-DAT.cmd               Cài thư viện để phát triển
-├── CHAY-CODE.cmd             Chạy Vite để chỉnh sửa
-├── package.json              Lệnh chạy và thư viện
-├── package-lock.json         Phiên bản thư viện đã khóa
-├── index.html                Trang HTML khởi đầu
-├── vite.config.js            Cấu hình build
-├── src/
-│   ├── main.jsx              Khung ứng dụng, menu, màn hình báo cáo
-│   ├── components/
-│   │   └── DateControls.jsx  Chọn ngày / khoảng ngày / trước-sau
-│   ├── data/
-│   │   └── seed.json         2.700 chỉ định, danh mục 87 dịch vụ giả lập
-│   ├── styles/
-│   │   └── global.css        Giao diện toàn ứng dụng
-│   └── features/
-│       ├── patients/
-│       │   ├── PatientWorkspace.jsx  Giao diện tiếp đón và các phòng
-│       │   ├── patientFlow.mjs       Quy tắc chuyển phiếu, trả kết quả
-│       │   └── patientFlow.css       Giao diện luồng phòng
-│       ├── access/
-│       │   └── roomAccess.mjs        Tài khoản mẫu, phạm vi xem/thao tác
-│       ├── attachments/
-│       │   └── attachmentStore.mjs   Lưu/tải file bằng IndexedDB
-│       └── reports/
-│           └── core.mjs             Kiểm tra, chống trùng, tổng hợp báo cáo
-├── scripts/
-│   └── serve-dist.mjs        Máy chủ local, chỉ dùng thư viện có sẵn của Node
-├── tests/                   52 kiểm thử nghiệp vụ, dữ liệu, lưu trữ và phạm vi vai trò
-├── docs/                    Hướng dẫn theo từng mục
-└── dist/                    Bản build sẵn, tạo lại bằng npm run build
+src/                    Giao diện và quy tắc nghiệp vụ hiện tại
+  features/reports/     Doanh thu, đối soát, xuất báo cáo
+  features/intelligence/  Nhập nguồn và phân loại local
+  features/speech/      Thu giọng, chép và lưu ca trình duyệt
+backend/                Đăng nhập, SQLite và phân quyền báo cáo
+scripts/                Launcher, cài model và công cụ kiểm chứng
+tests/                  Kiểm thử tự động
+docs/                   Hướng dẫn và tài liệu lịch sử
+data_gialap/            Nguồn tổng hợp dùng kiểm thử
+speech-training/        Mẫu nhãn/từ điển và chuẩn bị dữ liệu
+speech-test-data/       Mô tả, nhãn và kết quả thử tổng hợp
 ```
 
-## 4. Tài liệu theo từng mục
+Thư mục chuẩn bị huấn luyện không có nghĩa model đã học từ ca thật. Không tự dùng bản ghi bệnh nhân để huấn luyện.
 
-- [01 · Cài đặt và xử lý lỗi local](docs/01-CAI-DAT-LOCAL.md)
-- [02 · Chức năng và vị trí sửa code](docs/02-CAU-TRUC-CHUC-NANG.md)
-- [03 · Luồng liên thông các phòng](docs/03-LUONG-PHONG.md)
-- [04 · Tài khoản và kịch bản demo](docs/04-TAI-KHOAN-DEMO.md)
-- [05 · Lưu dữ liệu và giới hạn triển khai](docs/05-DU-LIEU-VA-TRIEN-KHAI.md)
+## Phát triển và kiểm chứng
 
-- [06 · Báo cáo kiểm tra và bằng chứng đối chiếu](docs/06-BAO-CAO-KIEM-TRA.md)
+```powershell
+npm run dev             # Frontend: 127.0.0.1:5173
+npm test                # Kiểm thử Node
+npm run audit           # Đối chiếu bộ mẫu báo cáo
+npm run build           # Tạo/cập nhật dist
+```
 
-## 5. Phạm vi bàn giao
+Khi đã cài và chạy model local, có thể kiểm tra API và streaming bằng âm thanh tổng hợp:
 
-Đầy đủ mã nguồn của **dashboard hiện tại**: tiếp nhận, đánh giá ban đầu, 4 phòng khám, 3 phòng siêu âm, XQ vú, tư vấn can thiệp, can thiệp, hồi tỉnh; file đính kèm; báo cáo, nhập Excel/CSV, đối soát, xuất Excel/in PDF.
+```powershell
+node scripts/check-speech-api.mjs
+node scripts/check-speech-stream.mjs
+```
 
-Vai trò là mô phỏng trên trình duyệt. Chưa có backend, đăng nhập thật, phân quyền máy chủ hay dữ liệu chung giữa các máy. Chỉ sử dụng dữ liệu mẫu. Gói không chứa `node_modules`, lịch sử Git, cấu hình tài khoản hosting, khóa bí mật hoặc dữ liệu đã nhập trong trình duyệt.
+WAV, ZIP, cache và model không được đóng gói trong Git. Công cụ sinh/đánh giá nằm trong `scripts/`; nguồn và điều kiện thử ở [speech-test-data/NGUON.md](speech-test-data/NGUON.md). Script stream cần `speech-test-data/audio/GIA-001-sach.wav` có trên máy, không tự tải âm thanh bệnh nhân.
 
-## Bản kiểm tra 30/10/2026
+Kiểm chứng gần nhất: **209 kiểm thử Node đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
 
-52 kiểm thử tự động, 200 kịch bản chuyển phòng và 40 khách đan xen. `npm run audit` đối chiếu 182 giá trị trong 26 kỳ: sai số quan sát 0% trên dữ liệu mẫu. Không suy rộng kết quả này sang dữ liệu bệnh viện thực tế. Chi tiết, lỗi đã sửa và giới hạn xem tài liệu 06.
+SHA256SUMS.txt đối chiếu nội dung mã nguồn đã lưu trong Git, không bao gồm bản build hoặc dữ liệu local. Trên Windows, chuyển đổi LF/CRLF khi checkout có thể làm hash tệp trên đĩa khác hash nội dung Git.
 
-Các mô-đun bổ sung: `shared/dataRules.mjs` (ngày, mã, số tiền), `patients/flowIntegrity.mjs` (toàn vẹn liên kết), `patients/flowStore.mjs` và `reports/reportStore.mjs` (khóa ghi/phiên bản), `reports/importRows.mjs` (chuẩn hóa đầu vào).
+## Phạm vi sử dụng và tài liệu
 
-## Phát triển liên khoa và model ngày 31/10/2026
+Chưa kết nối HIS/EMR, chữ ký bác sĩ, đồng bộ ca speech nhiều máy hoặc đối soát thực thu. Chưa có tập chuẩn bệnh viện để xác nhận sai số dưới 0,05%. Speech còn lỗi nhận dạng; cần người có chuyên môn kiểm tra bên vú, từ phủ định, số đo/đơn vị và BI-RADS trước khi sử dụng.
 
-Menu **Liên khoa & dữ liệu model** có nhập nhiều Excel/CSV, phân loại 4 nhóm địa bàn, đối soát từng dòng, hai góc nhìn tài chính và gán nhãn xuất JSONL. Code bổ sung ở src/features/intelligence/; prompt và model baseline Python ở model/. Hướng dẫn đầy đủ xem [07 · Liên khoa và model](docs/07-LIEN-KHOA-VA-MODEL.md).
+- [Vận hành nội bộ và lưu ca trình duyệt](docs/20-VAN-HANH-NOI-BO.md)
+- [Dashboard và speech tích hợp](docs/19-DASHBOARD-SPEECH.md)
+- [Speech-to-text siêu âm](docs/18-SPEECH-TO-TEXT-SIEU-AM-VU.md)
+- [AI phân loại doanh thu local](docs/AI-DOANH-THU-LOCAL.md)
+- [Backend và phân quyền](backend/README.md)
+- [Bóc tách dịch vụ/combo](docs/16-BOC-TACH-DICH-VU-COMBO.md)
 
-Kiểm tra hiện tại: 82 test JavaScript (`npm test`) và 5 test Python (`python -m unittest discover -s tests -p test_model_baseline.py`). Cần Python 3.10+ chỉ khi chạy pipeline model. Model demo chưa được dùng trong vận hành; không gửi dữ liệu tới API bên ngoài.
-
-## Xuất doanh thu thành PowerPoint và Excel
-
-Menu **Liên khoa & dữ liệu model → Xuất kết quả đã tính** có hai nút xuất `.xlsx` đầy đủ 10 sheet và `.pptx` với bảng chỉnh sửa được. Hai file dùng chung snapshot, kỳ, mã bộ xuất và SHA-256. Tách doanh thu chỉ định, thực hiện và cơ chế gói; giữ dữ liệu nguồn và ngoại lệ để đối chiếu. Xem [08 · Xuất PowerPoint và Excel](docs/08-XUAT-POWERPOINT-EXCEL.md).
-
-## Trợ lý truy vết local đa file
-
-Trợ lý nằm ngay dưới vùng nạp file tại menu **Liên khoa & dữ liệu model**. Giữ tên file, sheet, dòng gốc, SHA-256; truy mã BN/chỉ định, nhóm dịch vụ, ngoại lệ và doanh thu từng góc nhìn, xuất toàn bộ bằng chứng Excel. Bản local theo quy tắc, chưa gọi API AI. Xem [09 · Trợ lý truy vết](docs/09-TRO-LY-TRUY-VET.md) và prompt chuẩn bị tích hợp model trong model/AUDIT_COPILOT_SYSTEM_PROMPT.md.
-
-## Excel giao ban 5 sheet
-
-Nút **Xuất Excel giao ban (5 sheet)** tạo một file theo ba luồng tại khoa/chuyển đến/chuyển đi, tổng hợp giao ban và chi tiết phân bổ gói. Giữ bản Excel 10 sheet để đối soát toàn nguồn. Hướng dẫn phạm vi và quy tắc cộng: [10 · Excel giao ban 5 sheet](docs/10-EXCEL-GIAO-BAN-5-SHEET.md).
-
-## Bản v8 · Excel theo mẫu DATA_KHOAVU
-
-Bản xuất cuối và Chi tiết số liệu có định dạng theo workbook tham chiếu: tiêu đề hai tầng, hai nhóm bác sĩ, bảng dịch vụ và dữ liệu nguồn truy vết. Hướng dẫn: docs/13-XUAT-THEO-MAU-DATA-KHOAVU.md. Kiểm tra hiện tại: 103 test JavaScript đạt, audit 182 phép đối chiếu trên dữ liệu giả lập đạt.
-
-
-## Bản vá v8 · Chọn file từ máy tính
-
-Đã tích hợp trực tiếp bộ chọn file, kéo thả, danh sách file và bước xem trước/xác nhận nhập. Áp dụng cho báo cáo, liên khoa và hồ sơ phòng khám. Giữ báo cáo đã duyệt trong lịch sử khi mở kỳ mới. Hướng dẫn: docs/14-NHAP-FILE-TU-MAY.md. Bản vá không thay danh mục, dữ liệu nguồn hoặc luồng 12 phòng.
-
+Tài liệu trước được giữ để truy vết; khi khác luồng hiện tại, ưu tiên README này và cập nhật mới nhất trong tài liệu vận hành. Đẩy mã nguồn lên GitHub không đưa dữ liệu local lên và không triển khai dashboard thành website công khai.

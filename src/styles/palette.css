@@ -1,0 +1,8 @@
+:root{--rose-primary:#b45078;--rose-ink:#513240;--rose-muted:#856574;--rose-soft:#fcebf2;--rose-bg:#fff8fb;--rose-border:#efd6e1;--rose-button:#f7d5e2;--rose-hover:#efbfd2}
+:root .ant-tag-cyan,:root .ant-tag-blue,:root .ant-tag-geekblue,:root .ant-tag-purple{background:var(--rose-soft);border-color:var(--rose-border);color:var(--rose-primary)}
+:root .voice-app button.primary,:root .training-app button.primary{background:var(--rose-button);border-color:#e8b6ca;color:var(--rose-ink)}
+:root .voice-app button.primary:hover,:root .training-app button.primary:hover{background:var(--rose-hover)}
+.speech-embed{width:100%;height:calc(100vh - 245px);min-height:680px;border:1px solid var(--rose-border);border-radius:12px;background:white;display:block}
+@media(max-width:760px){.speech-embed{height:85vh;min-height:760px}}
+
+:root .voice-app .workspace-nav button[aria-pressed=true]{background:var(--rose-button);border-color:#e8b6ca;color:var(--rose-ink)}

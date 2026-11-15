@@ -1,3 +1,4 @@
+import {openSpeechStore} from './speech-store.mjs';
 import http from 'node:http';
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
@@ -6,16 +7,16 @@ import {randomUUID} from 'node:crypto';
 import {openDatabase,audit,transaction} from './database.mjs';
 import {authenticate,createSession,getSession,hashToken,createUser} from './auth.mjs';
 import {getWorkspace,seedWorkspace,updateWorkspace,HttpError} from './workspace.mjs';
-import {installServiceDemo} from '../src/features/reports/installServiceDemo.mjs';
+import {emptyWorkspace} from '../src/features/reports/operationalState.mjs';
 const project=fileURLToPath(new URL('../',import.meta.url));
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.woff2':'font/woff2'};
 function send(res,status,data,headers={}){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff',...headers});res.end(JSON.stringify(data));}
 async function body(req,limit){let size=0;const chunks=[];for await(const c of req){size+=c.length;if(size>limit)throw new HttpError(413,'Nội dung vượt giới hạn.');chunks.push(c)}try{return JSON.parse(Buffer.concat(chunks).toString('utf8'))}catch{throw new HttpError(400,'JSON không hợp lệ.')}}
-export async function createBackend({databasePath=path.join(project,'backend/data/vinmec.sqlite'),dist=path.join(project,'dist'),initialState,catalog:providedCatalog,secureCookie=false}={}){
- const db=openDatabase(databasePath);
- const seed=JSON.parse(await readFile(path.join(project,'src/data/seed.json'),'utf8')),demo=JSON.parse(await readFile(path.join(project,'src/data/service-demo.json'),'utf8'));
+export async function createBackend({databasePath=path.join(project,'backend/data/vinmec.sqlite'),dist=path.join(project,'dist'),initialState,catalog:providedCatalog,secureCookie=false,speechPath=databasePath===path.join(project,'backend/data/vinmec.sqlite')?path.join(project,'speech-data/ca-speech.sqlite'):databasePath+'.speech.sqlite'}={}){
+ const db=openDatabase(databasePath);let speechStore;
+ const seed=JSON.parse(await readFile(path.join(project,'src/data/seed.json'),'utf8'));
  const catalog=providedCatalog||seed.DANH_MUC_DV.map(r=>({code:r['Mã dịch vụ mô phỏng'],name:r['Tên đơn vị dịch vụ mô phỏng'],group:r['Nhóm'],dept:r['Khoa thực hiện mô phỏng'],price:r['Giá SIM-P2 (VND)']}));
- seedWorkspace(db,initialState||installServiceDemo({version:1,revision:0,rows:seed.CANONICAL,excluded:[],imports:[],hashes:[],logs:[],report:null},demo));
+ seedWorkspace(db,initialState||emptyWorkspace());
  const attempts=new Map();
  const cookie=token=>`vinmec_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800${secureCookie?'; Secure':''}`;
  const server=http.createServer(async(req,res)=>{
@@ -40,8 +41,17 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
     const user=session.user;
     if(route==='/api/auth/session'&&req.method==='GET')return send(res,200,{user,csrf:session.csrf,expires:session.expires});
     if(route==='/api/auth/logout'&&req.method==='POST'){db.prepare('DELETE FROM sessions WHERE token_hash=?').run(hashToken(session.token));audit(db,user,'LOGOUT');return send(res,200,{ok:true},{'Set-Cookie':'vinmec_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'});}
+    if(route.startsWith('/api/speech/')){
+     const operation=route.slice('/api/speech/'.length);
+     const read=['results','drafts'].includes(operation);
+     if((read&&req.method!=='GET')||(!read&&req.method!=='POST'))throw new HttpError(405,'Phương thức không hợp lệ.');
+     if(!read&&!['admin','editor','reviewer'].includes(user.role))throw new HttpError(403,'Không có quyền lưu hoặc chuyển dữ liệu ca.');
+     speechStore??=openSpeechStore(speechPath);
+     const data=read?undefined:await body(req,32*1024*1024);
+     return send(res,200,speechStore.run(operation,data,user.username));
+    }
     if(route==='/api/workspace'&&req.method==='GET')return send(res,200,getWorkspace(db));
-    if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,updateWorkspace(db,await body(req,25*1024*1024),user,catalog));
+    if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,updateWorkspace(db,await body(req,256*1024*1024),user,catalog));
     if(route==='/api/catalog'&&req.method==='GET')return send(res,200,{services:catalog});
     if(route==='/api/reviews'&&req.method==='GET')return send(res,200,JSON.parse(db.prepare('SELECT payload FROM review_state WHERE id=1').get().payload));
     if(route==='/api/reviews'&&req.method==='PUT'){
@@ -72,7 +82,7 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
   }catch(e){const status=e.status||500;if(status===500)console.error(`[${requestId}] Backend error:`,e.message);if(!res.headersSent)send(res,status,{error:status===500?'Lỗi hệ thống nội bộ.':e.message,requestId});else res.end();}
  });
  server.requestTimeout=30000;server.headersTimeout=10000;
- return {server,db,close:async()=>{server.closeIdleConnections();if(server.listening)await new Promise(resolve=>server.close(resolve));db.close()}};
+ return {server,db,close:async()=>{server.closeIdleConnections();if(server.listening)await new Promise(resolve=>server.close(resolve));speechStore?.close();db.close()}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  const port=Number(process.env.VINMEC_PORT||4180),host=process.env.VINMEC_HOST||'127.0.0.1';

@@ -13,7 +13,7 @@ const seed=JSON.parse(fs.readFileSync(new URL('../src/data/seed.json',import.met
 const catalog=seed.DANH_MUC_DV.map(r=>({code:r['Mã dịch vụ mô phỏng'],name:r['Tên đơn vị dịch vụ mô phỏng'],group:r['Nhóm']}));
 const rows=validate(demo.rows,catalog).valid;
 const stats=aggregate(rows,catalog,'2026-10-19','2026-10-26');
-const report={id:'SN-MEETING-TEST',version:1,status:'approved',week:'2026-10-19',end:'2026-10-26',createdAt:'2026-11-12',stats,serviceRevenue:serviceRevenueSnapshot(stats.completed,{packageTypes:demo.packageTypes,serviceKinds:DEFAULT_SERVICE_KINDS}),narrative:'Nhận xét do người lập kiểm tra.',excludedCount:0};
+const report={id:'SN-MEETING-TEST',version:1,status:'approved',week:'2026-10-19',end:'2026-10-26',createdAt:'2026-11-12',stats,serviceRevenue:serviceRevenueSnapshot(stats.completed,{packageTypes:demo.packageTypes,serviceKinds:DEFAULT_SERVICE_KINDS},'VU'),narrative:'Nhận xét do người lập kiểm tra.',excludedCount:0};
 test('Financial filters partition completed rows, unknown departments never become external',()=>{
  const sample=rows[0],data=[['VU','VU'],['VU','CDHA'],['KSKTQ','VU'],['CDHA','XETNGHIEM'],['unknown','VU']].map(([ordering_dept,performing_dept])=>({...sample,ordering_dept,performing_dept}));
  const result=financeRoutes(data);assert.deepEqual(result.map(r=>r.rows.length),[1,1,1,1,1]);assert.equal(result.reduce((n,r)=>n+r.rows.length,0),data.length);

@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {isLeaveRequest,isLeaveReply,leaveBlocked,SPEECH_ORIGIN} from '../src/features/speech/embed-bridge.mjs';
+test('embedded speech accepts only the parent and known dashboard origins',()=>{const parent={};const event={source:parent,origin:'http://127.0.0.1:4180',data:{type:'vu-speech:can-leave',id:'request'}};assert.equal(isLeaveRequest(event,parent),true);for(const e of [{...event,source:{}},{...event,origin:'https://untrusted.example'},{...event,data:{type:'vu-speech:can-leave',id:1}}])assert.equal(isLeaveRequest(e,parent),false);});
+test('leave response must match frame, origin and outstanding request',()=>{const frame={};const event={source:frame,origin:SPEECH_ORIGIN,data:{type:'vu-speech:leave-state',id:'one',blocked:false}};assert.equal(isLeaveReply(event,frame,'one'),true);assert.equal(isLeaveReply(event,frame,'two'),false);assert.equal(isLeaveReply({...event,source:{}},frame,'one'),false);assert.equal(isLeaveReply({...event,origin:'http://127.0.0.1:4180'},frame,'one'),false);});
+test('audio, unsaved drafts/reviews and in-flight saves block navigation',()=>{assert.equal(leaveBlocked(),false);for(const key of ['audio','draft','saving','review','switching'])assert.equal(leaveBlocked({[key]:true}),true);});

@@ -1,6 +1,7 @@
 import {sumMoney,sumQuantity,grossAmount,integer,scaledQuantity,safeNumber} from '../../shared/dataRules.mjs';
+import {validateLearning,resolveDept,revenueScope} from '../intelligence/revenueAI.mjs';
 export const BILLING_TYPES={SKTQ:'Gói SKTQ',SLUT1:'Combo SLUT 1',SLUT2:'Combo SLUT 2',OTHER:'Gói khác',UNKNOWN:'Chờ phân loại',RETAIL:'CK/lẻ ngoài gói'};
-export const SERVICE_KINDS={EXAM:'Khám',US:'Siêu âm vú',XR2:'X-quang vú 2D',XR3:'X-quang vú 3D',OTHER:'Ngoài phép tính'};
+export const SERVICE_KINDS={EXAM:'Khám',US:'Siêu âm vú',XR2:'X-quang vú 2D',XR3:'X-quang vú 3D',OTHER:'Dịch vụ khác'};
 export const DEFAULT_SERVICE_KINDS=Object.fromEntries([['SYN-DV001','EXAM'],['SYN-DV002','EXAM'],['SYN-DV005','XR2'],['SYN-DV006','XR3'],...['008','009','010','011'].map(id=>['SYN-DV'+id,'US'])]);
 export const serviceKind=(row,config={})=>(config.serviceKinds||DEFAULT_SERVICE_KINDS)[row.service_code]||'OTHER';
 export function billingType(row,config={}){
@@ -33,19 +34,20 @@ export function appliedRate(row,type,config={}){
 }
 export function revenueCalculation(rows,config={}){
  const groups=new Map();
- for(const row of rows){if(row.status!=='HOANTHANH'||+row.in_snapshot!==1)continue;const kind=serviceKind(row,config);if(kind==='OTHER')continue;
+ for(const row of rows){if(row.status!=='HOANTHANH'||+row.in_snapshot!==1)continue;const kind=serviceKind(row,config);
   const type=billingType(row,config),rate=appliedRate(row,type,config),key=JSON.stringify([row.service_code,type,rate.price,rate.basis]);
   if(!groups.has(key))groups.set(key,{key,code:row.service_code,name:row.service_name,kind,type,price:rate.price,basis:rate.basis,quantities:[],recordCount:0});
   const group=groups.get(key);group.quantities.push(row.completed_qty);group.recordCount++;
  }
  const lines=[...groups.values()].map(({quantities,...group})=>{const qty=sumQuantity(quantities);return {...group,qty,revenue:group.price==null?null:grossAmount(qty,group.price)}});
- const totals=Object.entries(SERVICE_KINDS).filter(([kind])=>kind!=='OTHER').map(([kind,label])=>{
+ const totals=Object.entries(SERVICE_KINDS).filter(([kind])=>kind!=='OTHER'||lines.some(r=>r.kind==='OTHER')).map(([kind,label])=>{
   const matched=lines.filter(r=>r.kind===kind);return {kind,label,qty:sumQuantity(matched.map(r=>r.qty)),knownRevenue:sumMoney(matched.filter(r=>r.revenue!=null).map(r=>r.revenue)),missingQty:sumQuantity(matched.filter(r=>r.revenue==null).map(r=>r.qty)),missingRecords:matched.filter(r=>r.revenue==null).reduce((n,r)=>n+r.recordCount,0)};
  });
  return {rulesVersion:'PRICE-QTY-1',lines,totals,knownRevenue:sumMoney(totals.map(r=>r.knownRevenue)),missingQty:sumQuantity(totals.map(r=>r.missingQty)),missingRecords:totals.reduce((n,r)=>n+r.missingRecords,0)};
 }
 export function serviceCalculation(completed,config={},department='VU'){
- const rows=completed.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||r.performing_dept===department));
+ const scoped=department==='ORDERING_VU'?revenueScope(completed,config).included:completed;
+ const rows=scoped.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||department==='ORDERING_VU'||resolveDept(r.performing_dept)===department));
  const families=Object.entries(SERVICE_KINDS).filter(([kind])=>kind!=='OTHER').map(([kind,label])=>{
   const matched=rows.filter(r=>serviceKind(r,config)===kind),buckets=Object.fromEntries(Object.keys(BILLING_TYPES).map(type=>[type,summarize(matched.filter(r=>billingType(r,config)===type))]));
   return {kind,label,...summarize(matched),buckets};
@@ -63,12 +65,12 @@ export function serviceCalculation(completed,config={},department='VU'){
 export function saveCalculationConfig(state,config,actor,reason){
  if(actor!=='Nhập / đối soát'||state.report)throw Error('Chỉ được sửa quy tắc khi có quyền nhập và nguồn chưa chốt.');
  if(typeof reason!=='string'||reason.trim().length<8)throw Error('Ghi lý do ít nhất 8 ký tự.');
- validateRates(config.rates);
+ validateRates(config.rates);validateLearning(config.routingExamples);
  for(const type of Object.values(config.packageTypes||{}))if(!['SKTQ','SLUT1','SLUT2','OTHER','UNKNOWN'].includes(type))throw Error('Loại gói không hợp lệ.');
  for(const kind of Object.values(config.serviceKinds||{}))if(!Object.hasOwn(SERVICE_KINDS,kind))throw Error('Nhóm phép tính không hợp lệ.');
  state.calculationHistory??=[];state.calculationHistory.unshift({time:new Date().toISOString(),actor,reason:reason.trim(),before:state.serviceCalculation||null,after:structuredClone(config)});state.serviceCalculation=structuredClone(config);return state;
 }
-export function serviceRevenueSnapshot(completed,config={},department='VU'){
+export function serviceRevenueSnapshot(completed,config={},department='ORDERING_VU'){
  const revenue=serviceCalculation(completed,config,department).revenue;if(revenue.error)throw Error(revenue.error);
  return {department,configuration:structuredClone(config),...revenue};
 }

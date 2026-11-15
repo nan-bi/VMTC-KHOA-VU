@@ -26,6 +26,6 @@ export default function DateControls({range,onChange,disabled=false,hint}) {
         presets={[{label:'7 ngày từ ngày chọn',value:[values[0],values[0].add(6,'day')]},{label:'Tháng của ngày chọn',value:[values[0].startOf('month'),values[0].endOf('month')]}]}
         onChange={dates=>{if(dates?.[0]&&dates?.[1])onChange(dates.map(d=>d.format('YYYY-MM-DD')));}}/>}
     </div>
-    <div className="subtle date-hint">{disabled?'Kỳ của bản báo cáo đã chốt':hint||'Dữ liệu demo: 27/04–25/10/2026 · Khoảng ngày gồm cả ngày kết thúc'}</div>
+    <div className="subtle date-hint">{disabled?'Kỳ của bản báo cáo đã chốt':hint||'Chọn ngày hoặc khoảng ngày · Bao gồm cả ngày kết thúc'}</div>
   </div></ConfigProvider>;
 }

@@ -16,16 +16,18 @@ node backend/manage.mjs create-user
 npm run backend
 ```
 
-Nếu chỉnh code frontend, chạy `npm run build` trước khi mở backend. Build có sẵn trong `dist`. Node có thể in cảnh báo SQLite experimental ở phiên bản 22; đây là thông báo của runtime.
+Nếu chỉnh code frontend, chạy `npm run build` trước khi mở backend. Bản clone từ Git không có `dist`; chạy `npm ci` và `npm run build` để tạo bản chạy. Node có thể in cảnh báo SQLite experimental ở phiên bản 22; đây là thông báo của runtime.
 
 ## Hai chế độ dữ liệu
+
+Bản hiện tại tích hợp speech trong dashboard 4180, nhưng ca/bản nháp speech lưu IndexedDB ở 4173; không lưu cùng SQLite báo cáo. Xem README gốc để cài và chạy chung.
 
 | Địa chỉ | Nguồn lưu | Tài khoản |
 |---|---|---|
 | 4173, CHAY-DEMO.cmd | localStorage riêng của trình duyệt | Vai trò mô phỏng |
 | 4180, CHAY-BACKEND.cmd | SQLite trên máy chủ | Đăng nhập, kiểm tra quyền phía server |
 
-Lần đầu, SQLite được khởi tạo với 2.870 dòng giả lập đang đóng gói trong v8. Sau đó mở lại không nạp đè dữ liệu. Các chỉnh sửa/import đã lưu trong trình duyệt ở cổng 4173 **không tự chuyển** vào cơ sở dữ liệu mới. Cổng 4180 có kho riêng; chọn đúng chế độ khi làm việc. Việc đổi tên giao diện không tự biến dữ liệu giả lập thành dữ liệu HIS.
+Kho SQLite mới bắt đầu trống, không tự nạp dữ liệu dịch vụ. Kho đã có tiếp tục được giữ nguyên khi mở lại. Các chỉnh sửa/import đã lưu trong trình duyệt ở cổng 4173 **không tự chuyển** vào cơ sở dữ liệu mới. Cổng 4180 có kho riêng; chọn đúng chế độ khi làm việc. Việc đổi tên giao diện không tự biến dữ liệu giả lập thành dữ liệu HIS.
 
 Dashboard ở chế độ backend lưu kho báo cáo, chỉnh sửa, cấu hình gói, snapshot và nhãn model vào SQLite. Upload Excel/CSV vẫn được đọc trên trình duyệt, xem trước rồi mới ghi các dòng đã xác nhận về server. Không lưu file đính kèm thô trên server trong phiên bản khung này. Các file nhập riêng để phân tích liên khoa còn là phiên làm việc tạm thời; chỉ nhãn xác nhận và kho báo cáo được lưu tập trung.
 

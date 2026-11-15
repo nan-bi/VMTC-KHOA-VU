@@ -1,6 +1,8 @@
 import {isDeepStrictEqual as equal} from 'node:util';
 import {randomUUID} from 'node:crypto';
-import {validate,aggregate} from '../src/features/reports/core.mjs';
+import {breastAggregate} from '../src/features/reports/breastRevenue.mjs';
+import {validateLearning} from '../src/features/intelligence/revenueAI.mjs';
+import {validate} from '../src/features/reports/core.mjs';
 import {EDIT_FIELDS,editedRow} from '../src/features/dataWorkspace/dataModel.mjs';
 import {validateRates,serviceRevenueSnapshot} from '../src/features/reports/serviceCalculation.mjs';
 import {transaction,audit} from './database.mjs';
@@ -49,7 +51,7 @@ export function updateWorkspace(db,{expectedRevision,state:next},user,catalog){r
  }),...(current.dataEdits||[])];
  if(!equal(next.serviceCalculation,current.serviceCalculation)){
   const c=next.serviceCalculation;if(!c||!c.packageTypes||!c.serviceKinds||Object.values(c.packageTypes).some(v=>!['SKTQ','SLUT1','SLUT2','OTHER','UNKNOWN'].includes(v))||Object.values(c.serviceKinds).some(v=>!['EXAM','US','XR2','XR3','OTHER'].includes(v)))fail('Cấu hình bóc tách không hợp lệ.');
-  try{validateRates(c.rates,catalog)}catch(e){fail(e.message)}
+  try{validateRates(c.rates,catalog);validateLearning(c.routingExamples)}catch(e){fail(e.message)}
   if(!(next.calculationHistory?.length>(current.calculationHistory?.length||0)))fail('Thay đổi quy tắc cần lịch sử và lý do.');
   next.calculationHistory=[{time:new Date().toISOString(),actor:user.username,reason:next.calculationHistory[0].reason,before:current.serviceCalculation||null,after:structuredClone(c)},...(current.calculationHistory||[])];
  }
@@ -57,8 +59,8 @@ export function updateWorkspace(db,{expectedRevision,state:next},user,catalog){r
  if(!Array.isArray(archives)||!equal(archives.slice(0,oldArchives.length),oldArchives))fail('Không được sửa báo cáo lưu trữ.');
  if(!old&&r){
   if(!['admin','editor'].includes(user.role)||r.status!=='draft'||sourceChanged)fail('Không được tạo snapshot bằng thao tác này.',403);
-  const checked=validate(current.rows.filter((_,i)=>!current.excluded.includes(i)),catalog);if(checked.issues.length)fail('Cần xử lý lỗi trước khi chốt.');
-  let stats;try{stats=aggregate(checked.valid,catalog,r.week,r.end)}catch(e){fail(e.message)}
+  const checked=validate(current.rows.filter((_,i)=>!current.excluded.includes(i)),catalog,{suspectedDuplicates:true});if(checked.issues.length)fail('Cần xử lý lỗi trước khi chốt.');
+  let stats;try{stats=breastAggregate(checked.valid,catalog,r.week,r.end,current.serviceCalculation);if(stats.classification.pending)throw Error("Còn dòng chưa xác định khoa trong kỳ; xác nhận hoặc loại có lý do trước khi chốt.")}catch(e){fail(e.message)}
   next.report={id:'SN-'+randomUUID(),version:1,rulesVersion:'SIM-2',timezone:'Asia/Ho_Chi_Minh',sourceRevision:current.revision,excludedCount:current.excluded.length,week:r.week,end:r.end,createdAt:new Date().toISOString(),status:'draft',creator:user.username,stats,serviceRevenue:serviceRevenueSnapshot(stats.completed,current.serviceCalculation),narrative:'',ack:false};
  }else if(old&&!r){
   if(!['admin','editor'].includes(user.role))fail('Không được mở kỳ mới.',403);

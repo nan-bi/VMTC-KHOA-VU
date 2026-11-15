@@ -11,7 +11,7 @@ export function normalizeDate(v){
 const provenance=new Set(['source_file','source_sheet','source_row','source_file_hash','file_hash','source_hash','ingested_at']);
 const amounts=new Set(['quantity','completed_qty','unit_price_vnd','completed_gross_vnd','completed_net_vnd','discount_vnd','discount_known','in_snapshot','package_allocation_vnd','gross_order_vnd','net_order_vnd','revision','is_synthetic']);
 const signature=r=>JSON.stringify(Object.keys(r).filter(k=>!provenance.has(k)).sort().map(k=>[k,amounts.has(k)&&numeric(r[k])?+r[k]:r[k]]));
-export function validate(rows,catalog){
+export function validate(rows,catalog,{suspectedDuplicates=false}={}){
  const codes=new Set(catalog.map(r=>r.code)),valid=[],issues=[],duplicates=[];
  const entries=rows.map((r,i)=>({row:r,index:i,reasons:[]})),groups=new Map(),visitPatients=new Map();
  for(const e of entries){
@@ -46,6 +46,9 @@ export function validate(rows,catalog){
   if(identifier(r.visit_id)&&identifier(r.patient_id)){if(!visitPatients.has(r.visit_id))visitPatients.set(r.visit_id,new Set());visitPatients.get(r.visit_id).add(r.patient_id);}
  }
  for(const es of groups.values())if(new Set(es.map(e=>signature(e.row))).size>1)for(const e of es)e.reasons.push('Trùng mã chỉ định nhưng khác nội dung; cách ly toàn bộ nhóm');
+ const events=new Map();
+ for(const e of entries){const r=e.row;if(!r||!identifier(r.patient_id)||!identifier(r.visit_id)||!isTimestamp(r.ordered_at))continue;const key=JSON.stringify(['patient_id','visit_id','service_code','ordered_at'].map(k=>amounts.has(k)&&numeric(r[k])?+r[k]:r[k]??null));if(!events.has(key))events.set(key,[]);events.get(key).push(e);}
+ for(const es of events.values())if(suspectedDuplicates&&new Set(es.map(e=>e.row.order_id)).size>1)for(const e of es)e.reasons.push('Nghi trùng dịch vụ cùng bệnh nhân/lượt/thời điểm nhưng khác khóa; đối soát trước khi tính');
  const accepted=new Set();
  for(const e of entries){
   const r=e.row;if(visitPatients.get(r?.visit_id)?.size>1)e.reasons.push('Một lượt khám bị gán cho nhiều bệnh nhân');

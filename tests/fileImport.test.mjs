@@ -41,3 +41,26 @@ test('Missing financial values derive only from explicit valid inputs; missing d
  const p=await prepareReportImport([file('A.xlsx',[row])],state(),catalog);assert.equal(p.issues.length,0);assert.equal(p.rows[0].completed_net_vnd,p.rows[0].completed_gross_vnd-row.discount_vnd);
  const unknown={...row,discount_known:0},u=await prepareReportImport([file('U.xlsx',[unknown])],state(),catalog);assert.equal(u.rows[0].completed_net_vnd,undefined);
 });
+
+// Large workbooks may contain formatting or metadata beyond their data region.
+test('100 MB files and 500 MB batches are accepted at their boundaries, including accumulated selections',async()=>{
+ const {IMPORT_LIMITS}=await import('../src/shared/importLimits.mjs');
+ const limits={accept:'.xlsx,.xls,.csv',maxCount:100,maxMB:IMPORT_LIMITS.fileMB,maxTotalMB:IMPORT_LIMITS.totalMB};
+ const big={name:'Bao-cao.xlsx',size:100*1024*1024};
+ assert.equal(checkFileSelection([],Array(5).fill(big),limits).length,5);
+ assert.equal(checkFileSelection([],[{...big,size:11*1024*1024}],limits).length,1);
+ assert.throws(()=>checkFileSelection([],[{...big,size:big.size+1}],limits),/100 MB/);
+ assert.throws(()=>checkFileSelection(Array(5).fill(big),[{name:'extra.csv',size:1}],limits),/500 MB/);
+ const f=file('Large.xlsx',[base()]);let readCount=0;const bytes=await f.arrayBuffer();
+ const preview=await prepareReportImport([{...f,size:11*1024*1024,arrayBuffer:async()=>{readCount++;return bytes;}}],state(),catalog);
+ assert.equal(preview.rows.length,1);assert.equal(readCount,1);
+ await assert.rejects(()=>prepareReportImport([{...f,size:100*1024*1024+1,arrayBuffer:async()=>{throw Error('must not read oversized bytes');}}],state(),catalog),/100 MB/);
+});
+
+test('an actual CSV larger than 10 MB is parsed and remains traceable',async()=>{
+ const row={...base(),extra_metadata:'x'.repeat(11*1024*1024)},csv=XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet([row]));
+ const bytes=new TextEncoder().encode(csv);
+ assert.ok(bytes.byteLength>10*1024*1024);
+ const preview=await prepareReportImport([{name:'Bao-cao-lon.csv',size:bytes.byteLength,arrayBuffer:async()=>bytes.buffer}],state(),catalog);
+ assert.equal(preview.rows.length,1);assert.equal(preview.rows[0].source_file,'Bao-cao-lon.csv');assert.equal(preview.rows[0].source_row,2);assert.equal(preview.issues.length,0);
+});
