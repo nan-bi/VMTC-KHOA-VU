@@ -128,7 +128,7 @@ node scripts/check-speech-stream.mjs
 
 WAV, ZIP, cache và model không được đóng gói trong Git. Công cụ sinh/đánh giá nằm trong `scripts/`; nguồn và điều kiện thử ở [speech-test-data/NGUON.md](speech-test-data/NGUON.md). Script stream cần `speech-test-data/audio/GIA-001-sach.wav` có trên máy, không tự tải âm thanh bệnh nhân.
 
-Kiểm chứng gần nhất: **209 kiểm thử Node đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
+Kiểm chứng gần nhất: **233 kiểm thử Node đạt**, build đạt; kiểm tra IndexedDB thật xác nhận ca hoàn thành và nháp còn sau khi tải lại trang. Thử streaming bằng âm thanh tổng hợp cho chữ đầu sau khoảng 1,8 giây trên máy phát triển; không bảo đảm cùng độ trễ hoặc độ chính xác trên mọi micro/giọng nói.
 
 SHA256SUMS.txt đối chiếu nội dung mã nguồn đã lưu trong Git, không bao gồm bản build hoặc dữ liệu local. Trên Windows, chuyển đổi LF/CRLF khi checkout có thể làm hash tệp trên đĩa khác hash nội dung Git.
 
@@ -144,3 +144,11 @@ Chưa kết nối HIS/EMR, chữ ký bác sĩ, đồng bộ ca speech nhiều m�
 - [Bóc tách dịch vụ/combo](docs/16-BOC-TACH-DICH-VU-COMBO.md)
 
 Tài liệu trước được giữ để truy vết; khi khác luồng hiện tại, ưu tiên README này và cập nhật mới nhất trong tài liệu vận hành. Đẩy mã nguồn lên GitHub không đưa dữ liệu local lên và không triển khai dashboard thành website công khai.
+
+## Chuyển dần bộ tính sang Python
+
+Đợt 1 bổ sung bộ tính doanh thu Python chuẩn, chạy hoàn toàn local và đối chiếu cùng dữ liệu với JavaScript. Chạy `CHAY-SO-SANH-PYTHON.cmd`, mở http://127.0.0.1:4190/, vào **Chi tiết số liệu → Bóc tách → So sánh JavaScript / Python**. Khi toàn bộ kết quả khớp, có thể chọn **Xem bằng Python**. Cần Python trên PATH, môi trường speech đã cài hoặc biến `VINMEC_PYTHON` trỏ đến Python; bộ tính không cần thư viện pip thêm.
+
+Bản thử dùng cùng dữ liệu/tài khoản hiện tại; nút so sánh chỉ đọc và tính. Lựa chọn Python chỉ áp dụng bảng doanh thu đang xem; phân loại khoa, chốt snapshot và xuất báo cáo vẫn dùng JavaScript. Speech tiếp tục dùng origin 4173 và kho trình duyệt hiện tại. Chưa đạt tỷ lệ Python/JavaScript 50/50; không đổi model hoặc tự huấn luyện từ ca bệnh nhân.
+
+Xem [số đo trước/sau và hướng chuyển tiếp](docs/21-SO-SANH-JAVASCRIPT-PYTHON.md). Tái chạy phép đo dữ liệu tổng hợp bằng `node scripts/compare-python-revenue.mjs`.

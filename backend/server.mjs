@@ -1,3 +1,4 @@
+import {compareRevenue} from './python-revenue.mjs';
 import {openSpeechStore} from './speech-store.mjs';
 import http from 'node:http';
 import {readFile} from 'node:fs/promises';
@@ -49,6 +50,11 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
      speechStore??=openSpeechStore(speechPath);
      const data=read?undefined:await body(req,32*1024*1024);
      return send(res,200,speechStore.run(operation,data,user.username));
+    }
+    if(route==='/api/calculation/compare'){
+     if(req.method!=='POST')throw new HttpError(405,'Dùng POST để đối chiếu phép tính.');
+     const payload=await body(req,32*1024*1024);
+     return send(res,200,await compareRevenue(payload.rows,payload.config));
     }
     if(route==='/api/workspace'&&req.method==='GET')return send(res,200,getWorkspace(db));
     if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,updateWorkspace(db,await body(req,256*1024*1024),user,catalog));

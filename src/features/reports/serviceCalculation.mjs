@@ -45,9 +45,12 @@ export function revenueCalculation(rows,config={}){
  });
  return {rulesVersion:'PRICE-QTY-1',lines,totals,knownRevenue:sumMoney(totals.map(r=>r.knownRevenue)),missingQty:sumQuantity(totals.map(r=>r.missingQty)),missingRecords:totals.reduce((n,r)=>n+r.missingRecords,0)};
 }
-export function serviceCalculation(completed,config={},department='VU'){
+export function selectRevenueRows(completed,config={},department='VU'){
  const scoped=department==='ORDERING_VU'?revenueScope(completed,config).included:completed;
- const rows=scoped.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||department==='ORDERING_VU'||resolveDept(r.performing_dept)===department));
+ return scoped.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||department==='ORDERING_VU'||resolveDept(r.performing_dept)===department));
+}
+export function serviceCalculation(completed,config={},department='VU'){
+ const rows=selectRevenueRows(completed,config,department);
  const families=Object.entries(SERVICE_KINDS).filter(([kind])=>kind!=='OTHER').map(([kind,label])=>{
   const matched=rows.filter(r=>serviceKind(r,config)===kind),buckets=Object.fromEntries(Object.keys(BILLING_TYPES).map(type=>[type,summarize(matched.filter(r=>billingType(r,config)===type))]));
   return {kind,label,...summarize(matched),buckets};

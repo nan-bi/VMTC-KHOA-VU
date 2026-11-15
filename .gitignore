@@ -39,3 +39,5 @@ speech-training/*.wav
 speech-training/*.webm
 speech-training/*.mp3
 speech-training/*.jsonl
+
+/docs/python-migration-trial.png

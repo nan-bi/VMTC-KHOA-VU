@@ -1,0 +1,71 @@
+{
+  "baselineCommit": "6b6069ab0fa920606e477f34a3fcc79567b2059c",
+  "phase": 1,
+  "scope": "Price x quantity only; department classification and approved report snapshots remain JavaScript.",
+  "fixture": "Synthetic service-demo.json repeated deterministically; not a clinical accuracy test.",
+  "benchmarks": [
+    {
+      "rows": 170,
+      "runs": 3,
+      "allOutputsMatch": true,
+      "knownRevenue": 63000000,
+      "javascriptMedianMs": 1.0704999999999814,
+      "pythonComputeMedianMs": 1.381,
+      "pythonTotalMedianMs": 87.203
+    },
+    {
+      "rows": 1000,
+      "runs": 3,
+      "allOutputsMatch": true,
+      "knownRevenue": 370000000,
+      "javascriptMedianMs": 3.11749999999995,
+      "pythonComputeMedianMs": 8.984,
+      "pythonTotalMedianMs": 127.097
+    },
+    {
+      "rows": 10000,
+      "runs": 3,
+      "allOutputsMatch": true,
+      "knownRevenue": 3706250000,
+      "javascriptMedianMs": 21.37239999999997,
+      "pythonComputeMedianMs": 100.904,
+      "pythonTotalMedianMs": 243.757
+    },
+    {
+      "rows": 100000,
+      "runs": 3,
+      "allOutputsMatch": true,
+      "knownRevenue": 37058900000,
+      "javascriptMedianMs": 165.10609999999997,
+      "pythonComputeMedianMs": 814.506,
+      "pythonTotalMedianMs": 1208.177
+    }
+  ],
+  "languageBytes": {
+    "definition": "UTF-8 bytes .js/.jsx/.mjs vs .py; excludes vendor/build/venv; not GitHub Linguist.",
+    "wholeRepository": {
+      "before": {
+        "JavaScript": 961031,
+        "Python": 63528,
+        "pythonPercent": 6.200521395058752
+      },
+      "after": {
+        "JavaScript": 983057,
+        "Python": 70212,
+        "pythonPercent": 6.666103341121784
+      }
+    },
+    "excludingArchive": {
+      "before": {
+        "JavaScript": 635424,
+        "Python": 54156,
+        "pythonPercent": 7.853476028887148
+      },
+      "after": {
+        "JavaScript": 657450,
+        "Python": 60840,
+        "pythonPercent": 8.470116526751033
+      }
+    }
+  }
+}
