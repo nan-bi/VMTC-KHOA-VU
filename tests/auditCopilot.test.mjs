@@ -20,8 +20,8 @@ test('Trùng giống nhau qua sheet/hash khác tính một lần; xung đột c�
  const s=run(files.rows);assert.equal(s.duplicates,1);assert.equal(s.finance.ordered.known_vnd,a.gross_order_vnd);assert.equal(fingerprint(files.rows[0]),fingerprint(files.rows[1]));
  const conflict=run([files.rows[0],{...files.rows[1],unit_price_vnd:a.unit_price_vnd+1}]);assert.equal(conflict.records.filter(r=>r.eligible).length,0);
 });
-test('Lỗi một file chặn cả batch, tiêu đề trùng và cột không tên bị chặn',async()=>{
- await assert.rejects(()=>ingestFiles([file('A.xlsx',[base()]),file('B.xlsx',[{bad:1}])]),/thiếu cột/);
+test('Bảng không đủ schema được tách riêng; giới hạn file và tiêu đề trùng vẫn bị chặn',async()=>{
+ const staged=await ingestFiles([file('A.xlsx',[base()]),file('B.xlsx',[{bad:1}])]);assert.equal(staged.rows.length,1);assert.equal(staged.files[1].referenceTables.length,1);assert.equal(staged.files[1].referenceTables[0].rows[0].bad,1);
  await assert.rejects(()=>ingestFiles(Array(11).fill(file('a.xlsx',[base()]))),/10 file/);
  const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet([['order_id','order_id'],['A','A']]),'S');const buf=XLSX.write(book,{type:'array',bookType:'xlsx'});
  await assert.rejects(()=>ingestFiles([{name:'bad.xlsx',size:buf.byteLength,arrayBuffer:async()=>buf}]),/tiêu đề cột trùng/);

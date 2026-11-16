@@ -158,3 +158,9 @@ Dashboard không có bảng/nút so sánh ngôn ngữ. Giữ nguyên giao diện
 Đo mã nguồn UTF-8 chuẩn hóa LF: Python từ **6,67% lên 16,69%** trong tổng Python + JavaScript của kho; riêng ứng dụng không gồm tests/scripts/bản lưu lịch sử đạt khoảng **20,00%**. Đây là tỷ lệ dung lượng mã nguồn, không phải phần trăm tốc độ hay số GitHub Linguist. JavaScript giảm khoảng 29 KB nhờ thay các phần xử lý bằng lời gọi Python.
 
 Kiểm tra lại: `npm test`; `.speech-venv/Scripts/python.exe -B -m unittest discover -s tests -p test_python_pipeline.py`; `npm run build`. Đo tỷ lệ: `.speech-venv/Scripts/python.exe scripts/measure-python-share.py`. Xem [chi tiết chuyển đổi](docs/21-SO-SANH-JAVASCRIPT-PYTHON.md) và [kết quả đo](docs/audit/python-phase2-language-share.json).
+
+Kết quả kiểm thử đầu cuối và giới hạn sử dụng: [Kiểm tra chức năng và mức sẵn sàng](docs/25-KIEM-TRA-CHUC-NANG-VA-SAN-SANG.md).
+
+Nhập file nhiều loại sheet: [nhận diện và lưu bảng tham chiếu](docs/26-NHAN-DIEN-VA-LUU-NHIEU-SHEET.md).
+
+Cập nhật 16/11/2026: Tổng quan giữ biểu đồ cột, đã bỏ biểu đồ đường. Nhập liệu/đối soát/tính toán tập trung trong Chi tiết số liệu; ánh xạ cột đã lưu được tái dùng, bổ sung mã dịch vụ có xác nhận và đo sai số với bảng chuẩn độc lập. Xem [hướng dẫn thực hành](docs/30-THAO-TAC-LOCAL.md) và [kết quả kiểm tra trước khi push](docs/31-KIEM-TRA-TRUOC-KHI-PUSH.md): 255 Node tests, 61 Python tests và build đạt. Đây là kết quả kiểm thử kỹ thuật; chưa xác nhận nghiệm thu nghiệp vụ hoặc sai số thực tế dưới 0,05%.

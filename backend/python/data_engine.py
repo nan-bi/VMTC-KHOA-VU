@@ -42,6 +42,9 @@ def dispatch(action, payload):
     if action == 'transition':
         from workspace_rules import transition
         return transition(payload['current'], payload['state'], payload['user'], payload['catalog'], payload['expectedRevision'])
+    if action == 'evaluate-quality':
+        from quality_check import evaluate_quality
+        return evaluate_quality(payload['rows'], payload['standards'], payload.get('config'), payload.get('blockedCount', 0))
     if action == 'ingest':
         from ingestion import ingest_file
         return ingest_file(payload)

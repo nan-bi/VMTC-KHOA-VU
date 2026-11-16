@@ -1,3 +1,4 @@
+import {extendCatalog} from '../src/features/reports/serviceCatalog.mjs';
 import {runPythonData,PUBLIC_TASKS} from './python-data.mjs';
 import {compareRevenue} from './python-revenue.mjs';
 import {openSpeechStore} from './speech-store.mjs';
@@ -65,13 +66,13 @@ export async function createBackend({databasePath=path.join(project,'backend/dat
      if(!payload||typeof payload!=='object'||Array.isArray(payload))throw new HttpError(400,'Cấu trúc tác vụ dữ liệu không hợp lệ.');
      // Read/compute only. Persistence always goes through the revision-locked
      // workspace endpoint with server-side roles and transition validation.
-     if(action!=='ingest'&&!action.startsWith('meeting-'))payload.catalog=catalog;
+     if(action!=='ingest'&&!action.startsWith('meeting-'))payload.catalog=extendCatalog(catalog,getWorkspace(db).serviceCalculation);
      const result=await runPythonData(action,payload);
      return send(res,200,{value:result.value,engine:'python',computeMs:result.computeMs});
     }
     if(route==='/api/workspace'&&req.method==='GET')return send(res,200,getWorkspace(db));
     if(route==='/api/workspace'&&req.method==='PUT')return send(res,200,await updateWorkspace(db,await body(req,256*1024*1024),user,catalog));
-    if(route==='/api/catalog'&&req.method==='GET')return send(res,200,{services:catalog});
+    if(route==='/api/catalog'&&req.method==='GET')return send(res,200,{services:extendCatalog(catalog,getWorkspace(db).serviceCalculation)});
     if(route==='/api/reviews'&&req.method==='GET')return send(res,200,JSON.parse(db.prepare('SELECT payload FROM review_state WHERE id=1').get().payload));
     if(route==='/api/reviews'&&req.method==='PUT'){
      if(!['admin','editor'].includes(user.role))throw new HttpError(403,'Không có quyền gán nhãn dữ liệu.');

@@ -1,3 +1,4 @@
+import {extendCatalog} from './serviceCatalog.mjs';
 import {sumMoney,sumQuantity,grossAmount,integer,scaledQuantity,safeNumber} from '../../shared/dataRules.mjs';
 import {validateLearning,resolveDept,revenueScope} from '../intelligence/revenueAI.mjs';
 export const BILLING_TYPES={SKTQ:'Gói SKTQ',SLUT1:'Combo SLUT 1',SLUT2:'Combo SLUT 2',OTHER:'Gói khác',UNKNOWN:'Chờ phân loại',RETAIL:'CK/lẻ ngoài gói'};
@@ -46,8 +47,10 @@ export function revenueCalculation(rows,config={}){
  return {rulesVersion:'PRICE-QTY-1',lines,totals,knownRevenue:sumMoney(totals.map(r=>r.knownRevenue)),missingQty:sumQuantity(totals.map(r=>r.missingQty)),missingRecords:totals.reduce((n,r)=>n+r.missingRecords,0)};
 }
 export function selectRevenueRows(completed,config={},department='VU'){
- const scoped=department==='ORDERING_VU'?revenueScope(completed,config).included:completed;
- return scoped.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||department==='ORDERING_VU'||resolveDept(r.performing_dept)===department));
+ const orderingScope=['ORDERING_VU','ORDERING_OTHER','ORDERING_ALL'].includes(department);
+ const scope=orderingScope?revenueScope(completed,config):null;
+ const scoped=department==='ORDERING_VU'?scope.included:department==='ORDERING_OTHER'?scope.excluded.map(r=>r.row):department==='ORDERING_ALL'?scope.records.filter(r=>!r.pending).map(r=>r.row):completed;
+ return scoped.filter(r=>r.status==='HOANTHANH'&&+r.in_snapshot===1&&(department==='ALL'||orderingScope||resolveDept(r.performing_dept)===department));
 }
 export function serviceCalculation(completed,config={},department='VU'){
  const rows=selectRevenueRows(completed,config,department);
@@ -68,7 +71,7 @@ export function serviceCalculation(completed,config={},department='VU'){
 export function saveCalculationConfig(state,config,actor,reason){
  if(actor!=='Nhập / đối soát'||state.report)throw Error('Chỉ được sửa quy tắc khi có quyền nhập và nguồn chưa chốt.');
  if(typeof reason!=='string'||reason.trim().length<8)throw Error('Ghi lý do ít nhất 8 ký tự.');
- validateRates(config.rates);validateLearning(config.routingExamples);
+ extendCatalog([],config);validateRates(config.rates);validateLearning(config.routingExamples);
  for(const type of Object.values(config.packageTypes||{}))if(!['SKTQ','SLUT1','SLUT2','OTHER','UNKNOWN'].includes(type))throw Error('Loại gói không hợp lệ.');
  for(const kind of Object.values(config.serviceKinds||{}))if(!Object.hasOwn(SERVICE_KINDS,kind))throw Error('Nhóm phép tính không hợp lệ.');
  state.calculationHistory??=[];state.calculationHistory.unshift({time:new Date().toISOString(),actor,reason:reason.trim(),before:state.serviceCalculation||null,after:structuredClone(config)});state.serviceCalculation=structuredClone(config);return state;

@@ -33,8 +33,8 @@ test('Same order once; conflicting order preserved and both sides quarantined',a
  const changed={...row,service_name:'Changed'},p=await prepareReportImport([file('B.xlsx',[changed])],current,catalog);
  assert.equal(p.rows.length,1);assert.equal(p.issues.length,1);assert.equal(p.existingConflicts.length,1);
 });
-test('All files must pass schema validation before a preview is returned',async()=>{
- const current=state();await assert.rejects(()=>prepareReportImport([file('OK.xlsx',[base()]),file('Bad.xlsx',[{bad:'value'}])],current,catalog),/thiếu cột/);assert.equal(current.rows.length,0);
+test('Incomplete tables remain reviewable and never enter service revenue',async()=>{
+ const current=state();const p=await prepareReportImport([file('OK.xlsx',[base()]),file('Bad.xlsx',[{bad:'value'}])],current,catalog);assert.equal(p.rows.length,1);assert.equal(p.referenceTables.length,1);assert.equal(p.referenceTables[0].rows[0].bad,'value');assert.equal(current.rows.length,0);
 });
 test('Missing financial values derive only from explicit valid inputs; missing discounts stay unknown',async()=>{
  const row=base();delete row.completed_gross_vnd;delete row.completed_net_vnd;

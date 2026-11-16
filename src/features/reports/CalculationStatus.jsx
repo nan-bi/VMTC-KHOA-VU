@@ -1,0 +1,15 @@
+import React,{useMemo,useState} from 'react';
+import {Alert,Button,Space,Tag,message} from 'antd';
+import {calculationStatus} from './calculationStatus.mjs';
+import {money} from './core.mjs';
+export default function CalculationStatus({state,checked,stats,page,onGo,onUseRange,onRefresh}){
+ const d=useMemo(()=>calculationStatus(state,checked,stats),[state,checked,stats]);
+ const [busy,setBusy]=useState(false),[updated,setUpdated]=useState(false);
+ async function refresh(){setBusy(true);try{await onRefresh();setUpdated(true);message.success('Đã đọc lại nguồn và cập nhật số liệu theo bộ lọc.');}catch(e){message.error(e.message);}finally{setBusy(false);}}
+ const empty=!d.source?d.referenceRows?'Đã lưu bảng tham chiếu, chưa có dòng dịch vụ để tính':'Chưa có dữ liệu dịch vụ':!d.inPeriod?'Chưa có dịch vụ đủ điều kiện trong kỳ đang chọn':d.blocked?'Đã tính phần hợp lệ; tổng chưa đầy đủ':'Số liệu tính từ dữ liệu hợp lệ trong kỳ';
+ return <section className="panel" style={{marginBottom:18}}><div className="panel-head"><div><h2>Tính toán & cập nhật số liệu</h2><div className="subtle">Tự tính lại khi lưu nguồn, xử lý ngoại lệ, đổi giá/gói hoặc đổi kỳ. Phiên bản nguồn {state.revision}{updated?' · vừa đọc lại từ kho':''}.</div></div><Space wrap><Button loading={busy} onClick={refresh}>Cập nhật số liệu</Button>{page!=='detail'&&<Button type="primary" onClick={()=>onGo('detail')}>Xem tính toán & doanh thu</Button>}</Space></div>
+  <div className="dw-metrics"><div><span>Dòng dịch vụ đã lưu</span><b>{money(d.source)}</b></div><div><span>Hợp lệ toàn bộ nguồn</span><b>{money(d.valid)}</b></div><div><span>Đang cách ly vì lỗi</span><b>{money(d.blocked)}</b></div><div><span>Đủ điều kiện tính trong kỳ</span><b>{money(d.inPeriod)}</b></div></div>
+  <Alert showIcon type={d.blocked||!d.inPeriod?'warning':'success'} message={empty} description={<><div>{money(d.included)} dòng hợp lệ thuộc Khoa Vú chỉ định · {money(d.outside)} dòng ngoài phạm vi · {money(d.pending)} dòng chờ xác nhận khoa · {money(d.excluded)} dòng đã loại. {money(d.referenceRows)} dòng tham chiếu lưu riêng, không cộng doanh thu.</div>{d.blocked>0&&<div>{d.reasons.slice(0,3).map(([r,n])=><div key={r}>{money(n)} dòng: {r}</div>)}<b>Các nhóm lỗi có thể trùng nhau; cần xử lý trước khi chốt tổng đầy đủ.</b></div>}{!d.inPeriod&&d.availableRange&&<div>Có dữ liệu hoàn thành hợp lệ từ {d.availableRange[0]} đến {d.availableRange[1]}; kiểm tra lại lịch phía trên.</div>}{!d.source&&d.referenceRows>0&&<div>Cần bổ sung bảng dịch vụ đủ liên kết khoa/ngày/dịch vụ và giá; việc xem bảng tham chiếu không chuyển bảng đó thành doanh thu.</div>}</>}/>
+  <Space wrap style={{marginTop:12}}>{d.availableRange&&<Button onClick={()=>onUseRange(d.availableRange)}>Chọn toàn kỳ có dữ liệu hợp lệ</Button>}{d.blocked>0&&page!=='reconcile'&&<Button onClick={()=>onGo('reconcile')}>Xử lý dòng bị cách ly</Button>}{d.pending>0&&<Button onClick={()=>onGo('classification')}>Xác nhận khoa với AI</Button>}{!d.source&&<Button onClick={()=>onGo('import')}>Kiểm tra dữ liệu đã nhập</Button>}{state.report&&<Tag color="gold">Báo cáo đã chốt giữ số liệu tại thời điểm chốt</Tag>}</Space>
+ </section>;
+}

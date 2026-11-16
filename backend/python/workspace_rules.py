@@ -10,6 +10,7 @@ from uuid import uuid4
 
 from data_rules import validate, edited_row, EDIT_FIELDS
 from classification import validate_config, breast_aggregate, revenue_snapshot
+from service_catalog import extend_catalog
 
 ALLOWED_STATE = {'version', 'revision', 'rows', 'excluded', 'imports', 'hashes',
                  'logs', 'report', 'archivedReports', 'skippedDuplicates',
@@ -68,6 +69,7 @@ def transition(current, supplied, user, catalog, expected_revision):
         fail('Trường trạng thái không được hỗ trợ.')
     if any(not isinstance(r, dict) for r in next_state['rows']):
         fail('Dòng dữ liệu không hợp lệ.')
+    catalog = extend_catalog(catalog, next_state.get('serviceCalculation'))
     excluded = next_state['excluded']
     if any(type(i) is not int or not 0 <= i < len(next_state['rows']) for i in excluded) or len(set(excluded)) != len(excluded):
         fail('Danh sách loại dòng không hợp lệ.')

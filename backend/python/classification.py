@@ -157,6 +157,8 @@ def breast_aggregate(rows, catalog, start, end, config=None):
 def validate_config(config, catalog=None):
     if not isinstance(config, dict):
         raise ValueError('Cấu hình bóc tách không hợp lệ.')
+    from service_catalog import extend_catalog
+    extend_catalog([], config)
     package_types = config.get('packageTypes', {})
     kinds = config.get('serviceKinds', DEFAULT_KINDS)
     if not isinstance(package_types, dict) or any(v not in ['SKTQ', 'SLUT1', 'SLUT2', 'OTHER', 'UNKNOWN'] for v in package_types.values()) or not isinstance(kinds, dict) or any(v not in KINDS for v in kinds.values()):
@@ -176,8 +178,12 @@ def validate_config(config, catalog=None):
 
 
 def selected_rows(rows, config=None, department_id='VU'):
-    source = revenue_scope(rows, config)['included'] if department_id == 'ORDERING_VU' else rows
-    return [r for r in source if r.get('status') == 'HOANTHANH' and number(r.get('in_snapshot')) == 1 and (department_id in ['ALL', 'ORDERING_VU'] or resolve_dept(r.get('performing_dept')) == department_id)]
+    ordering_scope = department_id in ['ORDERING_VU', 'ORDERING_OTHER', 'ORDERING_ALL']
+    scope = revenue_scope(rows, config) if ordering_scope else None
+    source = (scope['included'] if department_id == 'ORDERING_VU' else
+              [r['row'] for r in scope['excluded']] if department_id == 'ORDERING_OTHER' else
+              [r['row'] for r in scope['records'] if not r['pending']] if department_id == 'ORDERING_ALL' else rows)
+    return [r for r in source if r.get('status') == 'HOANTHANH' and number(r.get('in_snapshot')) == 1 and (department_id == 'ALL' or ordering_scope or resolve_dept(r.get('performing_dept')) == department_id)]
 
 
 def summarize(rows):

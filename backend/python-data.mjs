@@ -5,7 +5,7 @@ const script=fileURLToPath(new URL('./python/data_engine.py',import.meta.url));
 const bundled=fileURLToPath(new URL('../.speech-venv/Scripts/python.exe',import.meta.url));
 const fail=(status,message)=>Object.assign(Error(message),{status});
 let running=0;
-export const PUBLIC_TASKS=new Set(['revenue','calculation','scope','aggregate','validate','ingest','prepare-import','template-model','template-workbook','meeting-model','meeting-presentation','snapshot']);
+export const PUBLIC_TASKS=new Set(['revenue','calculation','scope','aggregate','validate','ingest','prepare-import','evaluate-quality','template-model','template-workbook','meeting-model','meeting-presentation','snapshot']);
 export function runPythonData(action,payload,{python=process.env.VINMEC_PYTHON||(existsSync(bundled)?bundled:'python'),timeout=120000}={}){
  if(running>=2)return Promise.reject(fail(429,'Đang xử lý dữ liệu Python. Thử lại sau.'));
  if(!payload||typeof payload!=='object'||Array.isArray(payload))return Promise.reject(fail(400,'Cấu trúc tác vụ không hợp lệ.'));

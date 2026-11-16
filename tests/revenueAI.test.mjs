@@ -51,7 +51,7 @@ test('All revenue services, including external MRI/lab, have exact prices times 
 test('Folder reads all sheets, quarantines unsupported summaries and preserves source location',async()=>{
  const a=base(),b={...base(),order_id:'B',visit_id:'V-B',patient_id:'P-B',ordering_dept:'CDHA'};
  const p=await prepareReportImport([workbook({Detail:[a],Other:[b],Summary:[{Tong:42}]})],{rows:[],hashes:[],revision:0},catalog);
- assert.equal(p.rows.length,2);assert.equal(p.skippedSheets.length,1);assert.equal(p.skippedSheets[0].sheet,'Summary');assert.equal(p.classification.included,1);assert.equal(p.classification.excluded,1);
+ assert.equal(p.rows.length,2);assert.equal(p.skippedSheets.length,0);assert.equal(p.referenceTables.length,1);assert.equal(p.referenceTables[0].sheet,'Summary');assert.equal(p.referenceTables[0].rows[0].Tong,42);assert.equal(p.classification.included,1);assert.equal(p.classification.excluded,1);
  assert.deepEqual(p.rows.map(r=>r.source_sheet),['Detail','Other']);assert.equal(p.rows[0].source_file,'DATA/A.xlsx');assert.equal(p.rows[0].source_row,2);
 });
 test('Renamed identical workbook and duplicated sheet never increase quantity',async()=>{

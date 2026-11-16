@@ -237,6 +237,55 @@ class ClassificationBoundaries(unittest.TestCase):
 
 
 class ImportAndReconciliation(unittest.TestCase):
+    def test_analyze_all_reads_reference_sheets_and_canonical_even_in_single_file(self):
+        raw = workbook_bytes([
+            ('Tong_quan', [['Tiêu đề'], [], ['Chỉ tiêu', 'Giá trị', 'Đơn vị', 'Diễn giải'], ['Tổng', 12, 'lượt', 'Theo nguồn']]),
+            ('CANONICAL', [['Tiêu đề'], []] + grid_for([source_row()])),
+            ('Tai_chinh', [['Tài chính'], [], ['Mã chỉ định', 'SL hoàn thành', 'Đơn giá VND'], ['A', 1, 500]])])
+        result = ingest_file(dict(upload(raw), analyzeAll=True))
+        self.assertEqual(len(result['rows']), 1)
+        self.assertEqual(result['rows'][0]['source_row'], 4)
+        self.assertEqual(result['skippedSheets'], [])
+        tables = result['files'][0]['referenceTables']
+        self.assertEqual([t['category'] for t in tables], ['SUMMARY', 'FINANCIAL_PENDING'])
+        self.assertEqual(tables[0]['headerRow'], 3)
+        self.assertEqual(tables[0]['rows'][0]['Giá trị'], 12)
+        self.assertIn('patient_id', tables[1]['missing'])
+        self.assertNotIn('patient_id', tables[1]['rows'][0])
+
+    def test_reference_only_file_can_be_saved_and_repeat_is_skipped(self):
+        raw = workbook_bytes([('KPI', [['Ma'], [], ['Mã KPI', 'Chỉ tiêu'], ['K1', 'Thời gian chờ']])])
+        loaded = ingest_file(dict(upload(raw), analyzeAll=True))
+        state = dict(rows=[], hashes=[], revision=0)
+        first = prepare_import(loaded, state, GOLDEN['catalog'])
+        self.assertEqual(first['rows'], [])
+        self.assertEqual(len(first['referenceTables']), 1)
+        self.assertEqual(first['referenceTables'][0]['category'], 'KPI')
+        state['hashes'] = first['hashes']
+        state['imports'] = first['files']
+        second = prepare_import(loaded, state, GOLDEN['catalog'])
+        self.assertEqual(second['referenceTables'], [])
+        self.assertEqual(len(second['skippedFiles']), 1)
+
+    def test_reimport_old_file_adds_only_new_reference_tables(self):
+        raw = workbook_bytes([('S', grid_for([source_row()])), ('KPI', [['Mã KPI', 'Chỉ tiêu'], ['K1', 'Chờ']])])
+        loaded = ingest_file(dict(upload(raw), analyzeAll=True))
+        state = dict(rows=loaded['rows'], hashes=[loaded['files'][0]['hash']], revision=1, imports=[])
+        preview = prepare_import(loaded, state, GOLDEN['catalog'])
+        self.assertEqual(preview['rows'], [])
+        self.assertEqual(preview['hashes'], [])
+        self.assertEqual(preview['files'][0]['count'], 0)
+        self.assertEqual(len(preview['referenceTables']), 1)
+
+    def test_duplicate_reference_files_in_one_batch_are_not_saved_twice(self):
+        raw = workbook_bytes([('KPI', [['Mã KPI', 'Chỉ tiêu'], ['K1', 'Chờ']])])
+        a = ingest_file(dict(upload(raw, 'A.xlsx'), analyzeAll=True))
+        b = ingest_file(dict(upload(raw, 'B.xlsx'), analyzeAll=True))
+        loaded = dict(rows=[], files=a['files'] + b['files'], skippedSheets=[])
+        result = prepare_import(loaded, dict(rows=[], hashes=[], imports=[], revision=0), GOLDEN['catalog'])
+        self.assertEqual(len(result['referenceTables']), 1)
+        self.assertEqual(len(result['skippedFiles']), 1)
+
     def test_xlsx_source_metadata_comes_from_bytes_and_actual_row(self):
         row = source_row(source_file='FORGED', source_row=999, source_file_hash='FORGED')
         headers = list(row)
