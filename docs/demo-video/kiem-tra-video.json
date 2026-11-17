@@ -1,0 +1,12 @@
+{
+  "duration_seconds": 231.67000000000002,
+  "resolution": "1920x1080",
+  "video": "H.264",
+  "audio": "AAC",
+  "decode_full_video": "passed",
+  "audio_source_rms": 5023.32,
+  "audio_source_peak": 32767,
+  "bytes": 9000033,
+  "sample_frames": 6,
+  "clinical_accuracy_claim": false
+}

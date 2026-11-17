@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import * as XLSX from 'xlsx';
+import {randomBytes} from 'node:crypto';
+import {createBackend} from '../backend/server.mjs';
+import {createUser} from '../backend/auth.mjs';
+import {emptyWorkspace} from '../src/features/reports/operationalState.mjs';
+const rows=['GIALAP_KHAM_COMBO.csv','GIALAP_SIEU_AM.csv','GIALAP_XQ_2D.csv','GIALAP_XQ_3D.csv'].flatMap(f=>XLSX.utils.sheet_to_json(XLSX.read(fs.readFileSync('data_gialap/DICH_VU_COMBO/'+f),{type:'buffer'}).Sheets.Sheet1,{defval:null}));
+const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.json_to_sheet(rows),'CANONICAL');fs.writeFileSync('docs/demo-video/DICH_VU_DEMO.xlsx',XLSX.write(book,{type:'buffer',bookType:'xlsx'}));
+const app=await createBackend({databasePath:':memory:',initialState:emptyWorkspace()});
+const password=randomBytes(18).toString('hex');createUser(app.db,{username:'demo_video',password,role:'admin'});
+fs.writeFileSync('.speech-cache/demo-video-session.json',JSON.stringify({username:'demo_video',password}));
+app.server.listen(4182,'127.0.0.2',()=>console.log('Demo-only workspace ready http://127.0.0.2:4182/'));
+process.on('SIGTERM',()=>app.close().then(()=>process.exit()));

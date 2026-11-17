@@ -1,0 +1,271 @@
+1
+00:00:00,700 --> 00:00:04,437
+Video này giới thiệu cách thao tác trên Dashboard Khoa Vú, từ tiếp nhận dữ liệu, đối
+
+2
+00:00:04,437 --> 00:00:06,634
+soát, tính doanh thu đến lập báo cáo giao ban.
+
+3
+00:00:06,634 --> 00:00:09,712
+Toàn bộ phần trình diễn dùng dữ liệu kiểm thử trong một kho riêng.
+
+4
+00:00:09,712 --> 00:00:13,448
+Ứng dụng chạy nội bộ trên máy. Những số tiền xuất hiện chỉ minh họa cách tính,
+
+5
+00:00:13,448 --> 00:00:16,745
+không phải doanh thu thực tế hoặc bảng giá đã được bệnh viện xác nhận.
+
+6
+00:00:19,367 --> 00:00:22,647
+Đầu tiên, mở Chi tiết số liệu và chọn Nhập dữ liệu ở góc phải.
+
+7
+00:00:22,647 --> 00:00:25,490
+Có thể chọn nhiều tệp Excel, CSV hoặc cả thư mục trên máy.
+
+8
+00:00:25,490 --> 00:00:28,115
+Giới hạn hiện tại là một trăm mê ga bai mỗi tệp.
+
+9
+00:00:28,115 --> 00:00:31,614
+Hệ thống đọc các trang tính, giữ thông tin tệp và dòng nguồn để truy vết.
+
+10
+00:00:31,614 --> 00:00:33,801
+Việc chọn tệp chưa làm thay đổi số báo cáo;
+
+11
+00:00:33,801 --> 00:00:35,551
+người dùng cần kiểm tra trước khi lưu.
+
+12
+00:00:38,200 --> 00:00:41,924
+Bấm Kiểm tra và xem trước để xem số dòng dịch vụ được nhận diện, những bảng
+
+13
+00:00:41,924 --> 00:00:45,648
+tham chiếu và các cảnh báo. Nếu tên cột khác cấu trúc chuẩn, có thể ghép cột
+
+14
+00:00:45,648 --> 00:00:48,934
+rồi kiểm tra lại. Tệp trùng nội dung được nhận biết để tránh nạp lặp.
+
+15
+00:00:48,934 --> 00:00:51,344
+Trong ví dụ này, kiểm tra xong mới xác nhận lưu.
+
+16
+00:00:51,344 --> 00:00:54,849
+Dữ liệu sau khi lưu trở thành nguồn chung cho bảng, biểu đồ và phép tính.
+
+17
+00:00:57,367 --> 00:00:59,564
+Sau khi nhập, chọn ngày hoặc khoảng ngày cần xem.
+
+18
+00:00:59,564 --> 00:01:03,078
+Dashboard tổng hợp theo kỳ đang chọn, vì vậy cần chọn đúng ngày có dữ liệu.
+
+19
+00:01:03,078 --> 00:01:05,275
+Mũi tên giúp chuyển nhanh ngày trước và ngày sau.
+
+20
+00:01:05,275 --> 00:01:09,010
+Tổng quan cho biết số dịch vụ hoàn thành, lượt có chỉ định và giá trị trước,
+
+21
+00:01:09,010 --> 00:01:12,525
+sau giảm đã biết. Biểu đồ cột giúp quan sát dịch vụ nào có phát sinh;
+
+22
+00:01:12,525 --> 00:01:14,282
+bấm cột để xem những dòng cấu thành.
+
+23
+00:01:16,867 --> 00:01:18,988
+Tiếp theo là đối soát. Hệ thống tách bốn luồng:
+
+24
+00:01:18,988 --> 00:01:21,745
+Vú chỉ định và Vú làm; Vú chỉ định nhưng khoa khác làm;
+
+25
+00:01:21,745 --> 00:01:24,291
+khoa khác chỉ định và Vú làm; cùng phần ngoài phạm vi.
+
+26
+00:01:24,291 --> 00:01:26,624
+Mô hình local học từ cặp khoa đã được xác nhận.
+
+27
+00:01:26,624 --> 00:01:30,018
+Cặp chưa rõ phải có người kiểm tra, không tự kết luận chỉ từ tên tệp.
+
+28
+00:01:30,018 --> 00:01:32,563
+Dòng lỗi bị giữ ngoài tổng, giúp tránh cộng nhầm doanh thu.
+
+29
+00:01:35,200 --> 00:01:38,312
+Phần tính toán tách khám, siêu âm, X quang hai chiều và ba chiều.
+
+30
+00:01:38,312 --> 00:01:42,091
+Tổng số thực hiện được trừ từng phần trong gói sức khỏe tổng quát, combo một, combo
+
+31
+00:01:42,091 --> 00:01:44,759
+hai và các gói khác để ra phần chuyên khoa hoặc lẻ.
+
+32
+00:01:44,759 --> 00:01:48,315
+Combo một gồm khám và siêu âm. Combo hai gồm khám, X quang và siêu âm.
+
+33
+00:01:48,315 --> 00:01:51,872
+Chỉ trừ dịch vụ thực tế trong gói, không trừ đồng loạt theo số gói bán.
+
+34
+00:01:54,533 --> 00:01:57,365
+Doanh thu được tính bằng đơn giá nhân số lượng của từng phần.
+
+35
+00:01:57,365 --> 00:02:00,196
+Giá lẻ, giá gói sức khỏe tổng quát và hai combo giữ riêng;
+
+36
+00:02:00,196 --> 00:02:02,374
+X quang hai chiều, ba chiều cũng có giá riêng.
+
+37
+00:02:02,374 --> 00:02:04,770
+Thiếu giá hoặc chưa rõ phân bổ thì phải đối soát.
+
+38
+00:02:04,770 --> 00:02:08,473
+Bảng hiện rõ từng phép nhân. Biểu đồ cột doanh thu giúp so sánh các dịch vụ,
+
+39
+00:02:08,473 --> 00:02:10,869
+và có thể mở chi tiết để kiểm tra cách tính.
+
+40
+00:02:13,533 --> 00:02:17,181
+Kho dữ liệu cho phép chọn nguồn đã nhập, xem từng bảng và các cột, thay vì
+
+41
+00:02:17,181 --> 00:02:20,828
+phải mở lại từng tệp ngoài ứng dụng. Khi chỉnh sửa, cần ghi lý do và lưu
+
+42
+00:02:20,828 --> 00:02:24,476
+để lịch sử giữ dấu vết. Thao tác lưu trong dashboard không ghi đè tệp Excel gốc.
+
+43
+00:02:24,476 --> 00:02:28,123
+Ở Quy tắc và danh mục, có thể tra cứu dịch vụ và cấu hình giá, gói
+
+44
+00:02:28,123 --> 00:02:29,625
+sau khi đã được khoa xác nhận.
+
+45
+00:02:32,200 --> 00:02:34,789
+Khi dữ liệu không còn lỗi chặn, tạo bản nháp báo cáo.
+
+46
+00:02:34,789 --> 00:02:38,457
+Thao tác chốt cố định số liệu của đúng phiên bản, giúp nội dung báo cáo không
+
+47
+00:02:38,457 --> 00:02:42,125
+thay đổi theo các lần xem sau. Người lập kiểm tra nhận xét theo mẫu rồi gửi
+
+48
+00:02:42,125 --> 00:02:44,067
+duyệt. Nếu còn lỗi nguồn, hệ thống chặn chốt;
+
+49
+00:02:44,067 --> 00:02:46,009
+không tự bỏ lỗi để xuất được báo cáo.
+
+50
+00:02:46,009 --> 00:02:48,814
+Đây là bước kiểm soát cần thực hiện trước khi trình số liệu.
+
+51
+00:02:51,367 --> 00:02:53,788
+Người có quyền duyệt kiểm tra và xác nhận báo cáo.
+
+52
+00:02:53,788 --> 00:02:55,990
+Sau đó xuất Excel theo mẫu và PowerPoint giao ban.
+
+53
+00:02:55,990 --> 00:02:59,292
+Hai tệp cùng dùng một bản chốt để tránh lệch số giữa bảng và slide.
+
+54
+00:02:59,292 --> 00:03:02,374
+Trong video, tài khoản demo có quyền quản trị để minh họa các bước.
+
+55
+00:03:02,374 --> 00:03:05,016
+Khi vận hành, cần phân quyền đúng người lập và người duyệt.
+
+56
+00:03:05,016 --> 00:03:08,538
+Các tệp xuất phục vụ báo cáo, chưa thay thế việc đối chiếu tiền thực thu.
+
+57
+00:03:11,200 --> 00:03:14,584
+Mục Đọc kết quả siêu âm hỗ trợ ghi lời đọc và kiểm tra bản chép.
+
+58
+00:03:14,584 --> 00:03:16,698
+Khi thực hành, bấm Bắt đầu và cấp quyền micro;
+
+59
+00:03:16,698 --> 00:03:20,294
+lời nhận dạng xuất hiện trong lúc đọc. Dừng để soát lại bên vú, số đo, từ
+
+60
+00:03:20,294 --> 00:03:23,889
+phủ định và kết luận. Ca và bản nháp lưu trong trình duyệt để xem lại theo
+
+61
+00:03:23,889 --> 00:03:27,484
+ngày. Phần video này giới thiệu giao diện, không thu giọng bệnh nhân hoặc tạo kết quả
+
+62
+00:03:27,484 --> 00:03:27,907
+lâm sàng.
+
+63
+00:03:30,533 --> 00:03:34,158
+Luồng thao tác kết nối từ nguồn đầu vào tới báo cáo và lưu lịch sử để
+
+64
+00:03:34,158 --> 00:03:37,783
+kiểm tra lại. Mã hiện tại đã qua hai trăm năm mươi lăm kiểm thử Node, sáu
+
+65
+00:03:37,783 --> 00:03:39,703
+mươi mốt kiểm thử Python và build thành công.
+
+66
+00:03:39,703 --> 00:03:43,328
+Kết quả này là kiểm thử kỹ thuật. Độ chính xác dưới không phẩy không năm phần
+
+67
+00:03:43,328 --> 00:03:46,313
+trăm chỉ có thể kết luận khi có bộ chuẩn độc lập đầy đủ.
+
+68
+00:03:46,313 --> 00:03:49,725
+Cần khoa xác nhận nghiệp vụ, bảng giá và đánh giá thêm giọng đọc thực tế.

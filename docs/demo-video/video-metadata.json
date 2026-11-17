@@ -1,0 +1,71 @@
+{
+  "duration_seconds": 231.66666666666666,
+  "width": 1920,
+  "height": 1080,
+  "fps": 24,
+  "chapters": [
+    {
+      "title": "Dashboard Khoa Vú",
+      "start": 0,
+      "duration": 18.666666666666668
+    },
+    {
+      "title": "Nhập dữ liệu",
+      "start": 18.666666666666668,
+      "duration": 18.833333333333332
+    },
+    {
+      "title": "Kiểm tra trước khi lưu",
+      "start": 37.5,
+      "duration": 19.166666666666668
+    },
+    {
+      "title": "Chọn kỳ báo cáo",
+      "start": 56.66666666666667,
+      "duration": 19.5
+    },
+    {
+      "title": "Đối soát và phân loại",
+      "start": 76.16666666666667,
+      "duration": 18.333333333333332
+    },
+    {
+      "title": "Bóc tách dịch vụ và gói",
+      "start": 94.5,
+      "duration": 19.333333333333332
+    },
+    {
+      "title": "Doanh thu theo từng phần",
+      "start": 113.83333333333333,
+      "duration": 19.0
+    },
+    {
+      "title": "Kho dữ liệu và quy tắc",
+      "start": 132.83333333333331,
+      "duration": 18.666666666666668
+    },
+    {
+      "title": "Chốt báo cáo giao ban",
+      "start": 151.49999999999997,
+      "duration": 19.166666666666668
+    },
+    {
+      "title": "Duyệt và xuất báo cáo",
+      "start": 170.66666666666663,
+      "duration": 19.833333333333332
+    },
+    {
+      "title": "Đọc kết quả siêu âm",
+      "start": 190.49999999999997,
+      "duration": 19.333333333333332
+    },
+    {
+      "title": "Kết quả và lưu ý sử dụng",
+      "start": 209.83333333333331,
+      "duration": 21.833333333333332
+    }
+  ],
+  "source_frames": 383,
+  "voice": "Piper vi_VN-vais1000-medium, offline synthetic narration",
+  "footage": "Real dashboard screen captures edited into narrated scenes; speech UI demonstration only"
+}
