@@ -1,0 +1,123 @@
+﻿segment_id,case_id,phan,category,cau_doc,so_am_tiet,uoc_tinh_giay
+US-001-1,US-001,1/3,birads_1_chuan_anh,"Kỹ thuật, siêu âm tuyến vú hai bên bằng kỹ thuật siêu âm thường quy. Mô tả, thành phần tuyến vú, type C, tuyến vú không đồng nhất. Mật độ mô tuyến, trung bình.",34,14
+US-001-2,US-001,2/3,birads_1_chuan_anh,"Tuyến vú phải, không thấy khối bất thường trong nhu mô tuyến, không thấy hạch, không thấy giãn các ống tuyến, không thấy tổn thương các dây chằng Cooper, không thấy hạch to hay khối bất thường vùng hố nách. Tuyến vú trái, tương tự.",45,18
+US-001-3,US-001,3/3,birads_1_chuan_anh,"Kết luận, hiện không thấy bệnh lý siêu âm tuyến vú hai bên, Bi-RADS một.",15,6
+US-002-1,US-002,1/2,birads_1_doc_tat,"Siêu âm vú hai bên thường quy. Type C tuyến vú không đồng nhất, mật độ trung bình. Vú phải không khối nhu mô, không hạch, không giãn ống tuyến, Cooper bình thường, hố nách không hạch to. Vú trái tương tự.",42,17
+US-002-2,US-002,2/2,birads_1_doc_tat,"Kết luận, không thấy bệnh lý siêu âm hai bên, bi rát một.",13,5
+US-003-1,US-003,1/3,birads_1_type_a,"Kỹ thuật siêu âm tuyến vú hai bên thường quy. Thành phần tuyến vú, type A, mô tuyến mỡ hóa gần như hoàn toàn. Mật độ mô tuyến, mỏng.",29,12
+US-003-2,US-003,2/3,birads_1_type_a,"Hai bên vú nhu mô đồng nhất, không thấy nốt khu trú, không giãn ống tuyến, các dây chằng Cooper bình thường, hố nách hai bên không thấy hạch to.",30,12
+US-003-3,US-003,3/3,birads_1_type_a,"Kết luận, siêu âm tuyến vú hai bên hình ảnh thoái triển mỡ, bi rát một.",16,6
+US-004-1,US-004,1/2,birads_1_type_b,"Kỹ thuật thường quy, thành phần tuyến vú type B, rải rác mô tuyến sợi mỡ, mật độ trung bình.",20,8
+US-004-2,US-004,2/2,birads_1_type_b,"Tuyến vú phải và trái không ghi nhận tổn thương khu trú, không giãn ống tuyến, dây chằng Cooper thanh mảnh liên tục, hạch nách hai bên bình thường còn rốn mỡ. Kết luận, tuyến vú hai bên bình thường, bi rát một.",43,17
+US-005-1,US-005,1/3,birads_1_type_d,"Kỹ thuật siêu âm tuyến vú hai bên thường quy. Thành phần tuyến vú, type D, mô tuyến rất đặc, dày đặc. Mật độ mô tuyến, dày.",27,11
+US-005-2,US-005,2/3,birads_1_type_d,"Khảo sát kỹ nhu mô tuyến vú phải và vú trái không thấy nốt bất thường, các ống tuyến không giãn, dây chằng Cooper không co kéo, hố nách hai bên không thấy hạch to.",35,14
+US-005-3,US-005,3/3,birads_1_type_d,"Kết luận, mô tuyến vú đặc hai bên, hiện chưa thấy tổn thương khu trú, bi rát một.",18,7
+US-006-1,US-006,1/1,birads_1_doc_tung_phan,"Kỹ thuật, siêu âm tuyến vú hai bên bằng kỹ thuật siêu âm thường quy. Thành phần mô tuyến, type C, không đồng nhất, mật độ trung bình.",28,11
+US-007-1,US-007,1/1,birads_1_khao_sat_phai,"Tuyến vú phải, không thấy khối bất thường trong nhu mô tuyến, không thấy hạch, không thấy giãn các ống tuyến, không thấy tổn thương các dây chằng Cooper, hố nách phải không có hạch to.",36,14
+US-008-1,US-008,1/1,birads_1_khao_sat_trai,"Tuyến vú trái, hình ảnh nhu mô tương tự bên phải, không phát hiện khối u cục hay nang, dây chằng Cooper bình thường, hố nách trái sạch không hạch to.",31,12
+US-009-1,US-009,1/1,birads_1_ket_luan,"Kết luận, hiện không thấy bệnh lý siêu âm tuyến vú hai bên, phân loại bi rát một. Khuyến cáo kiểm tra định kỳ hàng năm.",26,10
+US-010-1,US-010,1/1,birads_1_nhac_thu_ky,"Em ghi tiếp nhé, tuyến vú type C không đồng nhất, mật độ trung bình. Chị nằm nghiêng nhẹ sang trái giúp em. Vú phải và vú trái không thấy khối bất thường, Cooper bình thường, hố nách hai bên bình thường. Kết luận bi rát một.",47,19
+US-011-1,US-011,1/1,birads_1_cooper_chi_tiet,"Hệ thống dây chằng Cooper hai bên mảnh đều, liên tục từ cân cơ ngực lớn đến lớp mỡ dưới da, không thấy hình ảnh đứt đoạn, co kéo hay thâm nhiễm.",32,13
+US-012-1,US-012,1/1,birads_1_ho_nach_chi_tiet,"Khảo sát vùng hố nách hai bên, ghi nhận vài hạch viêm phản ứng nhỏ nhóm một, hình bầu dục, rốn hạch còn mỡ sáng rõ, vỏ hạch mỏng đều dưới một phẩy năm mi li mét, không thấy hạch to bệnh lý.",43,17
+US-013-1,US-013,1/2,birads_2_nang_don_thuan_phai,"Kỹ thuật thường quy. Tuyến vú type C không đồng nhất. Tuyến vú phải vị trí chín giờ có cấu trúc trống âm, hình bầu dục, bờ rõ, tăng âm phía sau, kích thước năm nhân bốn mi li mét, không vách, không nốt đặc.",45,18
+US-013-2,US-013,2/2,birads_2_nang_don_thuan_phai,"Dây chằng Cooper bình thường. Hố nách không hạch. Vú trái bình thường. Kết luận, nang tuyến vú phải lành tính, bi rát hai.",24,10
+US-014-1,US-014,1/1,birads_2_nang_don_thuan_trai,"Tuyến vú trái vị trí ba giờ, cách núm vú hai phân, có cấu trúc trống âm, bờ đều mỏng, thành nhẵn, kích thước tám nhân sáu mi li mét, tăng âm sau rõ, nang đơn thuần. Kết luận, nang vú trái, bi rát hai.",45,18
+US-015-1,US-015,1/2,birads_2_da_nang_hai_ben,"Mô tả hai bên tuyến vú có rải rác vài nang nước nhỏ, kích thước từ ba đến sáu mi li mét, bờ tròn đều, dịch trong, không thành phần đặc. Không giãn ống tuyến. Dây chằng Cooper hai bên bình thường.",42,17
+US-015-2,US-015,2/2,birads_2_da_nang_hai_ben,"Kết luận, đa nang nhỏ tuyến vú hai bên, bi rát hai.",12,5
+US-016-1,US-016,1/2,birads_2_nang_can_dich,"Vú phải vị trí mười giờ có nang kích thước mười nhân bảy mi li mét, bên trong có hồi âm lợn cợn dạng cặn dịch, thay đổi theo tư thế, thành mỏng nhẵn, không có tín hiệu mạch trên đốp lơ màu.",43,17
+US-016-2,US-016,2/2,birads_2_nang_can_dich,"Kết luận, nang cặn dịch vú phải lành tính, bi rát hai.",12,5
+US-017-1,US-017,1/2,birads_2_boc_sua,"Bệnh nhân đang cho con bú, vú trái vùng cạnh quầng vú có khối kích thước mười lăm nhân mười hai mi li mét, hồi âm hỗn hợp lợn cợn, mức dịch dịch, bờ rõ, không tăng sinh mạch, nang bọc sữa galactocele.",43,17
+US-017-2,US-017,2/2,birads_2_boc_sua,"Kết luận, bọc sữa vú trái lành tính, bi rát hai.",11,4
+US-018-1,US-018,1/2,birads_2_hach_trong_nhu_mo,"Vú phải một phần tư trên ngoài có nốt kích thước sáu nhân bốn mi li mét, hình hạt đậu, rốn mỡ sáng rõ ở trung tâm, vỏ giảm âm mỏng đều một mi li mét, hình ảnh hạch trong tuyến vú.",42,17
+US-018-2,US-018,2/2,birads_2_hach_trong_nhu_mo,"Kết luận, hạch trong nhu mô vú phải lành tính, bi rát hai.",13,5
+US-019-1,US-019,1/2,birads_2_voi_hoa_tho,"Vú trái vị trí sáu giờ có nốt vôi hóa thô to kích thước ba mi li mét, kèm bóng cản âm phía sau, không có khối đặc xung quanh, dây chằng Cooper không biến dạng.",36,14
+US-019-2,US-019,2/2,birads_2_voi_hoa_tho,"Kết luận, vôi hóa thô lành tính vú trái, bi rát hai.",12,5
+US-020-1,US-020,1/2,birads_2_u_mo,"Lớp mỡ dưới da vú phải vị trí chín giờ có khối hình bầu dục, đồng âm với mô mỡ xung quanh, bờ rất rõ, kích thước mười sáu nhân tám mi li mét, định hướng song song da, mềm khi đè ép đầu dò,",45,18
+US-020-2,US-020,2/2,birads_2_u_mo,"u mỡ lành tính. Kết luận, u mỡ vú phải, bi rát hai.",13,5
+US-021-1,US-021,1/2,birads_2_gian_ong_sua_don_thuan,"Vùng sau quầng vú hai bên có giãn nhẹ vài ống tuyến sữa dạng hình ống ngoằn ngoèo, đường kính hai mi li mét, dịch trong đồng nhất, không có nốt sùi hay lắng đọng trong lòng ống.",38,15
+US-021-2,US-021,2/2,birads_2_gian_ong_sua_don_thuan,"Kết luận, giãn ống tuyến sữa sinh lý hai bên, bi rát hai.",13,5
+US-022-1,US-022,1/2,birads_2_nang_don_thuan_boi_nhiem,"Vú phải vị trí ba giờ có nang kích thước mười hai nhân chín mi li mét, dịch không thuần nhất, thành nang dày nhẹ một phẩy hai mi li mét, ấn đầu dò hơi tức nhẹ, tăng âm sau rõ,",41,16
+US-022-2,US-022,2/2,birads_2_nang_don_thuan_boi_nhiem,"không có tín hiệu mạch. Kết luận, nang vú phải bội nhiễm nhẹ, bi rát hai.",16,6
+US-023-1,US-023,1/2,birads_2_nang_phan_nhanh,"Vú trái vị trí một giờ có cấu trúc nang kích thước mười bốn nhân mười mi li mét, bên trong có một vách ngăn mỏng dưới một mi li mét, bờ đều rõ, dịch trong, không có nốt sùi.",40,16
+US-023-2,US-023,2/2,birads_2_nang_phan_nhanh,"Kết luận, nang có vách mỏng lành tính vú trái, bi rát hai.",13,5
+US-024-1,US-024,1/1,birads_2_nang_nuoc_2_ben_cooper_bt,"Tuyến vú hai bên có vài nang nước nhỏ từ bốn đến bảy mi li mét. Hệ thống dây chằng Cooper không tổn thương. Ống tuyến không giãn. Hạch nách hai bên bình thường. Kết luận, nang nước hai bên tuyến vú, bi rát hai.",45,18
+US-025-1,US-025,1/2,birads_2_xo_nang_tuyen_vu,"Thành phần mô tuyến hai bên không đồng nhất, rải rác có các đám tăng âm dạng xơ xen kẽ vài vi nang nhỏ dưới ba mi li mét, không thấy khối u khu trú. Dây chằng Cooper bình thường.",40,16
+US-025-2,US-025,2/2,birads_2_xo_nang_tuyen_vu,"Kết luận, thay đổi sợi bọc tuyến vú hai bên, bi rát hai.",13,5
+US-026-1,US-026,1/2,birads_3_u_soi_tuyen_phai,"Tuyến vú phải vị trí mười giờ, cách núm vú hai xen ti mét, có khối giảm âm đồng nhất, hình bầu dục, bờ đều rõ, hướng song song da, kích thước mười hai nhân bảy mi li mét, không vôi hóa,",42,17
+US-026-2,US-026,2/2,birads_3_u_soi_tuyen_phai,"đốp lơ không tăng sinh mạch. Dây chằng Cooper bình thường. Hố nách không có hạch to. Vú trái bình thường. Kết luận, theo dõi u sợi tuyến vú phải, bi rát ba, đề nghị siêu âm lại sau sáu tháng.",41,16
+US-027-1,US-027,1/2,birads_3_u_soi_tuyen_trai,"Vú trái vị trí hai giờ có nốt giảm âm nhẹ, bờ rõ viền mỏng tăng âm, hướng song song, kích thước tám nhân năm mi li mét, không bóng cản, không có mạch máu bất thường.",37,15
+US-027-2,US-027,2/2,birads_3_u_soi_tuyen_trai,"Kết luận, nốt giảm âm vú trái nghĩ u sợi tuyến, bi rát ba.",14,6
+US-028-1,US-028,1/2,birads_3_u_soi_hai_ben,"Vú phải vị trí chín giờ có nốt giảm âm chín nhân năm mi li mét, vú trái vị trí ba giờ có nốt giảm âm mười nhân sáu mi li mét.",32,13
+US-028-2,US-028,2/2,birads_3_u_soi_hai_ben,"Cả hai nốt đều có bờ đều, trục ngang song song, không vi vôi hóa. Hạch nách hai bên bình thường. Kết luận, theo dõi u xơ tuyến vú hai bên, bi rát ba.",34,14
+US-029-1,US-029,1/2,birads_3_dam_vi_nang,"Vú phải vị trí mười một giờ có chùm vi nang nhỏ tụ lại thành đám, kích thước đám tám nhân sáu mi li mét, các vách ngăn mỏng dưới không phẩy năm mi li mét, không có thành phần mô đặc,",42,17
+US-029-2,US-029,2/2,birads_3_dam_vi_nang,"tăng âm sau nhẹ. Kết luận, chùm vi nang vú phải, bi rát ba, kiểm tra lại sau sáu tháng.",20,8
+US-030-1,US-030,1/2,birads_3_nang_phuc_hop_nho,"Vú trái vị trí bốn giờ có nang kích thước chín nhân bảy mi li mét, dịch không hoàn toàn trong, thành sau hơi dày nhẹ một mi li mét, không thấy nốt chồi, đốp lơ không bắt màu.",39,16
+US-030-2,US-030,2/2,birads_3_nang_phuc_hop_nho,"Kết luận, nang vú trái có dịch hồi âm, bi rát ba, theo dõi định kỳ.",16,6
+US-031-1,US-031,1/2,birads_3_u_soi_tuyen_gan_cooper,"Vú phải vị trí tám giờ có khối giảm âm mười một nhân sáu mi li mét, bờ đều, tiếp xúc với dây chằng Cooper nhưng không gây co kéo hay đứt đoạn dây chằng. Hố nách không hạch to.",40,16
+US-031-2,US-031,2/2,birads_3_u_soi_tuyen_gan_cooper,"Kết luận, u sợi tuyến vú phải, bi rát ba.",10,4
+US-032-1,US-032,1/2,birads_3_u_soi_tuyen_tang_sinh_nhe,"Vú trái vị trí một giờ có khối giảm âm bầu dục mười ba nhân tám mi li mét, bờ rõ, đốp lơ có một nhánh mạch nhỏ đi ở ngoại vi, không có mạch xuyên trung tâm.",38,15
+US-032-2,US-032,2/2,birads_3_u_soi_tuyen_tang_sinh_nhe,"Kết luận, theo dõi u sợi tuyến vú trái, bi rát ba.",12,5
+US-033-1,US-033,1/2,birads_3_u_soi_tuyen_khong_thay_doi,"So sánh với kết quả siêu âm sáu tháng trước, khối giảm âm vú phải vị trí mười giờ kích thước mười hai nhân bảy mi li mét không thay đổi hình thái và kích thước, bờ đều rõ.",39,16
+US-033-2,US-033,2/2,birads_3_u_soi_tuyen_khong_thay_doi,"Kết luận, u sợi tuyến vú phải ổn định, tiếp tục theo dõi bi rát ba.",16,6
+US-034-1,US-034,1/2,birads_3_nang_can_kich_thuoc_lon,"Vú trái vị trí bảy giờ có nang kích thước mười sáu nhân mười một mi li mét, bên trong có hồi âm lợn cợn nhẹ, không có vách dày, không nốt đặc. Dây chằng Cooper bình thường.",38,15
+US-034-2,US-034,2/2,birads_3_nang_can_kich_thuoc_lon,"Kết luận, nang dịch vú trái, bi rát ba.",9,4
+US-035-1,US-035,1/1,birads_3_not_giam_am_bo_tron,"Vú phải vị trí hai giờ có nốt giảm âm ranh giới rất rõ, hình tròn, kích thước bảy nhân bảy mi li mét, không có viền halo, tăng âm sau nhẹ. Kết luận, nốt giảm âm tuyến vú phải, bi rát ba.",43,17
+US-036-1,US-036,1/2,birads_3_da_not_u_soi_nho,"Hai bên vú ghi nhận ba nốt giảm âm nhỏ, vú phải hai nốt ở mười giờ và tám giờ, vú trái một nốt ở hai giờ, kích thước từ sáu đến chín mi li mét, tất cả đều có bờ rõ trục song song.",45,18
+US-036-2,US-036,2/2,birads_3_da_not_u_soi_nho,"Kết luận, theo dõi đa u sợi tuyến nhỏ hai bên vú, bi rát ba.",15,6
+US-037-1,US-037,1/1,birads_3_u_soi_tuyen_gan_quang_vu,"Vú trái sát mép quầng vú hướng mười hai giờ có nốt giảm âm đều, kích thước mười nhân năm mi li mét, không đè ép ống dẫn sữa chính. Hố nách không hạch to. Kết luận, u sợi tuyến vú trái, bi rát ba.",45,18
+US-038-1,US-038,1/1,birads_3_tu_sua_ngap_ngung,"Tuyến vú phải vị trí ba giờ, à không, vị trí chín giờ, có nốt giảm âm bờ đều mười nhân sáu mi li mét, bi rát hai, xin sửa lại là bi rát ba, theo dõi định kỳ sau sáu tháng.",42,17
+US-039-1,US-039,1/2,birads_4a_bo_khong_deu_nhe,"Vú phải vị trí một giờ có khối giảm âm kích thước mười một nhân tám mi li mét, hướng song song, nhưng bờ có vài chỗ đa cung nhỏ không đều, không vi vôi hóa, đốp lơ có ít mạch máu.",42,17
+US-039-2,US-039,2/2,birads_4a_bo_khong_deu_nhe,"Dây chằng Cooper bình thường. Hạch nách bình thường. Kết luận, tổn thương vú phải nghi ngờ thấp, bi rát bốn a, đề nghị chọc hút kim nhỏ hoặc sinh thiết lõi.",32,13
+US-040-1,US-040,1/2,birads_4a_nang_phuc_hop_choi,"Vú trái vị trí mười giờ có nang kích thước mười hai nhân chín mi li mét, bên trong có một nốt chồi nhú đặc bám thành kích thước ba mi li mét, có tín hiệu mạch trên đốp lơ màu.",41,16
+US-040-2,US-040,2/2,birads_4a_nang_phuc_hop_choi,"Kết luận, u nhú trong nang tuyến vú trái, bi rát bốn a, đề nghị sinh thiết.",17,7
+US-041-1,US-041,1/2,birads_4b_khong_song_song,"Vú phải vị trí mười một giờ có khối giảm âm kích thước chín nhân mười một mi li mét, trục thẳng đứng không song song da, bờ gập góc không đều, hồi âm rất kém. Dây chằng Cooper cạnh khối bị kéo căng.",44,18
+US-041-2,US-041,2/2,birads_4b_khong_song_song,"Kết luận, khối u vú phải nghi ngờ ác tính mức độ trung bình, bi rát bốn b, chỉ định sinh thiết lõi kim.",24,10
+US-042-1,US-042,1/2,birads_4b_vi_voi_hoa_cum,"Vú trái vị trí hai giờ có vùng giảm âm không rõ ranh giới mười lăm nhân mười mi li mét, bên trong lấm tấm nhiều đốm vi vôi hóa dạng chùm, có bóng cản âm nhẹ phía sau.",39,16
+US-042-2,US-042,2/2,birads_4b_vi_voi_hoa_cum,"Kết luận, tổn thương dạng khối kèm vi vôi hóa vú trái, bi rát bốn b, đề nghị sinh thiết lõi kết hợp chụp nhũ ảnh.",26,10
+US-043-1,US-043,1/2,birads_4c_co_keo_cooper,"Tuyến vú phải vị trí mười giờ có khối giảm âm kích thước mười bốn nhân mười hai mi li mét, bờ tua gai không đều, xâm lấn làm co kéo và đứt đoạn các dây chằng Cooper lân cận,",40,16
+US-043-2,US-043,2/2,birads_4c_co_keo_cooper,"da phía trên hơi lõm nhẹ. Đốp lơ tăng sinh mạch máu trung tâm. Kết luận, khối u tuyến vú phải nghi ngờ ác tính cao, bi rát bốn c, chỉ định sinh thiết lõi khẩn.",36,14
+US-044-1,US-044,1/2,birads_4c_kem_hach_nach,"Vú trái vị trí ba giờ có khối giảm âm bờ đa cung nhỏ mười tám nhân mười lăm mi li mét, bóng cản âm phía sau.",27,11
+US-044-2,US-044,2/2,birads_4c_kem_hach_nach,"Hố nách trái ghi nhận một hạch kích thước mười sáu nhân mười một mi li mét, mất rốn mỡ, vỏ dày không đều. Kết luận, u vú trái theo dõi ca vú kèm hạch nách nghi ngờ, bi rát bốn c.",42,17
+US-045-1,US-045,1/2,birads_4a_gian_ong_tuyen_co_choi,"Sau quầng vú phải có ống tuyến sữa giãn khu trú bốn mi li mét, bên trong có cấu trúc chồi giảm âm kích thước ba nhân hai mi li mét bám vào thành ống, có cuống mạch nhỏ.",39,16
+US-045-2,US-045,2/2,birads_4a_gian_ong_tuyen_co_choi,"Kết luận, u nhú nội ống tuyến vú phải, bi rát bốn a, đề nghị sinh thiết hoặc mổ bóc u nhú.",22,9
+US-046-1,US-046,1/2,birads_4a_not_ranh_gioi_khong_ro,"Vú trái vị trí chín giờ có nốt giảm âm ranh giới không rõ với mô tuyến lân cận, kích thước bảy nhân sáu mi li mét, hình không đều, không vôi hóa. Dây chằng Cooper bình thường. Hố nách không hạch.",42,17
+US-046-2,US-046,2/2,birads_4a_not_ranh_gioi_khong_ro,"Kết luận, nốt giảm âm vú trái bờ không rõ, bi rát bốn a, đề nghị làm sinh thiết kim.",20,8
+US-047-1,US-047,1/2,birads_4b_day_da_khu_tru,"Vú phải vị trí sáu giờ có vùng rối loạn cấu trúc kích thước mười hai mi li mét, dây chằng Cooper co kéo làm da vú dày khu trú ba mi li mét, có bóng cản âm nhẹ phía sau.",41,16
+US-047-2,US-047,2/2,birads_4b_day_da_khu_tru,"Kết luận, vùng rối loạn cấu trúc nghi ngờ vú phải, bi rát bốn b, đề nghị sinh thiết.",19,8
+US-048-1,US-048,1/2,birads_4a_nang_boi_nhiem_thanh_day,"Vú trái vị trí tám giờ có ổ tổn thương dạng nang kích thước mười bảy nhân mười ba mi li mét, thành dày không đều từ hai đến ba mi li mét, dịch hồi âm đục, tăng tưới máu trên thành nang.",43,17
+US-048-2,US-048,2/2,birads_4a_nang_boi_nhiem_thanh_day,"Kết luận, tổn thương dạng nang dày thành theo dõi áp xe hoặc nang biến chứng, bi rát bốn a.",20,8
+US-049-1,US-049,1/2,birads_4b_u_soi_tang_kich_thuoc_nhanh,"Khối u vú phải mười giờ kích thước hiện tại hai mươi mốt nhân mười bốn mi li mét, tăng trên ba mươi phần trăm kích thước so với sáu tháng trước, bờ bắt đầu gập góc.",37,15
+US-049-2,US-049,2/2,birads_4b_u_soi_tang_kich_thuoc_nhanh,"Kết luận, u tuyến vú phải tiến triển nhanh, chuyển phân loại bi rát bốn b, đề nghị sinh thiết mô bệnh học.",23,9
+US-050-1,US-050,1/2,birads_4c_hai_ton_thuong_dong_thoi,"Vú trái vùng một phần tư trên ngoài có hai khối giảm âm bờ tua gai, khối lớn mười bốn mi li mét, khối nhỏ tám mi li mét, nghi ngờ tổn thương đa ổ. Dây chằng Cooper co kéo rõ.",41,16
+US-050-2,US-050,2/2,birads_4c_hai_ton_thuong_dong_thoi,"Kết luận, theo dõi tổn thương ác tính đa ổ vú trái, bi rát bốn c.",16,6
+US-051-1,US-051,1/2,birads_4a_not_dac_moi_xuat_hien,"Bệnh nhân sáu mươi tuổi, vú phải mới xuất hiện một nốt giảm âm tám nhân sáu mi li mét ở vị trí mười hai giờ, bờ hơi không đều nhẹ.",31,12
+US-051-2,US-051,2/2,birads_4a_not_dac_moi_xuat_hien,"Kết luận, nốt mới xuất hiện vú phải ở phụ nữ mãn kinh, bi rát bốn a, đề nghị chọc hút tế bào.",23,9
+US-052-1,US-052,1/1,birads_4b_nhac_thu_ky_sinh_thiet,"Em làm luôn phiếu sinh thiết kim lõi vú phải nhé. Khối giảm âm mười giờ mười lăm nhân mười hai mi li mét, bờ gập góc, Cooper co kéo, bi rát bốn b. Làm xét nghiệm đông máu trước cho bệnh nhân luôn.",44,18
+US-053-1,US-053,1/3,birads_5_dien_hinh,"Vú phải vị trí mười giờ có khối giảm âm kích thước hai mươi lăm nhân hai mươi mi li mét, bờ tua gai xâm lấn xung quanh, trục không song song, bóng cản âm rất mạnh phía sau,",39,16
+US-053-2,US-053,2/3,birads_5_dien_hinh,"vi vôi hóa đa hình thái bên trong. Khối xâm lấn co kéo da và phá vỡ cấu trúc dây chằng Cooper. Hạch nách phải kích thước hai mươi nhân mười hai mi li mét, mất hoàn toàn rốn mỡ, dính nhau thành đám.",44,18
+US-053-3,US-053,3/3,birads_5_dien_hinh,"Kết luận, u tuyến vú phải rất gợi ý ác tính kèm di căn hạch nách, bi rát năm, can thiệp mô bệnh học khẩn.",25,10
+US-054-1,US-054,1/2,birads_5_vu_trai_xam_lan_da,"Vú trái vị trí một giờ có khối kích thước ba mươi nhân hai mươi lăm mi li mét, giảm âm đậm, ranh giới không rõ, xâm lấn lớp mỡ dưới da và cơ ngực lớn, đứt hoàn toàn dây chằng Cooper.",42,17
+US-054-2,US-054,2/2,birads_5_vu_trai_xam_lan_da,"Kết luận, khối u vú trái giai đoạn tiến triển tại chỗ, bi rát năm.",15,6
+US-055-1,US-055,1/2,viem_vu_ap_xe,"Bệnh nhân đau tức sốt, vú phải vị trí chín giờ có ổ giảm âm bờ không đều kích thước ba mươi nhân hai mươi hai mi li mét, bên trong có dịch lợn cợn hồi âm dày di chuyển khi ấn đầu dò,",44,18
+US-055-2,US-055,2/2,viem_vu_ap_xe,"thành ổ áp xe dày tăng sinh mạch máu mạnh, mô tuyến xung quanh phù nề. Hạch nách phải viêm to. Kết luận, ổ áp xe tuyến vú phải, đề nghị chích rạch dẫn lưu hoặc chọc hút mủ.",39,16
+US-056-1,US-056,1/2,viem_vu_sau_sinh,"Vú trái một phần tư dưới trong có vùng mô tuyến sưng nề dày tăng hồi âm, các ống dẫn sữa giãn ứ đọng sữa, dòng máu tăng sinh trên đốp lơ, chưa thấy tụ ổ mủ khu trú.",39,16
+US-056-2,US-056,2/2,viem_vu_sau_sinh,"Kết luận, viêm tuyến vú trái cấp tính thời kỳ cho con bú.",13,5
+US-057-1,US-057,1/2,tu_dich_sau_mo,"Khảo sát vùng sẹo mổ vú phải ghi nhận một ổ đọng dịch kích thước hai mươi nhân tám mi li mét, bờ nhẵn, dịch trong có vài dải sợi mỏng, không có khối đặc sùi tái phát tại giường u.",41,16
+US-057-2,US-057,2/2,tu_dich_sau_mo,"Kết luận, tụ dịch sẹo mổ vú phải, không thấy khối u tái phát tại chỗ.",16,6
+US-058-1,US-058,1/3,tui_nguc_binh_thuong,Bệnh nhân đặt túi ngực thẩm mỹ hai bên.,9,4
+US-058-2,US-058,2/3,tui_nguc_binh_thuong,"Túi ngực nằm dưới cơ ngực lớn, bờ túi nhẵn liên tục, bên trong trống âm đồng nhất, không thấy nếp gấp sâu, không thấy tụ dịch quanh bao xơ túi, nhu mô vú đè ép bình thường.",38,15
+US-058-3,US-058,3/3,tui_nguc_binh_thuong,"Kết luận, túi ngực hai bên còn nguyên vẹn, bi rát hai.",12,5
+US-059-1,US-059,1/2,tui_nguc_vo_trong_bao,"Vú trái có dấu hiệu bậc thang step-ladder sign trong lòng túi ngực, bờ bao xơ còn liên tục, không thấy dịch silicon tràn ra mô tuyến vú hay hố nách.",31,12
+US-059-2,US-059,2/2,tui_nguc_vo_trong_bao,"Kết luận, vỡ túi ngực vú trái trong bao xơ, đề nghị khám chuyên khoa tạo hình.",17,7
+US-060-1,US-060,1/2,hoai_tu_mo,"Vú phải vị trí mười hai giờ có tổn thương dạng nang dầu kích thước mười hai nhân mười mi li mét, thành nang vôi hóa viền mỏng dạng vỏ trứng, trung tâm mỡ lỏng, hoại tử mỡ sau chấn thương.",41,16
+US-060-2,US-060,2/2,hoai_tu_mo,"Kết luận, hoại tử mỡ lành tính vú phải, bi rát hai.",12,5
+US-061-1,US-061,1/1,gian_ong_tuyen_viem_quanh_ong,"Sau quầng vú trái có đoạn ống dẫn sữa giãn bốn mi li mét, thành ống dày phù nề, lòng chứa dịch đục lợn cợn, ấn đau tức, viêm quanh ống tuyến sữa. Kết luận, viêm giãn ống tuyến sữa vú trái.",42,17
+US-062-1,US-062,1/2,birads_0_can_nhu_anh,"Thành phần tuyến vú type D rất đặc, dày cộm hai bên, siêu âm hạn chế khảo sát các tổn thương vi vôi hóa nhỏ.",25,10
+US-062-2,US-062,2/2,birads_0_can_nhu_anh,"Kết luận, tuyến vú rất đặc, chưa phát hiện u cục lớn, phân loại bi rát không, đề nghị chụp X-quang nhũ ảnh ba đê đối chiếu.",27,11
+US-063-1,US-063,1/2,bien_chung_sau_tiem_filler,"Bệnh nhân có tiền sử tiêm chất làm đầy ngực không rõ loại, hai bên vú có vô số ổ dịch silicon kích thước lớn nhỏ nằm rải rác trong mô tuyến và cơ ngực, tạo hình ảnh bão tuyết snow-storm sign.",42,17
+US-063-2,US-063,2/2,bien_chung_sau_tiem_filler,"Kết luận, hình ảnh u hạt silicon do tiêm chất làm đầy hai bên ngực.",15,6
+US-064-1,US-064,1/2,nam_gioi_phu_dai_tuyen_vu,"Bệnh nhân nam sờ thấy cộm đau sau núm vú trái. Siêu âm sau quầng vú trái có vùng mô tuyến hình nón tăng hồi âm dày mười lăm mi li mét, giống mô tuyến vú nữ giới, không thấy khối u đặc.",43,17
+US-064-2,US-064,2/2,nam_gioi_phu_dai_tuyen_vu,"Vú phải mỡ hóa hoàn toàn. Kết luận, nữ hóa tuyến vú trái lành tính ở nam giới.",18,7
+US-065-1,US-065,1/3,birads_1_tong_ket_day_du,"Kỹ thuật, siêu âm tuyến vú hai bên bằng kỹ thuật siêu âm thường quy 2D kết hợp đốp lơ màu. Mô tả, thành phần mô tuyến type C, tuyến vú không đồng nhất, mật độ trung bình.",38,15
+US-065-2,US-065,2/3,birads_1_tong_ket_day_du,"Tuyến vú phải, nhu mô tuyến đều, không khối u cục, không thấy hạch trong nhu mô, các ống tuyến sữa không giãn, dây chằng Cooper thanh mảnh liên tục không tổn thương, vùng hố nách phải không thấy hạch to hay khối bất thường.",45,18
+US-065-3,US-065,3/3,birads_1_tong_ket_day_du,"Tuyến vú trái, kết quả tương tự vú phải. Kết luận, hiện không thấy bệnh lý siêu âm tuyến vú hai bên, phân loại bi rát một, hẹn khám định kỳ.",31,12
