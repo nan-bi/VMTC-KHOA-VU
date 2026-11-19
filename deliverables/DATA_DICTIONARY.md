@@ -1,6 +1,6 @@
 # Data Dictionary — File nguồn và trường dữ liệu
 
-> Status: v2 · 17/11/2026 · Nguồn: T2 (trường cần giả lập), báo cáo ngày, và schema nhập của code (`importSchema.mjs`, `ingestion.py`). Mọi dữ liệu trong repo là giả lập.
+> Status: v2 · 19/11/2026 · Nguồn: T2 (trường cần giả lập), báo cáo ngày, và schema nhập của code (`importSchema.mjs`, `ingestion.py`). Mọi dữ liệu trong repo là giả lập.
 
 ## 1. File đầu vào
 

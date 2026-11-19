@@ -1,6 +1,6 @@
 # Business Rules — Quy tắc tính doanh thu và yêu cầu ghi kết quả
 
-> Status: v2.1 · 18/11/2026 · Nguồn chính cho mọi quy tắc nghiệp vụ. **Chưa quy tắc nào được Trưởng khoa xác nhận bằng văn bản**; phiếu xác nhận: [RULES_SIGNOFF.md](RULES_SIGNOFF.md). Trạng thái code đối chiếu tại `a03239e` (logic tính toán không đổi so với `c352f04`); phân tích chênh lệch: [GAP_ANALYSIS.md](GAP_ANALYSIS.md).
+> Status: v2.1 · 19/11/2026 · Nguồn chính cho mọi quy tắc nghiệp vụ. **Chưa quy tắc nào được Trưởng khoa xác nhận bằng văn bản**; phiếu xác nhận: [RULES_SIGNOFF.md](RULES_SIGNOFF.md). Trạng thái code đối chiếu tại `a03239e` (logic tính toán không đổi so với `c352f04`); phân tích chênh lệch: [GAP_ANALYSIS.md](GAP_ANALYSIS.md).
 
 **Nguyên tắc phiên bản:** khi các báo cáo ghi khác nhau, dùng **bản mới nhất**. Thứ tự ưu tiên: BC 16/11 → 03/11 → 02/11 → 31/10 → 30/10. Quy tắc nào bản mới không nhắc tới thì **giữ bản cũ**. Quy tắc bị thay thế ghi ở [§7](#7-quy-tắc-đã-bị-thay-thế) để truy vết.
 

@@ -1,6 +1,6 @@
 # User Test Plan — Đo trước/sau tại khoa
 
-> Status: v1.1 · 18/11/2026 · Mục tiêu: có số đo so sánh được cho sàng lọc 27/11 và 04/12. Chỉ số: [KPI_ROI.md](KPI_ROI.md). Chưa được mentor duyệt lịch. Buổi thử dự kiến 18/11 chưa diễn ra: nhóm hoàn thiện bản build rồi mới thử với thư ký và điều dưỡng; đến 19/11 mới có kiểm thử nội bộ trong nhóm.
+> Status: v1.1 · 19/11/2026 · Mục tiêu: có số đo so sánh được cho sàng lọc 27/11 và 04/12. Chỉ số: [KPI_ROI.md](KPI_ROI.md). Chưa được mentor duyệt lịch. Buổi thử dự kiến 18/11 chưa diễn ra: nhóm hoàn thiện bản build rồi mới thử với thư ký và điều dưỡng; đến 19/11 mới có kiểm thử nội bộ trong nhóm.
 
 ## 1. Điều kiện trước khi thử
 

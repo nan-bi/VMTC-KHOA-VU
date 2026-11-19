@@ -1,6 +1,6 @@
 # Discovery Findings — Stakeholder, điểm nghẽn, nguyên nhân gốc
 
-> Status: v1 · 17/11/2026 · Tổng hợp từ T1, T2, DN01–DN14 và báo cáo ngày đến 16/11. Số đo: [FIELD_RESEARCH.md](FIELD_RESEARCH.md). Quy tắc: [BUSINESS_RULES.md](BUSINESS_RULES.md).
+> Status: v1 · 19/11/2026 · Tổng hợp từ T1, T2, DN01–DN14 và báo cáo ngày đến 16/11. Số đo: [FIELD_RESEARCH.md](FIELD_RESEARCH.md). Quy tắc: [BUSINESS_RULES.md](BUSINESS_RULES.md).
 
 ## 1. Stakeholder
 
@@ -50,10 +50,10 @@
 | N4 | PPT chưa có mẫu cố định; copy Excel → PPT phải chỉnh lại mỗi tuần | BC 02/11, 16/11 | Doanh thu |
 | N5 | Các bảng phụ thuộc nhau nhưng không liên kết công thức; sửa upsale phải sửa cả bảng doanh thu | BC 16/11 | Doanh thu |
 | N6 | Nhiều bên dán số liệu dạng ảnh vào file tổng | BC 16/11 | Doanh thu |
-| N8 | Thứ tự trái/phải ngược giữa lời đọc và mẫu in | BC 04/11, 05/11 | Speech |
-| N9 | Ca song ngữ mất ~16 phút sau khám; mẫu song ngữ khó tìm | BC 11/11, 12/11 | Speech |
-| N10 | Kết quả được nói hai lần hoặc thư ký phải hỏi lại | BC 05/11, 10/11 | Speech |
-| N11 | Định danh khách chép tay qua sổ, OH, máy, giấy nhỏ, Excel; PID tít vào từng hệ thống; ghi sổ song song với hệ thống ở quầy | BC 04/11, 05/11, 07/11; KS 11/11 | Ngoài phạm vi (ghi nhận) |
+| N7 | Thứ tự trái/phải ngược giữa lời đọc và mẫu in | BC 04/11, 05/11 | Speech |
+| N8 | Ca song ngữ mất ~16 phút sau khám; mẫu song ngữ khó tìm | BC 11/11, 12/11 | Speech |
+| N9 | Kết quả được nói hai lần hoặc thư ký phải hỏi lại | BC 05/11, 10/11 | Speech |
+| N10 | Định danh khách chép tay qua sổ, OH, máy, giấy nhỏ, Excel; PID tít vào từng hệ thống; ghi sổ song song với hệ thống ở quầy | BC 04/11, 05/11, 07/11; KS 11/11 | Ngoài phạm vi (ghi nhận) |
 
 ## 3. Nguyên nhân gốc (5 Why, T2)
 

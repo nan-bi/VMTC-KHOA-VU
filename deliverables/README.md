@@ -1,6 +1,6 @@
 # Tài liệu BA — PinkPath · Khoa Vú (TC-14)
 
-> Status: v1.1 · 18/11/2026 · Tổng hợp từ 13 ngày quan sát 29/10–16/11 (12 báo cáo ngày và buổi 29/10 trong T1), báo cáo tuần 1–2, đơn xin xác nhận 16/11, kết quả check trùng 15/11 và mã nguồn tại commit `a03239e` (logic tính toán không đổi so với `c352f04`). Chưa được khoa xác nhận.
+> Status: v1.1 · 19/11/2026 · Tổng hợp từ 13 ngày quan sát 29/10–16/11 (12 báo cáo ngày và buổi 29/10 trong T1), báo cáo tuần 1–2, đơn xin xác nhận 16/11, kết quả check trùng 15/11 và mã nguồn tại commit `a03239e` (logic tính toán không đổi so với `c352f04`). Chưa được khoa xác nhận.
 
 Bộ tài liệu này là **nguồn chính về nghiệp vụ** của dự án. Tài liệu kỹ thuật (cài đặt, vận hành, kiểm thử) vẫn nằm trong [`docs/`](../docs/) và [`README.md`](../README.md) gốc.
 

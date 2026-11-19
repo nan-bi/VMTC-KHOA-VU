@@ -1,6 +1,6 @@
 # Glossary — Thuật ngữ và viết tắt
 
-> Status: v1 · 18/11/2026 · Cho mentor VinUni và người ngoài khoa đọc bộ tài liệu. Cột **Loại**: **Chung** = kiến thức phổ thông hoặc chuẩn công khai, tra được · **Nội bộ** = cách gọi tại khoa hoặc trong nhóm, lấy từ báo cáo quan sát và code, **cần khoa xác nhận** nếu dùng ra ngoài.
+> Status: v1 · 19/11/2026 · Cho mentor VinUni và người ngoài khoa đọc bộ tài liệu. Cột **Loại**: **Chung** = kiến thức phổ thông hoặc chuẩn công khai, tra được · **Nội bộ** = cách gọi tại khoa hoặc trong nhóm, lấy từ báo cáo quan sát và code, **cần khoa xác nhận** nếu dùng ra ngoài.
 
 ## 1. Y khoa và bệnh viện
 
@@ -120,7 +120,7 @@
 | BYT 3128 · BYT SL 2025 | Hướng dẫn chẩn đoán và điều trị ung thư vú (2020) · Hướng dẫn sàng lọc phát hiện sớm ung thư vú (18/12/2025): [README.md](README.md) |
 | Check trùng 15/11 | Kết quả check trùng dự án và trả lời bảo mật của chương trình |
 | TC-14 | Mã nhóm trong chương trình |
-| DN01–DN14, N1–N11 | Điểm nghẽn tuần 1 / điểm nghẽn mới ([DISCOVERY_FINDINGS.md](DISCOVERY_FINDINGS.md)) |
+| DN01–DN14, N1–N10 | Điểm nghẽn tuần 1 / điểm nghẽn mới ([DISCOVERY_FINDINGS.md](DISCOVERY_FINDINGS.md)) |
 | BR-xx, SP-xx | Quy tắc doanh thu / yêu cầu speech ([BUSINESS_RULES.md](BUSINESS_RULES.md)) |
 | QS, LK, CXM | Đã quan sát · Theo lời kể · Cần xác minh |
 | F, S, FR, NFR | Tính năng, tính năng speech, yêu cầu ([PRD.md](PRD.md)) |

@@ -1,6 +1,6 @@
 # Risk Analysis
 
-> Status: v1.1 · 18/11/2026 · Thang 1–5: L = khả năng, S = mức tác động; Điểm = L × S. ≥ 15: xử lý ngay · 8–14: theo dõi hằng tuần · < 8: ghi nhận.
+> Status: v1.1 · 19/11/2026 · Thang 1–5: L = khả năng, S = mức tác động; Điểm = L × S. ≥ 15: xử lý ngay · 8–14: theo dõi hằng tuần · < 8: ghi nhận.
 
 ## 1. Ma trận rủi ro
 

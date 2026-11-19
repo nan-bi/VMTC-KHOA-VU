@@ -1,6 +1,6 @@
 # Speech Dataset Plan — Bộ dữ liệu giả cho ghi kết quả siêu âm vú
 
-> Status: v1.1 · 18/11/2026 · Hướng đã chốt trong nhóm: dùng cấu trúc quan sát được ở phòng siêu âm để sinh mẫu kết quả giả, **người thân của nhóm** đọc và thu âm. Yêu cầu nghiệp vụ: [BUSINESS_RULES.md §6](BUSINESS_RULES.md). Chỉ số: [KPI_ROI.md §2](KPI_ROI.md).
+> Status: v1.1 · 19/11/2026 · Hướng đã chốt trong nhóm: dùng cấu trúc quan sát được ở phòng siêu âm để sinh mẫu kết quả giả, **người thân của nhóm** đọc và thu âm. Yêu cầu nghiệp vụ: [BUSINESS_RULES.md §6](BUSINESS_RULES.md). Chỉ số: [KPI_ROI.md §2](KPI_ROI.md).
 
 > **Cập nhật 18/11 (chưa áp dụng vào nội dung bên dưới):** BC 18/11 *Cấu trúc kết quả siêu âm vú* đã có mẫu kết quả bình thường và đề xuất sửa kế hoạch này. Các thay đổi cần thống nhất với Tech Lead trước khi sửa. Kịch bản thu âm đã soạn ([thu-am/](thu-am/)) cũng khác kế hoạch ở một số điểm. Cả hai được liệt kê ở [§9](#9-chỗ-lệch-cần-thống-nhất).
 

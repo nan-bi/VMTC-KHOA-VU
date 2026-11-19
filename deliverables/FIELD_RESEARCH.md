@@ -1,6 +1,6 @@
 # Field Research — Nhật ký quan sát và số đo
 
-> Status: v1.1 · 18/11/2026 · Phạm vi: 13 ngày quan sát 29/10–16/11 (16 lượt; có ngày quan sát hai nơi) và 3 phỏng vấn. Đây là nguồn chính cho **số đo baseline**; tài liệu khác dẫn link về §3.
+> Status: v1.1 · 19/11/2026 · Phạm vi: 13 ngày quan sát 29/10–16/11 (16 lượt; có ngày quan sát hai nơi) và 3 phỏng vấn. Đây là nguồn chính cho **số đo baseline**; tài liệu khác dẫn link về §3.
 
 Quy tắc ghi chép áp dụng cho mọi buổi: không chụp màn hình, không ghi PID, tên khách, tên bác sĩ, giá hoặc số doanh thu thật; khách gọi theo số thứ tự; mỗi ý gắn nhãn *Đã quan sát* hoặc *Cần xác minh*.
 

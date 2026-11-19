@@ -1,6 +1,6 @@
 # Gap Analysis — Báo cáo, đề xuất và code giống/khác nhau ở đâu
 
-> Status: v1.1 · 18/11/2026 · Đối chiếu ba lớp: (1) quan sát trong báo cáo ngày, (2) đề xuất ĐX 30/10 và các báo cáo tuần, (3) mã nguồn tại `a03239e` (logic tính toán không đổi so với `c352f04`). Quy tắc chi tiết: [BUSINESS_RULES.md](BUSINESS_RULES.md).
+> Status: v1.1 · 19/11/2026 · Đối chiếu ba lớp: (1) quan sát trong báo cáo ngày, (2) đề xuất ĐX 30/10 và các báo cáo tuần, (3) mã nguồn tại `a03239e` (logic tính toán không đổi so với `c352f04`). Quy tắc chi tiết: [BUSINESS_RULES.md](BUSINESS_RULES.md).
 
 ## 1. Tóm tắt
 

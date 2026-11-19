@@ -1,6 +1,6 @@
 # Project Brief — PinkPath · Khoa Vú
 
-> Status: v1 · 17/11/2026 · Phạm vi: bối cảnh và định hướng. Số đo chi tiết: [FIELD_RESEARCH.md](FIELD_RESEARCH.md). Tính năng: [PRD.md](PRD.md).
+> Status: v1 · 19/11/2026 · Phạm vi: bối cảnh và định hướng. Số đo chi tiết: [FIELD_RESEARCH.md](FIELD_RESEARCH.md). Tính năng: [PRD.md](PRD.md).
 
 ## 1. Bối cảnh
 
