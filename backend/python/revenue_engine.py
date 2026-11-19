@@ -110,14 +110,17 @@ def calculate(rows, config=None):
         if key not in groups:
             groups[key] = dict(key=key, code=row['service_code'], name=row['service_name'],
                                kind=kind_of(row, config), type=group, price=price, basis=basis,
-                               quantities=[], recordCount=0)
+                               quantities=[], amounts=[], recordCount=0)
         groups[key]['quantities'].append(row['completed_qty'])
+        if price is not None:
+            groups[key]['amounts'].append(gross_amount(row['completed_qty'], price))
         groups[key]['recordCount'] += 1
     lines = []
     for group in groups.values():
         quantity = sum_quantity(group.pop('quantities'))
+        amounts = group.pop('amounts')
         lines.append(dict(group, qty=quantity, revenue=None if group['price'] is None
-                          else gross_amount(quantity, group['price'])))
+                          else safe(sum(amounts))))
     totals = []
     for kind, label in KINDS.items():
         matched = [row for row in lines if row['kind'] == kind]
@@ -128,7 +131,7 @@ def calculate(rows, config=None):
                            knownRevenue=safe(sum(row['revenue'] for row in matched if row['revenue'] is not None)),
                            missingQty=sum_quantity(row['qty'] for row in missing),
                            missingRecords=sum(row['recordCount'] for row in missing)))
-    return dict(rulesVersion='PRICE-QTY-1', lines=lines, totals=totals,
+    return dict(rulesVersion='PRICE-QTY-2', lines=lines, totals=totals,
                 knownRevenue=safe(sum(row['knownRevenue'] for row in totals)),
                 missingQty=sum_quantity(row['missingQty'] for row in totals),
                 missingRecords=sum(row['missingRecords'] for row in totals))

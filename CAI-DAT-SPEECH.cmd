@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-echo Cai model PhoWhisper-base mien phi. Can Internet lan dau.
+echo Cai model PhoWhisper-small mien phi. Can Internet lan dau.
 if exist .speech-venv\Scripts\python.exe goto install
 if exist "%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" (
  "%USERPROFILE%\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" -m venv .speech-venv

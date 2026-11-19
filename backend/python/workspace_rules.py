@@ -8,7 +8,8 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from uuid import uuid4
 
-from data_rules import validate, edited_row, EDIT_FIELDS
+from data_rules import validate, edited_row, EDIT_FIELDS, aggregate
+from department_revenue import all_revenue_snapshot
 from classification import validate_config, breast_aggregate, revenue_snapshot
 from service_catalog import extend_catalog
 
@@ -156,6 +157,7 @@ def transition(current, supplied, user, catalog, expected_revision):
         next_state['report'] = dict(id='SN-' + str(uuid4()), version=1, rulesVersion='SIM-2', timezone='Asia/Ho_Chi_Minh',
                                     sourceRevision=current['revision'], excludedCount=len(current['excluded']), week=report['week'], end=report['end'],
                                     createdAt=stamp(), status='draft', creator=user['username'], stats=stats,
+                                    allRevenue=all_revenue_snapshot(aggregate(checked['valid'], catalog, report['week'], report['end'])['completed'], current.get('serviceCalculation')),
                                     serviceRevenue=revenue_snapshot(stats['completed'], current.get('serviceCalculation')),
                                     narrative='', ack=False)
     elif old and not report:

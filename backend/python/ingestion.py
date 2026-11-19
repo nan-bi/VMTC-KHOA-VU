@@ -20,7 +20,7 @@ ROW_LIMIT = 100000
 REQUIRED = ['order_id', 'patient_id', 'visit_id', 'service_code', 'ordering_dept',
             'performing_dept', 'ordered_at', 'quantity', 'completed_qty',
             'unit_price_vnd', 'status', 'price_mode', 'discount_known', 'in_snapshot']
-ALIASES = {'Thời điểm trả kết quả': 'result_returned_at', 'Ngày trả kết quả': 'result_returned_at',
+ALIASES = {'Họ tên': 'patient_name', 'Họ và tên': 'patient_name', 'Tên bệnh nhân': 'patient_name', 'Ngày sinh': 'patient_dob', 'Ngày tháng năm sinh': 'patient_dob', 'Tuổi': 'patient_age', 'Thời điểm trả kết quả': 'result_returned_at', 'Ngày trả kết quả': 'result_returned_at',
            'Bác sĩ thực hiện': 'performing_doctor_name', 'Mã bác sĩ chỉ định': 'ordering_doctor_id',
            'Mã bác sĩ thực hiện': 'performing_doctor_id', 'Bác sĩ chỉ định': 'ordering_doctor_name',
            'Tên gói dịch vụ': 'package_name', 'Tên gói': 'package_name',
@@ -39,7 +39,7 @@ ALIASES = {'Thời điểm trả kết quả': 'result_returned_at', 'Ngày tr�
 
 
 # Input column labels are independent from the fixed report template.
-OPTIONAL_FIELDS = {'service_name', 'completed_at', 'result_returned_at',
+OPTIONAL_FIELDS = {'patient_name', 'patient_dob', 'patient_age', 'service_name', 'completed_at', 'result_returned_at',
                    'performing_room', 'ordering_doctor_id', 'ordering_doctor_name',
                    'performing_doctor_id', 'performing_doctor_name', 'package_id',
                    'package_name', 'gross_order_vnd', 'completed_gross_vnd',
@@ -93,6 +93,8 @@ def adapt_rows(rows, filename, *, sheet=None, hash_value=None, row_numbers=None,
             row['order_id'] = internal_keys[index]
         row['status'] = {'CHO_THUC_HIEN': 'CHOTHUCHIEN'}.get(row.get('status'), row.get('status'))
         row['price_mode'] = {'MUA_LE': 'MUALE', 'PHAT_SINH_NGOAI_GOI': 'THEMNGOAIGOI', 'TRONG_GOI': 'TRONGGOI'}.get(row.get('price_mode'), row.get('price_mode'))
+        if isinstance(row.get('patient_dob'), (int, float, datetime)):
+            row['patient_dob'] = (row['patient_dob'].isoformat()[:10] if isinstance(row['patient_dob'], datetime) else (normalize_date(row['patient_dob']) or '')[:10])
         row['ordered_at'] = normalize_date(row.get('ordered_at'))
         row['completed_at'] = normalize_date(row.get('completed_at'))
         if row.get('result_returned_at') is not None:
@@ -352,7 +354,7 @@ def ingest_file(payload):
                     physical.append(i + 1)
                 if not data or len(data) > ROW_LIMIT:
                     raise ValueError('Sheet phải có từ 1 đến 100.000 dòng dữ liệu.')
-                internal = ['LOCAL-' + hashlib.sha256(json_text([[k, row[k]] for k in sorted(set(row) - PROVENANCE)]).encode('utf-8')).hexdigest() for row in data]
+                internal = ['LOCAL-' + hashlib.sha256(json_text([digest, sheet_name, physical[i], [[k, row[k]] for k in sorted(set(row) - PROVENANCE)]]).encode('utf-8')).hexdigest() for i, row in enumerate(data)]
                 mapped_data = [{mapping.get(key, key): value for key, value in row.items()} for row in data]
                 parsed = adapt_rows(mapped_data, filename, sheet=sheet_name, hash_value=digest,
                                     row_numbers=physical, ingested_at=ingested_at, internal_keys=internal)

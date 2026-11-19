@@ -33,7 +33,7 @@ export function createLocalDictation({onText,onInterim,onState,onNotice,
    const task=queue[0]||{id:segment,body:snapshot(),final:false};
    if(!task.final)lastPreviewLength=length;
    try{
-    const response=await fetcher('/speech-api/transcribe',{method:'POST',headers:{'Content-Type':'audio/wav'},body:task.body,signal:AbortSignal.timeout(120000)});
+    const response=await fetcher('/speech-api/transcribe',{method:'POST',headers:{'Content-Type':'audio/wav','X-Vu-Final':task.final?'1':'0'},body:task.body,signal:AbortSignal.timeout(120000)});
     const result=await response.json();if(!response.ok)throw new Error(result.error||'Chưa chép được âm thanh.');
     if(disposed)break;
     const text=result.text?.trim()||'';
@@ -84,7 +84,7 @@ export function createLocalDictation({onText,onInterim,onState,onNotice,
      else if(previewReady())pump();
      if(queue.length>=5){release();flush();state('stopping');onNotice('Máy đang chép chậm hơn lời đọc. Micro đã dừng để xử lý hết các đoạn đang chờ.');}
     };
-    state('listening');onNotice('Đang nghe và cập nhật chữ liên tục trên máy. Đoạn đang nhận có thể đổi khi bạn đọc tiếp; bấm Dừng để chép nốt và soát nội dung.');
+    state('listening');onNotice((health.model?health.model+'. ':'')+'Đang nghe và cập nhật chữ liên tục trên máy. Đoạn đang nhận có thể đổi khi bạn đọc tiếp; bấm Dừng để chép nốt và soát nội dung.');
    }catch(e){acquired?.getTracks().forEach(track=>track.stop());if(opened&&opened!==context)opened.close().catch(()=>{});if(attempt===generation){release();state('idle');const reason=e.name==='NotAllowedError'?'Micro chưa được cấp quyền. Cho phép micro cho địa chỉ local trong trình duyệt rồi bấm Bắt đầu lại.':e.name==='NotFoundError'?'Không tìm thấy micro. Kết nối hoặc chọn micro trong cài đặt trình duyệt rồi thử lại.':e.name==='NotReadableError'?'Không mở được micro. Kiểm tra thiết bị hoặc ứng dụng khác đang dùng micro rồi thử lại.':e.message;onNotice('Chưa mở được nhận giọng nói: '+reason);}}
    finally{if(attempt===generation)starting=false;}
   },

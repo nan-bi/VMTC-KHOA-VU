@@ -15,6 +15,18 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def dispatch(action, payload):
+    if action == 'department-revenue':
+        from department_revenue import department_revenue
+        return department_revenue(payload['rows'],payload.get('config'))
+    if action == 'finance-review':
+        from finance_review import finance_review
+        return finance_review(payload['rows'], payload.get('config'), payload.get('department','ORDERING_VU'))
+    if action == 'service-suggestions':
+        from service_learning import service_suggestions
+        return service_suggestions(payload['catalog'], payload.get('config') or {}, payload['rows'])
+    if action == 'identity-review':
+        from patient_identity import identity_review
+        return identity_review(payload['rows'])
     if action == 'revenue':
         from revenue_engine import calculate
         from classification import validate_config

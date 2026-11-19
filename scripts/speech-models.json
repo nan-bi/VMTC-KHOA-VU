@@ -1,0 +1,15 @@
+{
+  "default": "small",
+  "models": {
+    "base": {
+      "repository": "vinai/PhoWhisper-base",
+      "revision": "7ebdb9e88f5cc5271fb88f4d642c82ff9388650e",
+      "directory": "phowhisper-base-int8"
+    },
+    "small": {
+      "repository": "vinai/PhoWhisper-small",
+      "revision": "a86b604c346caf7148c37512eafe783a16420adb",
+      "directory": "phowhisper-small-int8"
+    }
+  }
+}

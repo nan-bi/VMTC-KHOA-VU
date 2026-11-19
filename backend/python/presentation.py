@@ -40,6 +40,13 @@ def meeting_slides(report):
             slides.append(dict(title=f'Doanh thu theo đơn giá × số lượng · {i // 7 + 1}', headers=['Dịch vụ / nhóm giá', 'Đơn giá VND', 'SL', 'Doanh thu VND'],
                                rows=[[r['name'] + ' / ' + BILLING_NAMES[r['type']], 'Chờ đối soát' if r['price'] is None else fmt(r['price']), fmt(r['qty']), 'Chưa tính' if r['revenue'] is None else fmt(r['revenue'])] for r in revenue['lines'][i:i + 7]],
                                note=f"Phần tính được: {fmt(revenue['knownRevenue'])} VND; {revenue['missingRecords']} dòng chưa đủ giá/phân loại. Giá và cấu hình giữ tại thời điểm chốt."))
+    all_revenue=report.get('allRevenue')
+    if all_revenue:
+        for key,title in [('byOrdering','Doanh thu tất cả khoa · khoa chỉ định'),('byPerforming','Doanh thu tất cả khoa · khoa thực hiện'),('byBilling','Doanh thu tất cả khoa · nhóm giá')]:
+            for i in range(0,len(all_revenue[key]),7):
+                slides.append(dict(title=title,headers=['Khoa / nhóm','Số lượng','Doanh thu đủ giá VND','Dòng thiếu giá'],rows=[[r['label'],fmt(r['qty']),fmt(r['knownRevenue']),r['missingRecords']] for r in all_revenue[key][i:i+7]],note=f"Tổng toàn bộ khoa: {fmt(all_revenue['revenue']['knownRevenue'])} VND; {all_revenue['pendingRecords']} dòng chưa rõ khoa chưa cộng. Hai góc nhìn khoa không cộng với nhau. Snapshot cố định."))
+        for i in range(0,len(all_revenue['revenue']['lines']),7):
+            slides.append(dict(title='Doanh thu tất cả khoa · từng dịch vụ',headers=['Dịch vụ / nhóm giá','Đơn giá VND','Số lượng','Doanh thu VND'],rows=[[r['name']+' / '+BILLING_NAMES[r['type']],'Chờ đối soát' if r['price'] is None else fmt(r['price']),fmt(r['qty']),'Chưa tính' if r['revenue'] is None else fmt(r['revenue'])] for r in all_revenue['revenue']['lines'][i:i+7]],note='Mọi khoa trong nguồn hợp lệ tại thời điểm chốt; thiếu giá giữ chưa xác định.'))
     routes = finance_routes(stats['completed'], (revenue or {}).get('configuration'))
     slides.append(dict(title='Phân loại tài chính theo khoa', headers=['Phần dữ liệu', 'SL hoàn thành', 'Trước giảm VND'], rows=[[r['label'], fmt(r['qty']), fmt(r['gross'])] for r in routes], note='Các phần tách biệt. Không tự gán khoa từ tên dịch vụ.'))
     slides.append(dict(title='Đối soát và nhận xét', headers=['Nội dung', 'Chi tiết'], rows=[['Nguồn bị loại trước chốt', f"{report.get('excludedCount') or 0} dòng toàn nguồn"], ['Thiếu sau giảm', f"{stats['missing']} dòng trong kỳ"], ['Đến muộn không cộng', f"{stats['late']} dòng"]], note=report.get('narrative') or 'Chưa có nhận xét.'))

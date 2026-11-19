@@ -11,6 +11,7 @@ from copy import deepcopy
 
 from data_rules import (aggregate, business_date, json_text, number, sum_money,
                         sum_quantity, integer)
+from patient_identity import patient_group_key, validate_identity_notes
 from revenue_engine import calculate, kind_of, billing_type, DEFAULT_KINDS, KINDS
 
 AI_VERSION = 'VU-REVENUE-NB-1'
@@ -174,6 +175,7 @@ def validate_config(config, catalog=None):
         for kind, value in groups.items():
             if kind == 'UNKNOWN' or kind not in BILLING_NAMES or (value is not None and (not integer(value) or number(value) < 0)):
                 raise ValueError('Đơn giá phải là số nguyên VND không âm; để trống nếu dùng giá nguồn.')
+    validate_identity_notes(config.get('identityNotes'))
     validate_learning(config.get('routingExamples'))
 
 
@@ -220,7 +222,7 @@ def service_calculation(completed, config=None, department_id='VU'):
         group = billing_type(row, config)
         if group not in ['SLUT1', 'SLUT2']:
             continue
-        key = json_text([row.get('patient_id'), row.get('visit_id'), row.get('package_id')])
+        key = json_text([patient_group_key(row), row.get('visit_id'), row.get('package_id')])
         combos.setdefault(key, dict(key=key, type=group, package_id=row.get('package_id'), visit_id=row.get('visit_id'), rows=[]))['rows'].append(row)
     warnings = []
     for combo in combos.values():

@@ -192,6 +192,14 @@ def template_report(options):
         missing = [[r.get('source_file'), r.get('source_row'), r.get('service_name'), 'Thiếu sau giảm / phân bổ'] for r in rows if r.get('completed_net_vnd') is None]
         quality = [['Nguồn', 'Dòng', 'Dịch vụ / nội dung', 'Cần xử lý']] + missing + [[None, None, r['name'] + ' / ' + BILLING_NAMES[r['type']], r['basis']] for r in service_revenue['lines'] if r['revenue'] is None] + [[None, None, name, note] for name, note in PENDING_RULES]
         extra.append(dict(name='KIEM_LOI', rows=quality, styles=[1] + [0] * (len(quality) - 1), heights=[48] * len(quality), merges=[], widths=[40, 12, 50, 100], freeze=dict(rows=1, columns=0)))
+    all_revenue=options.get('allRevenue')
+    if all_revenue:
+        def add_all_sheet(name,header,records,widths):
+            data=[header]+records
+            extra.append(dict(name=name,rows=data,styles=[1]+[0]*(len(data)-1),heights=[36]*len(data),merges=[],widths=widths,freeze=dict(rows=1,columns=0)))
+        for key,name in [('byOrdering','DT_KHOA_CHI_DINH'),('byPerforming','DT_KHOA_THUC_HIEN'),('byBilling','DT_NHOM_GIA')]:
+            add_all_sheet(name,['Khoa / nhóm','Dòng dịch vụ','Số lượng','Doanh thu đủ giá VND','Dòng chưa đủ giá'],[[r['label'],r['records'],r['qty'],r['knownRevenue'],r['missingRecords']] for r in all_revenue[key]]+[['TỔNG PHẦN ĐỦ GIÁ',None,None,all_revenue['revenue']['knownRevenue']],['Không cộng các sheet khoa với nhau; cùng nguồn dịch vụ.'],['Dòng chưa xác định khoa, chưa cộng',all_revenue['pendingRecords']]],[55,22,22,30,25])
+        add_all_sheet('DT_TAT_CA_DICH_VU',['Mã dịch vụ','Dịch vụ','Nhóm giá','Đơn giá VND','Số lượng','Doanh thu VND','Căn cứ'],[[r['code'],r['name'],BILLING_NAMES[r['type']],r['price'],r['qty'],r['revenue'],r['basis']] for r in all_revenue['revenue']['lines']],[25,65,28,24,20,28,45])
     return dict(version=TEMPLATE_VERSION, sheets=[main, trace_sheet, info] + extra, mainTotalRow=total_row,
                 summary=dict(rows=len(rows), service_price_rows=len(sorted_services), gross=sum_money(r['completed_gross_vnd'] for r in rows), known_net=sum_money(r['completed_net_vnd'] for r in known_net), missing_net=missing_net), meta=meta)
 

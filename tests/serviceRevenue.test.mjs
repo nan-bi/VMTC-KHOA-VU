@@ -24,10 +24,10 @@ test('Source allocation is line total, not unit price; missing or unresolved pac
  const missing=revenueCalculation([{...row,package_allocation_vnd:null}],config);assert.equal(missing.knownRevenue,0);assert.equal(missing.missingQty,1);assert.equal(missing.lines[0].revenue,null);
  const unknown=revenueCalculation([row],{serviceKinds:DEFAULT_SERVICE_KINDS});assert.equal(unknown.missingRecords,1);assert.equal(unknown.lines[0].type,'UNKNOWN');assert.equal(unknown.lines[0].price,null);
 });
-test('Mixed source prices are separate products; fractional quantities round once per price group',()=>{
+test('Mixed source prices are separate products; fractional amounts round per source row before aggregation',()=>{
  const row=demo.rows.find(r=>r.service_code==='SYN-DV008'&&r.price_mode==='MUALE');
  const mixed=revenueCalculation([row,{...row,unit_price_vnd:600000}],config);assert.equal(mixed.lines.length,2);assert.equal(mixed.knownRevenue,1150000);
- const fractions=revenueCalculation([{...row,completed_qty:.333333,unit_price_vnd:1},{...row,completed_qty:.333333,unit_price_vnd:1}],config);assert.equal(fractions.knownRevenue,1);
+ const fractions=revenueCalculation([{...row,completed_qty:.333333,unit_price_vnd:1},{...row,completed_qty:.333333,unit_price_vnd:1}],config);assert.equal(fractions.knownRevenue,0);
  const noninteger=revenueCalculation([{...row,price_mode:'TRONGGOI',package_id:'SIM-SKTQ-2026',completed_qty:3,package_allocation_vnd:100}],config);assert.equal(noninteger.missingQty,3);
 });
 test('Cancelled, uncompleted and out-of-snapshot rows are excluded; zero price is explicit free service',()=>{

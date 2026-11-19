@@ -1,0 +1,240 @@
+[
+  {
+    "model": "base",
+    "beam": 1,
+    "revision": "7ebdb9e88f5cc5271fb88f4d642c82ff9388650e",
+    "samples": [
+      {
+        "id": "GIA-001-sach",
+        "reference": "Vú phải không thấy khối. Vú trái có một nốt giảm âm.",
+        "text": "phải không thấy khối bố trái có một nốt giảm ẩm.",
+        "seconds": 1.118,
+        "duration": 3.1684,
+        "word_edits": 3,
+        "ref_words": 12,
+        "char_edits": 5,
+        "ref_chars": 39,
+        "missing_anchors": "vú phải | vú trái | giảm âm"
+      },
+      {
+        "id": "GIA-002-sach",
+        "reference": "Vú trái không thấy khối. Vú phải có một nốt giảm âm.",
+        "text": "cháy không thấy khối vô phải có một nút giảm ẩm.",
+        "seconds": 0.679,
+        "duration": 3.2846,
+        "word_edits": 5,
+        "ref_words": 12,
+        "char_edits": 8,
+        "ref_chars": 39,
+        "missing_anchors": "vú trái | vú phải | giảm âm"
+      },
+      {
+        "id": "GIA-003-sach",
+        "reference": "Vú phải vị trí hai giờ, cách núm vú ba xen ti mét.",
+        "text": "phải vị trí hai giờ cách núm vú ba xen ti mét.",
+        "seconds": 0.793,
+        "duration": 3.5051,
+        "word_edits": 1,
+        "ref_words": 13,
+        "char_edits": 2,
+        "ref_chars": 36,
+        "missing_anchors": "vú phải"
+      },
+      {
+        "id": "GIA-004-sach",
+        "reference": "Vú trái vị trí mười giờ, cách núm vú hai xen ti mét.",
+        "text": "cháy vị trí mười giờ cách núm phú hà sen tím mát.",
+        "seconds": 0.749,
+        "duration": 3.7374,
+        "word_edits": 7,
+        "ref_words": 13,
+        "char_edits": 13,
+        "ref_chars": 38,
+        "missing_anchors": "vú trái | hai xen ti mét~2 cm~2 xen ti mét"
+      },
+      {
+        "id": "GIA-005-sach",
+        "reference": "Hạch nách phải còn rốn mỡ. Hạch nách trái không thấy bất thường.",
+        "text": "nách phải còn rốn mỡ hạnh nách trái không thấy bất thường.",
+        "seconds": 0.657,
+        "duration": 3.5168,
+        "word_edits": 2,
+        "ref_words": 13,
+        "char_edits": 5,
+        "ref_chars": 50,
+        "missing_anchors": ""
+      },
+      {
+        "id": "GIA-006-sach",
+        "reference": "Không có tăng tưới máu trong nốt. Có tín hiệu mạch ở ngoại vi.",
+        "text": "không có tăng tưới máu trong nút có tín hiệu mạch ở ngoại vi.",
+        "seconds": 0.678,
+        "duration": 3.5632,
+        "word_edits": 1,
+        "ref_words": 14,
+        "char_edits": 1,
+        "ref_chars": 47,
+        "missing_anchors": ""
+      },
+      {
+        "id": "GIA-001-quat_snr10",
+        "reference": "Vú phải không thấy khối. Vú trái có một nốt giảm âm.",
+        "text": "phải không thấy khối vô trái có một nút giảm ẩm.",
+        "seconds": 0.702,
+        "duration": 3.1684,
+        "word_edits": 4,
+        "ref_words": 12,
+        "char_edits": 5,
+        "ref_chars": 39,
+        "missing_anchors": "vú phải | vú trái | giảm âm"
+      },
+      {
+        "id": "GIA-002-quat_snr10",
+        "reference": "Vú trái không thấy khối. Vú phải có một nốt giảm âm.",
+        "text": "cháy không thấy khối vô phải có một nút giảm âm.",
+        "seconds": 0.853,
+        "duration": 3.2846,
+        "word_edits": 4,
+        "ref_words": 12,
+        "char_edits": 7,
+        "ref_chars": 39,
+        "missing_anchors": "vú trái | vú phải"
+      },
+      {
+        "id": "CONTROL-silence",
+        "reference": "",
+        "text": "",
+        "seconds": 0.043,
+        "duration": 8.0,
+        "word_edits": 0,
+        "ref_words": 0,
+        "char_edits": 0,
+        "ref_chars": 0,
+        "missing_anchors": ""
+      }
+    ],
+    "wer": 26.73267326732673,
+    "cer": 14.067278287461773,
+    "seconds": 6.272,
+    "false_speech": 0
+  },
+  {
+    "model": "small",
+    "beam": 5,
+    "revision": "a86b604c346caf7148c37512eafe783a16420adb",
+    "samples": [
+      {
+        "id": "GIA-001-sach",
+        "reference": "Vú phải không thấy khối. Vú trái có một nốt giảm âm.",
+        "text": "vũ phải không thấy khối vũ trái có một nốt giảm ẩm.",
+        "seconds": 2.431,
+        "duration": 3.1684,
+        "word_edits": 3,
+        "ref_words": 12,
+        "char_edits": 3,
+        "ref_chars": 39,
+        "missing_anchors": "vú phải | vú trái | giảm âm"
+      },
+      {
+        "id": "GIA-002-sach",
+        "reference": "Vú trái không thấy khối. Vú phải có một nốt giảm âm.",
+        "text": "vú cháy không thấy khối vú phải có một nút giảm ầm.",
+        "seconds": 2.15,
+        "duration": 3.2846,
+        "word_edits": 3,
+        "ref_words": 12,
+        "char_edits": 5,
+        "ref_chars": 39,
+        "missing_anchors": "vú trái | giảm âm"
+      },
+      {
+        "id": "GIA-003-sach",
+        "reference": "Vú phải vị trí hai giờ, cách núm vú ba xen ti mét.",
+        "text": "bố phải vị trí hai giờ cách muốn vú ba xen ti mét.",
+        "seconds": 2.239,
+        "duration": 3.5051,
+        "word_edits": 2,
+        "ref_words": 13,
+        "char_edits": 6,
+        "ref_chars": 36,
+        "missing_anchors": "vú phải"
+      },
+      {
+        "id": "GIA-004-sach",
+        "reference": "Vú trái vị trí mười giờ, cách núm vú hai xen ti mét.",
+        "text": "búa trái vị trí mười giờ cách múng phú hài xanh ti mét.",
+        "seconds": 2.028,
+        "duration": 3.7374,
+        "word_edits": 5,
+        "ref_words": 13,
+        "char_edits": 10,
+        "ref_chars": 38,
+        "missing_anchors": "vú trái | hai xen ti mét~2 cm~2 xen ti mét"
+      },
+      {
+        "id": "GIA-005-sach",
+        "reference": "Hạch nách phải còn rốn mỡ. Hạch nách trái không thấy bất thường.",
+        "text": "hạch nách phải còn rốn mỡ hạch nách trái không thấy bất thường.",
+        "seconds": 2.092,
+        "duration": 3.5168,
+        "word_edits": 0,
+        "ref_words": 13,
+        "char_edits": 0,
+        "ref_chars": 50,
+        "missing_anchors": ""
+      },
+      {
+        "id": "GIA-006-sach",
+        "reference": "Không có tăng tưới máu trong nốt. Có tín hiệu mạch ở ngoại vi.",
+        "text": "không có tăng tưới máu trong nốt có tín hiệu mạch ở ngoại vi.",
+        "seconds": 2.081,
+        "duration": 3.5632,
+        "word_edits": 0,
+        "ref_words": 14,
+        "char_edits": 0,
+        "ref_chars": 47,
+        "missing_anchors": ""
+      },
+      {
+        "id": "GIA-001-quat_snr10",
+        "reference": "Vú phải không thấy khối. Vú trái có một nốt giảm âm.",
+        "text": "vũ phải không thấy khối vũ trái có một nút giảm ẩm.",
+        "seconds": 2.123,
+        "duration": 3.1684,
+        "word_edits": 4,
+        "ref_words": 12,
+        "char_edits": 4,
+        "ref_chars": 39,
+        "missing_anchors": "vú phải | vú trái | giảm âm"
+      },
+      {
+        "id": "GIA-002-quat_snr10",
+        "reference": "Vú trái không thấy khối. Vú phải có một nốt giảm âm.",
+        "text": "vú cháy không thấy khối vú phải có một nút giảm ấm.",
+        "seconds": 2.523,
+        "duration": 3.2846,
+        "word_edits": 3,
+        "ref_words": 12,
+        "char_edits": 5,
+        "ref_chars": 39,
+        "missing_anchors": "vú trái | giảm âm"
+      },
+      {
+        "id": "CONTROL-silence",
+        "reference": "",
+        "text": "",
+        "seconds": 0.038,
+        "duration": 8.0,
+        "word_edits": 0,
+        "ref_words": 0,
+        "char_edits": 0,
+        "ref_chars": 0,
+        "missing_anchors": ""
+      }
+    ],
+    "wer": 19.801980198019802,
+    "cer": 10.091743119266056,
+    "seconds": 17.705000000000002,
+    "false_speech": 0
+  }
+]

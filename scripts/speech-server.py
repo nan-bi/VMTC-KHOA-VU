@@ -14,23 +14,28 @@ os.environ['TRANSFORMERS_OFFLINE'] = '1'
 from faster_whisper import WhisperModel
 
 ROOT = Path(__file__).resolve().parents[1]
-MODEL_PATH = ROOT / 'speech-models' / 'phowhisper-base-int8'
+from speech_config import profile, model_path, decode_options
+PROFILE = profile()
+MODEL_PATH = model_path(PROFILE)
 KEY = os.environ['VU_VOICE_KEY']
 LOCK = threading.Lock()
-state = {'ready': False, 'model': 'PhoWhisper-base · INT8 · CPU', 'error': ''}
+state = {'ready': False, 'model': 'PhoWhisper-' + PROFILE['name'] + ' · INT8 · CPU', 'repository': PROFILE['repository'], 'revision': PROFILE['revision'], 'error': ''}
 model = None
 
 def load_model():
     global model
     try:
+        expected = PROFILE['repository'] + '\n' + PROFILE['revision'] + '\nint8\n'
+        if (MODEL_PATH / 'READY').read_text(encoding='utf-8') != expected:
+            raise ValueError('Model provenance mismatch')
         model = WhisperModel(str(MODEL_PATH), device='cpu', compute_type='int8',
                              cpu_threads=4, num_workers=1, local_files_only=True)
         state['ready'] = True
-        print('PhoWhisper-base INT8 ready (offline)', flush=True)
+        print(state['model'] + ' ready (offline)', flush=True)
     except Exception:
         state['error'] = 'Chưa nạp được model. Chạy CAI-DAT-SPEECH.cmd rồi mở lại.'
 
-def transcribe(data):
+def transcribe(data, final=True):
     # Only PCM WAV created by our client: mono, 16 kHz, at most 30 seconds.
     with wave.open(io.BytesIO(data), 'rb') as audio:
         if (audio.getnchannels(), audio.getsampwidth(), audio.getframerate()) != (1, 2, 16000):
@@ -38,12 +43,10 @@ def transcribe(data):
         if not 0 < audio.getnframes() <= 30 * 16000:
             raise ValueError('Audio duration out of range')
     started = time.perf_counter()
-    segments, _ = model.transcribe(io.BytesIO(data), language='vi', task='transcribe',
-        beam_size=1, temperature=0, condition_on_previous_text=False,
-        vad_filter=True, vad_parameters={'min_silence_duration_ms': 700},
-        hallucination_silence_threshold=2)
+    segments, _ = model.transcribe(io.BytesIO(data), **decode_options(final))
     text = ' '.join(s.text.strip() for s in segments).strip()
-    return {'text': text, 'seconds': round(time.perf_counter() - started, 3)}
+    return {'text': text, 'seconds': round(time.perf_counter() - started, 3),
+            'model': state['model'], 'revision': PROFILE['revision'], 'final': final}
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *_):
@@ -85,7 +88,7 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(429, {'error': 'Máy đang chép ở tab khác. Đợi rồi thử lại.'})
         try:
             self.connection.settimeout(20)
-            result = transcribe(self.rfile.read(length))
+            result = transcribe(self.rfile.read(length), final=self.headers.get('X-Vu-Final', '1') != '0')
             self.reply(200, result)
         except (ValueError, wave.Error, EOFError):
             self.reply(400, {'error': 'Đoạn âm thanh không hợp lệ.'})

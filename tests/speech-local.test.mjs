@@ -91,3 +91,9 @@ test('empty final clears provisional words rather than saving an unconfirmed hyp
  const h=harness([reply('Có thể nghe nhầm'),reply('')]);await h.session.start();h.frame(1.3);await tick();
  h.session.stop();await tick();assert.deepEqual(h.texts,[]);assert.equal(h.interims.at(-1),'');assert.equal(h.states.at(-1),'idle');
 });
+
+test('preview uses fast decoding and final requests ask for careful decoding',async()=>{
+ const h=harness([reply('Vú trái'),reply('Vú trái không có khối.')]);
+ await h.session.start();h.frame(1.3);await tick();h.session.stop();await tick();
+ assert.deepEqual(h.calls.filter(c=>c.url.endsWith('transcribe')).map(c=>c.options.headers['X-Vu-Final']),['0','1']);
+});

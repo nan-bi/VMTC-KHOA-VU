@@ -32,7 +32,7 @@ const server=http.createServer(async(req,res)=>{
   if(!((route==='/health'&&req.method==='GET')||(route==='/transcribe'&&req.method==='POST'))){res.writeHead(404).end();return;}
   const length=Number(req.headers['content-length']||0);
   if(req.method==='POST'&&(!Number.isInteger(length)||length<=44||length>960044)){res.writeHead(413).end();return;}
-  const upstream=http.request({hostname:'127.0.0.1',port:4181,path:route,method:req.method,headers:{'X-Vu-Key':process.env.VU_VOICE_KEY,'Content-Type':'audio/wav','Content-Length':length},timeout:120000},response=>{
+  const upstream=http.request({hostname:'127.0.0.1',port:4181,path:route,method:req.method,headers:{'X-Vu-Key':process.env.VU_VOICE_KEY,'X-Vu-Final':req.headers['x-vu-final']==='0'?'0':'1','Content-Type':'audio/wav','Content-Length':length},timeout:120000},response=>{
    res.writeHead(response.statusCode,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});response.pipe(res);
   });
   upstream.on('timeout',()=>upstream.destroy());

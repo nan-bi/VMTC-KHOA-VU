@@ -43,7 +43,7 @@ Trên Windows có thể mở `TAO-TAI-KHOAN.cmd`, rồi `CHAY-BACKEND.cmd`. Gi�
 ### Chạy dashboard và speech cùng nhau
 
 1. Cài thư viện, build và tạo tài khoản theo các bước trên.
-2. Mở **CAI-DAT-SPEECH.cmd** một lần để tạo môi trường, tải và chuyển PhoWhisper-base sang INT8 CPU. Cần Python 3.12 và Internet.
+2. Mở **CAI-DAT-SPEECH.cmd** một lần để tạo môi trường, tải và chuyển PhoWhisper-small sang INT8 CPU. Cần Python 3.12 và Internet.
 3. Mở **CHAY-DASHBOARD-SPEECH.cmd**.
 4. Đăng nhập **http://127.0.0.1:4180/** rồi chọn **Đọc kết quả siêu âm**.
 
@@ -93,7 +93,7 @@ Vượt giới hạn được báo rõ, không tự cắt bản ghi rồi tính 
 
 ## Công nghệ và cấu trúc
 
-React 18, Ant Design 5, Vite 6; Node.js 22 và SQLite tích hợp; Python với openpyxl/xlrd và python-pptx cho nhập/xuất, phân loại và tính doanh thu; SheetJS/PptxGenJS còn phục vụ một số công cụ JavaScript. Speech dùng faster-whisper và PhoWhisper-base INT8 CPU. AI tài chính học local từ nhãn xác nhận, không gọi OpenAI/Gemini. Cài đặt ban đầu tải thư viện/model công khai; không gửi dữ liệu nghiệp vụ đến các nguồn tải này.
+React 18, Ant Design 5, Vite 6; Node.js 22 và SQLite tích hợp; Python với openpyxl/xlrd và python-pptx cho nhập/xuất, phân loại và tính doanh thu; SheetJS/PptxGenJS còn phục vụ một số công cụ JavaScript. Speech dùng faster-whisper và PhoWhisper-small INT8 CPU. AI tài chính học local từ nhãn xác nhận, không gọi OpenAI/Gemini. Cài đặt ban đầu tải thư viện/model công khai; không gửi dữ liệu nghiệp vụ đến các nguồn tải này.
 
 ```text
 src/                    Giao diện và quy tắc nghiệp vụ hiện tại
@@ -164,3 +164,11 @@ Kết quả kiểm thử đầu cuối và giới hạn sử dụng: [Kiểm tra
 Nhập file nhiều loại sheet: [nhận diện và lưu bảng tham chiếu](docs/26-NHAN-DIEN-VA-LUU-NHIEU-SHEET.md).
 
 Cập nhật 16/11/2026: Tổng quan giữ biểu đồ cột, đã bỏ biểu đồ đường. Nhập liệu/đối soát/tính toán tập trung trong Chi tiết số liệu; ánh xạ cột đã lưu được tái dùng, bổ sung mã dịch vụ có xác nhận và đo sai số với bảng chuẩn độc lập. Xem [hướng dẫn thực hành](docs/30-THAO-TAC-LOCAL.md) và [kết quả kiểm tra trước khi push](docs/31-KIEM-TRA-TRUOC-KHI-PUSH.md): 255 Node tests, 61 Python tests và build đạt. Đây là kết quả kiểm thử kỹ thuật; chưa xác nhận nghiệm thu nghiệp vụ hoặc sai số thực tế dưới 0,05%.
+
+Cập nhật doanh thu và định danh (18/11/2026): [hướng dẫn kiểm tra PID, lưu ghi chú, học nhóm dịch vụ và đối chiếu doanh thu](docs/32-DOANH-THU-DINH-DANH.md). PID trùng không tự gộp hồ sơ; mô hình gợi ý để người có quyền xác nhận. Bộ tính PRICE-QTY-2 làm tròn từng dòng nguồn rồi cộng, giữ riêng các nhóm giá.
+
+Nhận dạng tiếng Việt: [PhoWhisper local và cách đối chiếu](docs/33-PHOWHISPER.md).
+
+Công cụ kiểm thử speech: scripts/evaluate-ultrasound-speech.py và scripts/report-ultrasound-evaluation.py. Bộ văn bản nguồn, báo cáo chi tiết và âm thanh đối chiếu giữ tại máy, không đi kèm kho mã công khai.
+
+Báo cáo doanh thu mọi khoa, mọi dịch vụ và nhóm giá: [hướng dẫn xem, lọc và xuất](docs/35-DOANH-THU-CAC-KHOA.md).

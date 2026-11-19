@@ -12,7 +12,8 @@ const catalog=seed.DANH_MUC_DV.map(r=>({code:r['Mã dịch vụ mô phỏng'],na
 const config={serviceKinds:DEFAULT_SERVICE_KINDS,packageTypes:demo.packageTypes};
 test('170 demo records are valid and partition exactly into separate billing categories',()=>{
  const checked=validate(demo.rows,catalog);assert.equal(checked.issues.length,0);assert.equal(checked.valid.length,170);
- const result=serviceCalculation(checked.valid,config);assert.equal(result.unclassified,0);assert.equal(result.warnings.length,0);
+ const result=serviceCalculation(checked.valid,config);assert.equal(result.unclassified,0);assert.equal(result.warnings.length,80); // Missing demographics keep combo components separate.
+ const identified=checked.valid.map(r=>({...r,patient_name:'Hồ sơ '+r.patient_id,patient_dob:'1986-01-01',patient_age:40}));assert.equal(serviceCalculation(identified,config).warnings.length,0);
  const exam=result.families.find(f=>f.kind==='EXAM');assert.equal(exam.qty,60);assert.equal(exam.buckets.RETAIL.qty,20);assert.equal(exam.buckets.SKTQ.qty,10);assert.equal(exam.buckets.SLUT1.qty,10);assert.equal(exam.buckets.SLUT2.qty,20);
  for(const f of result.families)assert.equal(Object.values(f.buckets).reduce((n,b)=>n+b.qty,0),f.qty);
 });

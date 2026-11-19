@@ -19,7 +19,7 @@ AMOUNTS = {'quantity', 'completed_qty', 'unit_price_vnd', 'completed_gross_vnd',
            'completed_net_vnd', 'discount_vnd', 'discount_known', 'in_snapshot',
            'package_allocation_vnd', 'gross_order_vnd', 'net_order_vnd', 'revision',
            'is_synthetic'}
-EDIT_FIELDS = ['service_code', 'service_name', 'ordered_at', 'completed_at',
+EDIT_FIELDS = ['patient_name', 'patient_dob', 'patient_age', 'service_code', 'service_name', 'ordered_at', 'completed_at',
                'status', 'quantity', 'completed_qty', 'unit_price_vnd',
                'discount_known', 'discount_vnd', 'price_mode', 'package_id',
                'package_allocation_vnd', 'ordering_dept', 'performing_dept',
@@ -27,7 +27,7 @@ EDIT_FIELDS = ['service_code', 'service_name', 'ordered_at', 'completed_at',
                'ordering_doctor_name', 'performing_doctor_name', 'drug_cost_vnd',
                'material_cost_vnd', 'in_snapshot', 'encounter_type', 'location',
                'result_returned_at', 'birads']
-NUMERIC_FIELDS = {'quantity', 'completed_qty', 'unit_price_vnd', 'discount_known',
+NUMERIC_FIELDS = {'patient_age', 'quantity', 'completed_qty', 'unit_price_vnd', 'discount_known',
                   'discount_vnd', 'package_allocation_vnd', 'in_snapshot',
                   'drug_cost_vnd', 'material_cost_vnd', 'birads'}
 
@@ -304,6 +304,8 @@ def edited_row(before, patch, catalog):
         row['completed_week'] = None
     if changed('ordered_at'):
         row['ordered_week'] = None
+    if row.get('patient_age') is not None and (not integer(row['patient_age']) or not 0 <= number(row['patient_age']) <= 130):
+        raise ValueError('Tuổi phải là số nguyên từ 0 đến 130 hoặc để trống.')
     if row.get('birads') is not None and number(row['birads']) not in range(7):
         raise ValueError('BI-RADS phải là giá trị cấu trúc 0–6 hoặc để trống.')
     for field in ['drug_cost_vnd', 'material_cost_vnd']:
